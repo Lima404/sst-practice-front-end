@@ -1,0 +1,52 @@
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background-color: var(--cinza-escuro);
+    padding: 12px 80px 5px 0px;
+    gap: 100px;
+}
+
+ul{
+    display: flex;
+    gap: 30px;
+    list-style-type: none;
+}
+
+.about{
+    width: 153px;
+}
+
+li{
+    font-size: 18px;
+}
+
+.orcamento{
+    width: 170px;
+    padding: 10px;
+    background-color: var(--azul-padrao);
+    color: #ffffff;
+    border-radius: 10px;
+}
+
+.login{
+    padding: 10px 40px;
+    border-radius: 10px;
+    border: 1px solid var(--azul-padrao);
+}
+
+.login--but{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.login--orc{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+a{
+    display: flex;
+    gap: 10px;
+}
