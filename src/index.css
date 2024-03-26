@@ -10,7 +10,10 @@
   --cinza-escuro: #333333;
   --vermelho-vinho: #680A1D;
   --vermelho-escuro: #3F1719;
-  --fonte: "Montserrat", sans-serif;
+}
+
+* {
+  font-family: "Montserrat", sans-serif;
 }
 
 a {
