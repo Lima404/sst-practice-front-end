@@ -16,12 +16,8 @@ class Navbar extends React.Component {
                     <li className='about'>Sobre a PráticaSST</li>
                 </ul>
                 <ul>
-                    <li className='login'>
-                        <a className='login--but' href="/login">Login</a>
-                    </li>
-                    <li className='orcamento'>
-                        <a className='login--orc' href="/orcamento">Faça um orçamento! <FaArrowRight /></a>
-                    </li>
+                    <a className='login--but' href="/login">Login</a>               
+                    <a className='login--orc' href="/orcamento">Faça um orçamento! <FaArrowRight /></a>                
                 </ul>
             </nav>
         
