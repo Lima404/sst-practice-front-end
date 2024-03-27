@@ -72,7 +72,6 @@
     background-color: var(--azul-marinho);
     color: white;
     border-radius: 2;
-
 }
 
 .back-to-menu{
@@ -95,11 +94,26 @@
     }
 
     .title--login {
-        font-size: 20px;
+        font-size: 16px;
     }
 
     .img-universe {
         width: 100px;
+    }
+    
+    .forget--pass {
+        font-size: 12px;
+    }
+
+    .back-to-menu {
+        font-size: 12px;
+    }
+
+    .but-enter{
+        padding: 4px;
+        font-size: 12px;
+        background-color: var(--azul-marinho);
+        color: white;
     }
 }
 
