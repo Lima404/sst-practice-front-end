@@ -1,0 +1,114 @@
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--azul-marinho);
+}
+
+.card--login {
+    display: flex;
+    justify-content: center;
+    margin: 4em;
+}
+
+.left--side {
+    background-color: var(--cinza-padrao);
+    width: 30%;
+    padding: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px 0px 0px 20px;
+}
+
+.right--side {
+    background-color: var(--azul-piscina);
+    width: 30%;
+    padding: 2em;
+    border-radius: 0px 20px 20px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form--login {
+    width: 100%;
+}
+
+.email--input{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.pass--input{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.buttons{
+    margin-top: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.forget--pass{
+    font-size: 14px;
+    text-decoration: none;
+    color: white;
+}
+
+.but-enter{
+    padding: 10px 5px;
+    background-color: var(--azul-marinho);
+    color: white;
+    border-radius: 2;
+
+}
+
+.back-to-menu{
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-top: 60px;
+}
+
+.title--login{
+    font-weight: 700;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .card--login {
+        margin: 8em;
+    }
+
+    .title--login {
+        font-size: 20px;
+    }
+
+    .img-universe {
+        width: 100px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .img-universe {
+        width: 200px;
+    }
+
+    .title--login {
+        font-size: 20px;
+    }
+}
