@@ -1,0 +1,162 @@
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--azul-marinho);
+}
+
+.card--login {
+    display: flex;
+    justify-content: center;
+<<<<<<< HEAD:src/components/login/styles.css
+    margin-top: 150px;
+    gap: 60px;
+    width: 100%;
+    height: 100vh;
+}
+
+.card--login{
+    display: flex;
+    background-color: var(--cinza-claro);
+    width: 100%;
+    height: 100vh;
+=======
+    margin: 4em;
+}
+
+.left--side {
+    background-color: var(--cinza-padrao);
+    width: 30%;
+    padding: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px 0px 0px 20px;
+>>>>>>> refs/remotes/origin/Glima:src/components/pages/login/styles.css
+}
+
+.right--side {
+    background-color: var(--azul-piscina);
+    width: 30%;
+    padding: 2em;
+    border-radius: 0px 20px 20px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form--login {
+    width: 100%;
+}
+
+.email--input{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.pass--input{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.buttons{
+    margin-top: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.forget--pass{
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--cinza-escuro);
+}
+
+.but-enter{
+    padding: 10px 5px;
+    background-color: var(--azul-marinho);
+    color: white;
+    border-radius: 2;
+}
+
+.back-to-menu{
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--cinza-escuro);
+    margin-top: 60px;
+}
+
+.title--login{
+    font-weight: 700;
+    text-align: center;
+}
+
+<<<<<<< HEAD:src/components/login/styles.css
+.right--side{
+    background-color: var(--azul-padrao);
+    display: flex;
+    gap: 40px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    box-shadow: -4px 0px 6px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width:778px) {
+    .right--side{
+        display: none;
+    }
+}
+=======
+@media (max-width: 480px) {
+    .card--login {
+        margin: 8em;
+    }
+
+    .title--login {
+        font-size: 16px;
+    }
+
+    .img-universe {
+        width: 100px;
+    }
+    
+    .forget--pass {
+        font-size: 12px;
+    }
+
+    .back-to-menu {
+        font-size: 12px;
+    }
+
+    .but-enter{
+        padding: 4px;
+        font-size: 12px;
+        background-color: var(--azul-marinho);
+        color: white;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .img-universe {
+        width: 200px;
+    }
+
+    .title--login {
+        font-size: 20px;
+    }
+}
+>>>>>>> refs/remotes/origin/Glima:src/components/pages/login/styles.css
