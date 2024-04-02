@@ -11,9 +11,9 @@ class Navbar extends React.Component {
                     <img src={Image} alt='logo da barra de navegação'/>
                 </a>
                 <ul>
-                    <li>Soluções</li>
-                    <li>Contato</li>
-                    <li className='about'>Sobre a PráticaSST</li>
+                    <a href='/' className='link'>Soluções</a>
+                    <a href='/' className='link'>Contato</a>
+                    <a href='/' className='link'>Sobre a PráticaSST</a>
                 </ul>
                 <ul>
                     <a className='login--but' href="/login">Login</a>               
