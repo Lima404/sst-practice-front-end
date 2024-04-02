@@ -1,0 +1,33 @@
+article{
+    display: flex;
+    flex-direction: row;
+    align-items: self-end;
+    justify-content: center;
+    gap: 40px;
+    padding: 80px 40px;
+    background-image: linear-gradient(to top right, #ffffff, #106b87);
+}
+
+p{
+    color: black;
+}
+
+.Title{
+    font-size: 60px;
+    font-weight: bold;
+    width: 690px;
+    height: 279px;
+    margin: 0;
+}
+
+.Sub{
+    font-size: 24px;
+    font-weight: regular;
+    width: 550px;
+    height: 104px;
+    margin: 0;
+}
+
+strong{
+    color: var(--azul-piscina);
+}
