@@ -3,7 +3,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { FaArrowLeft } from "react-icons/fa6";
 import Planet from "./assets/saturn.svg"
-import Universe from "./assets/universe.png"
+import Universe from "./assets/universe.svg"
+import Logo from './assets/logopratica.svg'
 import './styles.css'
 
 interface LoginCredentials {
@@ -36,7 +37,7 @@ const Login: React.FC = () => {
     const theme = createTheme ({
         palette: {
             primary: {
-                main: '#ffffff',
+                main: '#d5d5d5',
             }
         }
     })
@@ -48,6 +49,7 @@ const Login: React.FC = () => {
             <div className="card--login">
                 <div className='left--side'>
                     <div className='data--input'>
+                        <img src={Logo} alt="" />
                         <form onSubmit={handleSubmit} className='form--login'>
                             <div className="email--input">
                                 <ThemeProvider theme={theme}>
