@@ -3,8 +3,8 @@ nav{
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    background-color: var(--cinza-escuro);
-    padding: 12px 80px 5px 0px;
+    background-color: var(--cinza-claro);
+    padding: 10px 80px;
     gap: 100px;
 }
 
@@ -18,9 +18,16 @@ ul{
     width: 168px;
 }
 
-li{
+.link{
     font-size: 16px;
     background-color: transparent;
+    color: var(--cinza-padrao);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.link :hover{
+    color: var(--azul-padrao);
 }
 
 .orcamento{
@@ -29,7 +36,7 @@ li{
     justify-content: center;
     padding: 10px;
     background-color: var(--azul-padrao);
-    color: #ffffff;
+    color: var(--cinza-claro);
     border-radius: 10px;
 }
 
@@ -47,7 +54,7 @@ li{
     border: 1px solid var(--azul-padrao);
     border-radius: 10px;
     text-decoration: none;
-    color: #ffffff;
+    color: var(--azul-padrao);
 }
 
 .login--orc{
