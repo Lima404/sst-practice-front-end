@@ -2,9 +2,9 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { FaArrowLeft } from "react-icons/fa6";
-import Planet from "../../../assets/saturn.svg"
-import Universe from "../../../assets/universe.svg"
-import Logo from '../../../assets/logopratica.svg'
+import Planet from "../../../assets/login/saturn.svg"
+import Universe from "../../../assets/login/universe.svg"
+import Logo from '../../../assets/login/logopratica.svg'
 import './styles.css'
 
 interface LoginCredentials {
