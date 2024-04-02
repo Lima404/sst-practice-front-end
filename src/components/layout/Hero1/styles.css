@@ -3,8 +3,8 @@ article{
     flex-direction: row;
     align-items: self-end;
     justify-content: center;
-    gap: 40px;
-    padding: 80px 40px;
+    gap: 100px;
+    padding: 40px 160px;
     background-image: linear-gradient(to top right, #ffffff, #106b87);
 }
 
@@ -15,16 +15,14 @@ p{
 .Title{
     font-size: 60px;
     font-weight: bold;
-    width: 690px;
-    height: 279px;
+    width: 460px;
+    line-height: 1;
     margin: 0;
 }
 
 .Sub{
-    font-size: 24px;
+    font-size: 20px;
     font-weight: regular;
-    width: 550px;
-    height: 104px;
     margin: 0;
 }
 
