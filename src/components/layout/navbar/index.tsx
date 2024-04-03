@@ -1,5 +1,5 @@
 import './styles.css'
-import Image from "../../../assets/sst-logo.svg"
+import Image from "../../../assets/navbar/sst-logo.svg"
 import { FaArrowRight } from "react-icons/fa6";
 import React from 'react';
 
