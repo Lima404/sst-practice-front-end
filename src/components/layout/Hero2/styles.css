@@ -1,0 +1,39 @@
+.main{
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    width: 100%;
+    height: 646px;
+    background-color: #ffffff;
+}
+
+.Title--serv{
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--azul-piscina);
+    text-align: center;
+}
+
+.options{
+    display: flex;
+    flex-direction: column;
+    background-color: #D0E4E8;
+    border-radius: 25px;
+    gap: 5px;
+    padding: 25px 60px;
+}
+
+.Options--serv{
+    display: flex;
+    gap: 10px;
+}
+
+.Option--serv{
+    font-size: 16px;
+    font-weight: regular;
+    color: var(--azul-piscina);
+}
+
+.team--doc{
+    box-shadow: 10px -10px 0 0 #157A8C;
+}
