@@ -1,0 +1,21 @@
+
+.line{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    color: var(--azul-piscina);
+    padding: 0px 50px;
+    margin-bottom: 10px;
+}
+
+h5{
+    color: var(--azul-piscina);
+    font-family: Montserrat;
+    font-size: 16px;
+    margin: 0;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
