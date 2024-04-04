@@ -149,7 +149,7 @@ input:checked ~ .menu-hamburguer-elements{
         flex-direction: column;
         align-self: flex-start;
         overflow: auto;
-        z-index: 1;
+        z-index: 9999;
         color: white;
     }
 
