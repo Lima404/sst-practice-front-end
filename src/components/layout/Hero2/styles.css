@@ -1,6 +1,7 @@
 .block--container{
     display: flex;
-    padding: 40px 80px;
+    padding: 40px;
+    margin: 2em 0em 2em 0em;
     justify-content: center;
     align-items: center;
     gap: 40px;
