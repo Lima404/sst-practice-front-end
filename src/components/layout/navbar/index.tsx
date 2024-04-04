@@ -18,7 +18,7 @@ function Navbar() {
                 </label>
 
                 <ul className="menu-hamburguer-elements show">
-                    <li>
+                    <li className='items-menu'>
                         <div>
                             <img src={Logo} />
                         </div>
@@ -36,11 +36,11 @@ function Navbar() {
                         <a className='items-menu' href="#">Sobre a Prática SST</a>
                     </li>
 
-                    <li>
+                    <li className='items-menu'>
                         <a className='login-but' href="/login">Login</a>
                     </li>
 
-                    <li>
+                    <li className='items-menu'>
                         <a className='orc-but' href="/orcamento">Faça um orçamento! <FaArrowRight /></a>
                     </li>
                 </ul>

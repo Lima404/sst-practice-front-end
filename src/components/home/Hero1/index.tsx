@@ -1,6 +1,6 @@
 import './styles.css'
 
-const Hero1: React.FC = () => {
+const Hero1 = () => {
     return(
         <article className='title--page'>
             <p className='Title'>Promovendo a Segurança no <strong>Trabalho</strong> e a Saúde dos <strong>Colaboradores</strong></p>

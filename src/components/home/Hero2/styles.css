@@ -8,15 +8,6 @@
     background-color: white;
 }
 
-.left{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 10px;
-    align-self: stretch;
-}
-
 .options{
     display: flex;
     padding: 25px 60px;
@@ -44,23 +35,12 @@
     align-self: stretch;
 }
 
-.right{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    
-}
-
-
-
-@media(max-width: 1110){
-    .block--container{
-        display: flex;
-        flex-direction: column;
+@media (max-width: 1110px){
+    .block--container {
+        gap: 0;
     }
-
-    .right{
+    
+    .team-doc {
         display: none;
     }
 }

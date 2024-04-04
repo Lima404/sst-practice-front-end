@@ -43,7 +43,7 @@ const Hero2: React.FC = () => {
             </div>
 
             <div className="right">
-                <img className='team--doc' src={Doc} alt="team doc" />
+                <img className='team-doc' src={Doc} alt="team doc" />
             </div>
 
         </div>

@@ -17,7 +17,6 @@
 
 .menu-hamburguer-elements{
     display: flex;
-    width: 80%;
     height: 10vh;
     justify-content: space-around;
     align-items: center;
@@ -129,7 +128,7 @@ input:checked ~ .menu-hamburguer-elements{
     left: 0;
 }
 
-@media (max-width: 600px){
+@media (max-width: 860px){
     
     .header{
         height: 6em;
@@ -158,7 +157,7 @@ input:checked ~ .menu-hamburguer-elements{
         height: 100%;
         background-color: rgba(10,10,10,1);
         position: fixed;
-        left: -60%;
+        left: -140%;
         top: -1em;
     
         transition: left cubic-bezier(1,0,0,1) .8s;
@@ -178,5 +177,4 @@ input:checked ~ .menu-hamburguer-elements{
         height: 60px;
         width: 60px;
     }
-
 }
