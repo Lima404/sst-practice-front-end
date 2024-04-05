@@ -12,7 +12,7 @@ const OurServices = () => {
             <div className="left">
                 <div className="options">
 
-                    <p className='Title--serv'>Nossos Serviçoes</p>
+                    <p className='Title--serv'>Nossos Serviços</p>
 
                     <div className="Options--serv">
                         <img src={Anamnese} alt="anamnese" />
