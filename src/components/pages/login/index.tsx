@@ -13,7 +13,7 @@ interface LoginCredentials {
 }
 
 
-const Login: React.FC = () => {
+const Login = () => {
 
     const [credentials, setCredentials] = useState<LoginCredentials>({
         email: '',

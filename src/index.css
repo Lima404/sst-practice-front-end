@@ -13,6 +13,10 @@
   --vermelho-escuro: #3F1719;
 }
 
+#root {
+  width: 100%;
+}
+
 * {
   font-family: "Montserrat", sans-serif;
 }
@@ -30,7 +34,6 @@ body {
   width: 100%;
   margin: 0;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
