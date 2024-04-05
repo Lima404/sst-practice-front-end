@@ -1,19 +1,11 @@
 .block--container{
     display: flex;
-    padding: 40px 80px;
+    padding: 40px;
+    margin: 2em 0em 2em 0em;
     justify-content: center;
     align-items: center;
     gap: 40px;
     background-color: white;
-}
-
-.left{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 10px;
-    align-self: stretch;
 }
 
 .options{
@@ -43,23 +35,16 @@
     align-self: stretch;
 }
 
-.right{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    
-}
-
-
-
-@media(max-width: 1110){
-    .block--container{
-        display: flex;
-        flex-direction: column;
+@media (max-width: 1110px){
+    .block--container {
+        gap: 0;
+        background-image: url("../../../assets/hero2/bgHero2.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
     }
-
-    .right{
+    
+    .team-doc {
         display: none;
     }
 }

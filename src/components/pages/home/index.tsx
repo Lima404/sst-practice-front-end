@@ -1,18 +1,18 @@
 //import { useState } from 'react'
 import './styles.css'
 import Navbar from '../../layout/navbar'
-import Hero1 from '../../layout/Hero1'
-import Hero2 from '../../layout/Hero2'
-import System from '../../layout/System'
+import AboutUs from '../../home/aboutUs'
+import OurServices from '../../home/ourServices/index'
+import Soluctions from '../../home/soluctions'
 
 function Home() {
 
   return (
     <header>
       <Navbar />
-      <Hero1 />
-      <Hero2 />
-      <System />
+      <AboutUs />
+      <OurServices />
+      <Soluctions />
     </header>
   )
 }

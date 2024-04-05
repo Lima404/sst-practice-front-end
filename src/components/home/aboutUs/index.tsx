@@ -1,6 +1,6 @@
 import './styles.css'
 
-const Hero1: React.FC = () => {
+const AboutUs = () => {
     return(
         <article className='title--page'>
             <p className='Title'>Promovendo a Segurança no <strong>Trabalho</strong> e a Saúde dos <strong>Colaboradores</strong></p>
@@ -9,4 +9,4 @@ const Hero1: React.FC = () => {
     )
 }
 
-export default Hero1
+export default AboutUs

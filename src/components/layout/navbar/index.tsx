@@ -1,28 +1,57 @@
 import './styles.css'
-import Image from "../../../assets/navbar/sst-logo.svg"
-import { FaArrowRight } from "react-icons/fa6";
-import React from 'react';
+import Logo from '../../../assets/navbar/LogoNav.svg'
+import { FaArrowRight } from 'react-icons/fa6'
 
-class Navbar extends React.Component {
-    render(){
-        return(
-            <nav className='navbar'>
-                <a href="/">
-                    <img src={Image} alt='logo da barra de navegação'/>
-                </a>
-                <ul className='navbar-actions'>
-                    <a href='/' className='link'>Soluções</a>
-                    <a href='/' className='link'>Contato</a>
-                    <a href='/' className='link'>Sobre a PráticaSST</a>
-                </ul>
-                <ul className='navbar-actions'>
-                    <a className='login--but' href="/login">Login</a>               
-                    <a className='orc-but' href="/orcamento">Faça um orçamento! <FaArrowRight /></a>                
+function Navbar() {
+
+    return (
+        <div className='header'>
+            <nav className='menu-hamburger'>
+                <input
+                    id="menu-hamburguer"
+                    type="checkbox"
+                />
+                <label htmlFor="menu-hamburguer">
+                    <div className="menu">
+                        <span className="hamburguer"></span>
+                    </div>
+                </label>
+
+                <ul className="menu-hamburguer-elements show">
+                    <div className='div-items-left'>
+                        <li className='items-menu-left'>
+                            <div>
+                                <img src={Logo} />
+                            </div>
+                        </li>
+                    </div>
+
+                    <div className='div-items-center'>
+                        <li className='items-menu-center'>
+                            <a href="#">Soluções</a>
+                        </li>
+
+                        <li className='items-menu-center'>
+                            <a href="#">Contato</a>
+                        </li>
+
+                        <li className='items-menu-center'>
+                            <a href="#">Sobre a Prática SST</a>
+                        </li>
+                    </div>
+
+                    <li className='items-menu-right'>
+                        <a className='login-but' href="/login">Login</a>
+                    </li>
+
+                    <li className='items-menu-right'>
+                        <a className='orc-but' href="/orcamento">Faça um orçamento! <FaArrowRight /></a>
+                    </li>
                 </ul>
             </nav>
-        
-        )
-    }
+        </div>
+    )
 }
+
 
 export default Navbar
