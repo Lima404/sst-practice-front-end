@@ -1,5 +1,5 @@
 import './styles.css'
-import Logo from '../../../assets/navbar/logoNav.svg'
+import Logo from '../../../assets/navbar/LogoNav.svg'
 import { FaArrowRight } from 'react-icons/fa6'
 
 function Navbar() {
