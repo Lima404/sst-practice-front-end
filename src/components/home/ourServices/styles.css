@@ -38,6 +38,10 @@
 @media (max-width: 1110px){
     .block--container {
         gap: 0;
+        background-image: url("../../../assets/hero2/bgHero2.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
     }
     
     .team-doc {

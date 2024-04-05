@@ -1,5 +1,5 @@
 import './styles.css'
-import Logo from '../../../assets/navbar/LogoNav.svg'
+import Logo from '../../../assets/navbar/logoNav.svg'
 import { FaArrowRight } from 'react-icons/fa6'
 
 function Navbar() {
@@ -18,29 +18,33 @@ function Navbar() {
                 </label>
 
                 <ul className="menu-hamburguer-elements show">
-                    <li className='items-menu'>
-                        <div>
-                            <img src={Logo} />
-                        </div>
-                    </li>
+                    <div className='div-items-left'>
+                        <li className='items-menu-left'>
+                            <div>
+                                <img src={Logo} />
+                            </div>
+                        </li>
+                    </div>
 
-                    <li>
-                        <a className='items-menu' href="#">Soluções</a>
-                    </li>
+                    <div className='div-items-center'>
+                        <li className='items-menu-center'>
+                            <a href="#">Soluções</a>
+                        </li>
 
-                    <li>
-                        <a className='items-menu' href="#">Contato</a>
-                    </li>
+                        <li className='items-menu-center'>
+                            <a href="#">Contato</a>
+                        </li>
 
-                    <li>
-                        <a className='items-menu' href="#">Sobre a Prática SST</a>
-                    </li>
+                        <li className='items-menu-center'>
+                            <a href="#">Sobre a Prática SST</a>
+                        </li>
+                    </div>
 
-                    <li className='items-menu'>
+                    <li className='items-menu-right'>
                         <a className='login-but' href="/login">Login</a>
                     </li>
 
-                    <li className='items-menu'>
+                    <li className='items-menu-right'>
                         <a className='orc-but' href="/orcamento">Faça um orçamento! <FaArrowRight /></a>
                     </li>
                 </ul>
