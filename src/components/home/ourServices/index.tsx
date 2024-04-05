@@ -1,12 +1,12 @@
 import './styles.css'
-import Anamnese from '../../../assets/hero2/anamnese.svg'
-import Aso from '../../../assets/hero2/aso.svg'
-import Atendimento from '../../../assets/hero2/atendimento.svg'
-import Laudo from '../../../assets/hero2/laudo.svg'
-import Mais from '../../../assets/hero2/mais.svg'
-import Doc from '../../../assets/hero2/doc.png'
+import Anamnese from '../../../assets/our-services/anamnese.svg'
+import Aso from '../../../assets/our-services/aso.svg'
+import Atendimento from '../../../assets/our-services/atendimento.svg'
+import Laudo from '../../../assets/our-services/laudo.svg'
+import Mais from '../../../assets/our-services/mais.svg'
+import Doc from '../../../assets/our-services/doc.png'
 
-const Hero2: React.FC = () => {
+const OurServices = () => {
     return(
         <div className='block--container'>
             <div className="left">
@@ -43,11 +43,11 @@ const Hero2: React.FC = () => {
             </div>
 
             <div className="right">
-                <img className='team--doc' src={Doc} alt="team doc" />
+                <img className='team-doc' src={Doc} alt="team doc" />
             </div>
 
         </div>
     )
 }
 
-export default Hero2
+export default OurServices
