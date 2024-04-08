@@ -5,6 +5,7 @@
   background: var(--azul-piscina);
   box-shadow: 5px 0px 10px 0px rgba(0, 0, 0, 0.40);
   text-align: center;
+  transition: width 1s ease; 
 }
 
 .sidebar-content {
@@ -31,7 +32,7 @@
   margin-top: 2em;
 }
 
-.document-select.selected {
+.button-select:hover {
   background-color: #003F69;
 }
 
@@ -41,6 +42,7 @@
   color: #fff;
   font-size: 16px;
   padding: .4em;
+  border: none;
 }
 
 .button-select-intern {
@@ -56,6 +58,12 @@
   padding-left: 1em;
 }
 
-.sign-out {
+.profile-options {
   margin-top: 2em;
+}
+
+@media screen and (max-width: 866px) {
+  .sidebar-content {
+    display: none;
+  }
 }
