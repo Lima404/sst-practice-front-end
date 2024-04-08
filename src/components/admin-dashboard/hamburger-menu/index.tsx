@@ -1,5 +1,6 @@
 import './index.css'
-import LogoSidebar from '../../../assets/sidebar/sstLogoSidebar.svg'
+import Logo from '../../../assets/sidebar/sstLogoSidebar.svg'
+
 import { useState } from 'react'
 
 import { IoIosArrowDown, IoIosArrowForward, IoIosSettings } from "react-icons/io"
@@ -8,7 +9,7 @@ import { FaRegBuilding } from "react-icons/fa"
 import { FaUserDoctor } from "react-icons/fa6"
 import { RiAdminFill } from "react-icons/ri"
 
-const AdminSideBar = () => {
+const HamburgerMenu = () => {
   const [showCompanies, setShowCompanies] = useState(false)
   const [showProfessionals, setShowProfessionals] = useState(false)
   const [showAdmins, setShowAdmins] = useState(false)
@@ -26,12 +27,18 @@ const AdminSideBar = () => {
   }
 
   return (
-    <nav id="sidebar" className='sidebar'>
-      <div className='sidebar-content'>
-        <div className='sidebar-logo'>
-          <img src={LogoSidebar} />
+    <div className='menu-hamburger'>
+      <input
+        id="menu-hamburguer"
+        type="checkbox"
+      />
+      <label htmlFor="menu-hamburguer">
+        <div className="menu">
+          <span className="hamburguer"></span>
         </div>
+      </label>
 
+      <ul className="menu-hamburguer-elements show">
         <div className='sidebar-buttons'>
           <div className='document-select'>
             <button className="button-select" onClick={toggleCompanies}>
@@ -126,10 +133,9 @@ const AdminSideBar = () => {
             </div>
           </div>
         </div>
-      </div>
-    </nav>
-
+      </ul>
+    </div>
   )
 }
 
-export default AdminSideBar
+export default HamburgerMenu

@@ -17,16 +17,16 @@
   height: 100%;
 }
 
-.hamburger-menu {
+.menu-hamburger {
   display: none;
 }
 
 @media screen and (max-width: 900px) {
-  .hamburger-menu {
-    display: block;
-  }
-
   .sidebar {
     display: none;
+  }
+
+  .menu-hamburger {
+    display: block;
   }
 }
