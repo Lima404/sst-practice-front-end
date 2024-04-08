@@ -27,8 +27,12 @@
   background-color: aliceblue;
 }
 
-.document-select {
+.sidebar-buttons {
   margin-top: 2em;
+}
+
+.document-select.selected {
+  background-color: #003F69;
 }
 
 .button-select {
@@ -50,4 +54,8 @@
   align-items: center;
   justify-content: space-between;
   padding-left: 1em;
+}
+
+.sign-out {
+  margin-top: 2em;
 }
