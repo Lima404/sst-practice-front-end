@@ -61,9 +61,3 @@
 .profile-options {
   margin-top: 2em;
 }
-
-@media screen and (max-width: 866px) {
-  .sidebar-content {
-    display: none;
-  }
-}
