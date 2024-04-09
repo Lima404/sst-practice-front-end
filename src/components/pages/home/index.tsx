@@ -5,6 +5,8 @@ import AboutUs from '../../home/aboutUs'
 import OurServices from '../../home/ourServices/index'
 import Soluctions from '../../home/Soluctions'
 import Flyer from '../../home/Flyer'
+import Contact from '../../home/Contact'
+import Footer from '../../layout/Footer'
 
 function Home() {
 
@@ -15,6 +17,8 @@ function Home() {
       <OurServices />
       <Soluctions />
       <Flyer />
+      <Contact />
+      <Footer />
     </header>
   )
 }
