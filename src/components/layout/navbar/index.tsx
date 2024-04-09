@@ -28,15 +28,19 @@ function Navbar() {
 
                     <div className='div-items-center'>
                         <li className='items-menu-center'>
-                            <a href="#">Soluções</a>
+                            <a href="#">Serviços</a>
                         </li>
 
                         <li className='items-menu-center'>
-                            <a href="#">Contato</a>
+                            <a href="#">Sistema</a>
                         </li>
 
                         <li className='items-menu-center'>
-                            <a href="#">Sobre a Prática SST</a>
+                            <a href="#">Motivações</a>
+                        </li>
+
+                        <li className='items-menu-center'>
+                            <a href="#">Contatos</a>
                         </li>
                     </div>
 
