@@ -7,7 +7,7 @@ interface SoluctionsLineProps {
 
 const SoluctionsLine = ({ title, iconeUrl }: SoluctionsLineProps) => {
     return (
-        <div className='line'>
+        <div className='pog'>
             <img src={iconeUrl} alt="icone" />
             <h5>{title}</h5>
         </div>
