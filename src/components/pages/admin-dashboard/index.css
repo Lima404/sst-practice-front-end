@@ -1,0 +1,32 @@
+.main-admin-dashboard {
+  width: 100%;
+  height: 100%;
+  background-color: var(--cinza-claro);
+  display: flex;
+  gap: 4em;
+  color: black;
+}
+
+.sidebar {
+  width: 50%;
+}
+
+.content {
+  padding: 2em;
+  width: 100%;
+  height: 100%;
+}
+
+.menu-hamburger-dashboard-admin {
+  display: none;
+}
+
+@media screen and (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
+
+  .menu-hamburger-dashboard-admin {
+    display: block;
+  }
+}

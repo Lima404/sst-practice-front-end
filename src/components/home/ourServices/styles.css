@@ -1,7 +1,6 @@
 .block--container{
     display: flex;
     padding: 40px;
-    margin: 2em 0em 2em 0em;
     justify-content: center;
     align-items: center;
     gap: 40px;
@@ -38,8 +37,8 @@
 @media (max-width: 1110px){
     .block--container {
         gap: 0;
-        background-image: url("../../../assets/hero2/bgHero2.png");
-        background-size: contain;
+        background-image: url("../../../assets/our-services/bgHero2.png");
+        background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
     }
