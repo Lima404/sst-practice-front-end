@@ -2,10 +2,10 @@
 import './styles.css'
 import Navbar from '../../layout/navbar'
 import AboutUs from '../../home/aboutUs'
-import OurServices from '../../home/ourServices/index'
-import Soluctions from '../../home/Soluctions'
-import Flyer from '../../home/Flyer'
-import Contact from '../../home/Contact'
+import OurServices from '../../home/ourServices'
+import Soluctions from '../../home/soluctions'
+import Flyer from '../../home/flyer'
+import Contact from '../../home/contact'
 import Footer from '../../layout/Footer'
 
 function Home() {

@@ -1,4 +1,4 @@
-import './system.css';
+import './style.css';
 
 interface SoluctionsLineProps {
     title: string;

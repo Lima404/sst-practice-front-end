@@ -1,4 +1,4 @@
-import Topics from '../Topics'
+import Topics from '../topics'
 import './styles.css'
 
 const Flyer = () => {
