@@ -80,7 +80,7 @@ input:checked~.menu-hamburguer-elements {
     list-style: none;
   }
 
-  .menu-hamburger {
+  .menu-hamburger-dashboard-admin {
     display: flex;
     width: auto;
     flex-direction: column;
@@ -91,11 +91,12 @@ input:checked~.menu-hamburguer-elements {
   }
 
   .menu-hamburguer-elements {
-    width: 20em;
+    width: auto;
+    padding: 2em;
     background-color: var(--azul-piscina);
     position: fixed;
     left: -140%;
-    top: -1em;
+    top: -2em;
 
     transition: left cubic-bezier(1, 0, 0, 1) .8s;
 
