@@ -27,7 +27,7 @@ const HamburgerMenu = () => {
   }
 
   return (
-    <div className='menu-hamburger'>
+    <div className='menu-hamburger-dashboard-admin'>
       <input
         id="menu-hamburguer"
         type="checkbox"

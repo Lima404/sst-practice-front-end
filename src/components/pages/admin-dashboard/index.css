@@ -17,7 +17,7 @@
   height: 100%;
 }
 
-.menu-hamburger {
+.menu-hamburger-dashboard-admin {
   display: none;
 }
 
@@ -26,7 +26,7 @@
     display: none;
   }
 
-  .menu-hamburger {
+  .menu-hamburger-dashboard-admin {
     display: block;
   }
 }
