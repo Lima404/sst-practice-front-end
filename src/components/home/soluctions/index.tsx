@@ -12,7 +12,7 @@ const Soluctions = () => {
     return (
         <div className="container--system">
             <img src={Doc} alt="imagem doctor" className='doc' />
-            <article className="right">
+            <article className="solutions-right">
 
                 <div className="start">
                     <h3 className='title'>Soluções Ágeis</h3>

@@ -1,13 +1,13 @@
 .container--system{
     display: flex;
-    padding: 40px 80px 48px 80px;
+    padding: 80px 80px 80px 80px;
     justify-content: center;
     align-items: center;
     gap: 40px;
     background: var(--azul-claro);
 }
 
-.right{
+.solutions-right{
     display: flex;
     flex-direction: column;
     gap: 70px;
@@ -16,7 +16,6 @@
 .start{
     display: flex;
     flex-direction: column;
-    gap: 20px;
 }
 
 .title{
