@@ -4,6 +4,7 @@ import Navbar from '../../layout/navbar'
 import AboutUs from '../../home/aboutUs'
 import OurServices from '../../home/ourServices/index'
 import Soluctions from '../../home/soluctions'
+import Flyer from '../../home/flyer'
 
 function Home() {
 
@@ -13,6 +14,7 @@ function Home() {
       <AboutUs />
       <OurServices />
       <Soluctions />
+      <Flyer />
     </header>
   )
 }
