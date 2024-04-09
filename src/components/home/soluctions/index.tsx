@@ -1,6 +1,6 @@
 import './styles.css'
 import Doc from '../../../assets/system/doctorSystem.png'
-import SoluctionsLine from '../solutionsLine'
+import SoluctionsLine from '../SolutionsLine'
 import Card from '../../../assets/system/cards.svg'
 import Hitoric from '../../../assets/system/historic.svg'
 import Time from '../../../assets/system/time.svg'
