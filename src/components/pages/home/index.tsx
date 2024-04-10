@@ -6,7 +6,7 @@ import OurServices from '../../home/ourServices'
 import Soluctions from '../../home/soluctions'
 import Flyer from '../../home/flyer'
 import Contact from '../../home/contact'
-import Footer from '../../layout/Footer'
+import Footer from '../../layout/footer'
 
 function Home() {
 
