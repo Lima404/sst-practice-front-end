@@ -1,0 +1,62 @@
+.main-cards-admin-dashboard {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.card-admin-dashboard {
+  text-align: left;
+  width: 12em;
+  padding: 2em 2em 2em 2em;
+  border-radius: 4px;
+  box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.content-card-admin-dashboard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-card-admin-dashboard svg {
+  color: var(--azul-piscina);
+}
+
+.number-card-admin-dashboard {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 2em;
+}
+
+.number-card-admin-dashboard svg {
+  color: var(--azul-piscina);
+}
+
+.number-card-content span {
+  font-size: 24px;
+  color: var(--azul-piscina);
+  font-weight: 600;
+}
+
+@media screen and (max-width: 1024px) {
+  .main-cards-admin-dashboard {
+    flex-direction: column;
+  }
+
+  .card-admin-dashboard {
+    margin-top: 1em;
+  }
+
+  .main-cards-admin-dashboard {
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .card-admin-dashboard {
+    margin-top: 1em;
+    padding: 1em;
+    width: 10em;
+  }
+}
