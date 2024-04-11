@@ -1,3 +1,4 @@
+import Cards from '../../admin-dashboard/cards'
 import HamburgerMenu from '../../admin-dashboard/hamburger-menu'
 import AdminSideBar from '../../admin-dashboard/sidebar'
 import './index.css'
@@ -11,9 +12,7 @@ function AdminDashboard() {
       <HamburgerMenu />
       
       <div className='content'>
-        <div>
-          Conteúdo
-        </div>
+        <Cards />
       </div>
     </div>
   )
