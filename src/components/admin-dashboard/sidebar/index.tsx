@@ -50,7 +50,7 @@ const AdminSideBar = () => {
                 </button>
                 <button className='button-select'>
                   <div className='button-select-intern-option'>
-                    <div className='left-button-position'>Visualizar empresas</div>
+                    <div className='left-button-position'><a href='/companies'>Visualizar empresas</a></div>
                     <div className='right-button-position'><IoIosArrowForward /></div>
                   </div>
                 </button>
