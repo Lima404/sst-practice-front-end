@@ -11,7 +11,7 @@ function AdminDashboard() {
       
       <HamburgerMenu />
       
-      <div className='content'>
+      <div className='admin-dashboard-content'>
         <Cards />
       </div>
     </div>

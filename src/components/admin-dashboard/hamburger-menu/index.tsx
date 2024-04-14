@@ -51,13 +51,13 @@ const HamburgerMenu = () => {
               <div className='document-options'>
                 <button className='button-select'>
                   <div className='button-select-intern-option'>
-                    <div className='left-button-position'>Cadastrar empresa</div>
+                    <div className='left-button-position'><a href='/companies/create'>Cadastrar empresa</a></div>
                     <div className='right-button-position'><IoIosArrowForward /></div>
                   </div>
                 </button>
                 <button className='button-select'>
                   <div className='button-select-intern-option'>
-                    <div className='left-button-position'>Visualizar empresas</div>
+                    <div className='left-button-position'><a href='/companies'>Visualizar empresas</a></div>
                     <div className='right-button-position'><IoIosArrowForward /></div>
                   </div>
                 </button>

@@ -42,18 +42,22 @@ const AdminSideBar = () => {
             </button>
             {showCompanies && (
               <div className='document-options'>
-                <button className='button-select'>
-                  <div className='button-select-intern-option'>
-                    <div className='left-button-position'>Cadastrar empresa</div>
-                    <div className='right-button-position'><IoIosArrowForward /></div>
-                  </div>
-                </button>
-                <button className='button-select'>
-                  <div className='button-select-intern-option'>
-                    <div className='left-button-position'>Visualizar empresas</div>
-                    <div className='right-button-position'><IoIosArrowForward /></div>
-                  </div>
-                </button>
+                <a href='/companies/create'>
+                  <button className='button-select'>
+                    <div className='button-select-intern-option'>
+                      <div className='left-button-position'>Cadastrar empresa</div>
+                      <div className='right-button-position'><IoIosArrowForward /></div>
+                    </div>
+                  </button>
+                </a>
+                <a href='/companies'>
+                  <button className='button-select'>
+                    <div className='button-select-intern-option'>
+                      <div className='left-button-position'>Visualizar empresas</div>
+                      <div className='right-button-position'><IoIosArrowForward /></div>
+                    </div>
+                  </button>
+                </a>
               </div>
             )}
           </div>
