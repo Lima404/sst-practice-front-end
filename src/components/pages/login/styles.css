@@ -105,6 +105,10 @@
         margin: 8em;
     }
 
+    .left--side {
+        height: 100vh;
+    }
+
     .title--login {
         font-size: 16px;
     }

@@ -1,8 +1,8 @@
-.main-admin-dashboard {
+.main-admins-admin-dashboard {
+  width: 100%;
   height: 100%;
   background-color: var(--cinza-claro);
   display: flex;
-  gap: 4em;
   color: black;
 }
 
@@ -10,10 +10,15 @@
   width: 50%;
 }
 
-.admin-dashboard-content {
+.admins-admin-dashboard-content {
   margin-top: 2em;
   width: 100%;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.admins-table {
+  width: 90%;
 }
 
 .menu-hamburger-dashboard-admin {
@@ -31,7 +36,7 @@
 }
 
 @media screen and (max-width: 426px) {
-  .main-admin-dashboard {
+  .main-admins-admin-dashboard {
     gap: 0;
   }
 }

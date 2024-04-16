@@ -1,5 +1,4 @@
 import './index.css'
-import Logo from '../../../assets/sidebar/sstLogoSidebar.svg'
 
 import { useState } from 'react'
 
@@ -51,13 +50,13 @@ const HamburgerMenu = () => {
               <div className='document-options'>
                 <button className='button-select'>
                   <div className='button-select-intern-option'>
-                    <div className='left-button-position'>Cadastrar empresa</div>
+                    <div className='left-button-position'><a href='/companies/create'>Cadastrar empresa</a></div>
                     <div className='right-button-position'><IoIosArrowForward /></div>
                   </div>
                 </button>
                 <button className='button-select'>
                   <div className='button-select-intern-option'>
-                    <div className='left-button-position'>Visualizar empresas</div>
+                    <div className='left-button-position'><a href='/companies'>Visualizar empresas</a></div>
                     <div className='right-button-position'><IoIosArrowForward /></div>
                   </div>
                 </button>
@@ -76,13 +75,13 @@ const HamburgerMenu = () => {
               <div className='document-options'>
                 <button className='button-select'>
                   <div className='button-select-intern-option'>
-                    <div className='left-button-position'>Cadastrar profissionais</div>
+                    <div className='left-button-position'><a href='/professionals/create'>Cadastrar profissionais</a></div>
                     <div className='right-button-position'><IoIosArrowForward /></div>
                   </div>
                 </button>
                 <button className='button-select'>
                   <div className='button-select-intern-option'>
-                    <div className='left-button-position'>Visualizar profissionais</div>
+                    <div className='left-button-position'><a href='/professionals'>Visualizar profissionais</a></div>
                     <div className='right-button-position'><IoIosArrowForward /></div>
                   </div>
                 </button>
@@ -101,13 +100,13 @@ const HamburgerMenu = () => {
               <div className='document-options'>
                 <button className='button-select'>
                   <div className='button-select-intern-option'>
-                    <div className='left-button-position'>Cadastrar administradores</div>
+                    <div className='left-button-position'><a href='/admins/create'>Cadastrar administradores</a></div>
                     <div className='right-button-position'><IoIosArrowForward /></div>
                   </div>
                 </button>
                 <button className='button-select'>
                   <div className='button-select-intern-option'>
-                    <div className='left-button-position'>Visualizar administradores</div>
+                    <div className='left-button-position'><a href='/admins'>Visualizar administradores</a></div>
                     <div className='right-button-position'><IoIosArrowForward /></div>
                   </div>
                 </button>
