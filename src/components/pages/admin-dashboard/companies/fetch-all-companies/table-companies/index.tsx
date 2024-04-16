@@ -10,21 +10,22 @@ import './index.css'
 
 function createData(
   cnpj: string,
+  email: string,
   corporate_reason: string,
   fantasy_name: string,
   cep: string,
   address: string,
   phone: string,
 ) {
-  return { cnpj, corporate_reason, fantasy_name, cep, address, phone };
+  return { cnpj, email, corporate_reason, fantasy_name, cep, address, phone };
 }
 
 const rows = [
-  createData('132324345', 'SST Prática', 'Prática SST', '59300-00', 'Rua Coronel Martiniano', '84 99999-9999'),
-  createData('132324345', 'SST Prática', 'Prática SST', '59300-00', 'Rua Coronel Martiniano', '84 99999-9999'),
-  createData('132324345', 'SST Prática', 'Prática SST', '59300-00', 'Rua Coronel Martiniano', '84 99999-9999'),
-  createData('132324345', 'SST Prática', 'Prática SST', '59300-00', 'Rua Coronel Martiniano', '84 99999-9999'),
-  createData('132324345', 'SST Prática', 'Prática SST', '59300-00', 'Rua Coronel Martiniano', '84 99999-9999'),
+  createData('132324345', 'company@company.com', 'SST Prática', 'Prática SST', '59300-00', 'Rua Coronel Martiniano', '84 99999-9999'),
+  createData('132324345', 'company@company.com', 'SST Prática', 'Prática SST', '59300-00', 'Rua Coronel Martiniano', '84 99999-9999'),
+  createData('132324345', 'company@company.com', 'SST Prática', 'Prática SST', '59300-00', 'Rua Coronel Martiniano', '84 99999-9999'),
+  createData('132324345', 'company@company.com', 'SST Prática', 'Prática SST', '59300-00', 'Rua Coronel Martiniano', '84 99999-9999'),
+  createData('132324345', 'company@company.com', 'SST Prática', 'Prática SST', '59300-00', 'Rua Coronel Martiniano', '84 99999-9999'),
 ];
 
 export default function CompaniesTable() {
@@ -35,11 +36,12 @@ export default function CompaniesTable() {
           <TableHead>
             <TableRow>
               <TableCell>CNPJ</TableCell>
-              <TableCell align="right">Razão Social</TableCell>
-              <TableCell align="right">Nome Fantasia</TableCell>
-              <TableCell align="right">CEP</TableCell>
-              <TableCell align="right">Endereço</TableCell>
-              <TableCell align="right">Telefone</TableCell>
+              <TableCell align="left">E-mail</TableCell>
+              <TableCell align="left">Razão Social</TableCell>
+              <TableCell align="left">Nome Fantasia</TableCell>
+              <TableCell align="left">CEP</TableCell>
+              <TableCell align="left">Endereço</TableCell>
+              <TableCell align="left">Telefone</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -50,11 +52,12 @@ export default function CompaniesTable() {
                 <TableCell component="th" scope="row">
                   {row.cnpj}
                 </TableCell>
-                <TableCell align="right">{row.corporate_reason}</TableCell>
-                <TableCell align="right">{row.fantasy_name}</TableCell>
-                <TableCell align="right">{row.cep}</TableCell>
-                <TableCell align="right">{row.address}</TableCell>
-                <TableCell align="right">{row.phone}</TableCell>
+                <TableCell align="left">{row.email}</TableCell>
+                <TableCell align="left">{row.corporate_reason}</TableCell>
+                <TableCell align="left">{row.fantasy_name}</TableCell>
+                <TableCell align="left">{row.cep}</TableCell>
+                <TableCell align="left">{row.address}</TableCell>
+                <TableCell align="left">{row.phone}</TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -41,6 +41,12 @@ const CreateCompany = () => {
             <div className="ctn-form-input-create-company">
               <TextField className="form-input-create-company" id="standard-basic" label="Data de Início E-Social" variant="standard" />
             </div>
+            <div className="ctn-form-input-create-company">
+              <TextField className="form-input-create-company" id="standard-basic" type="email" label="E-mail" variant="standard" />
+            </div>
+            <div className="ctn-form-input-create-company">
+              <TextField className="form-input-create-company" id="standard-basic" type="password" label="Senha" variant="standard" />
+            </div>
             <div className="create-company-btn-submit">
               <button className="create-company-btn-submit" type="submit">Cadastrar</button>
             </div>

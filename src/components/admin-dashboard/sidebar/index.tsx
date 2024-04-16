@@ -71,18 +71,22 @@ const AdminSideBar = () => {
             </button>
             {showProfessionals && (
               <div className='document-options'>
-                <button className='button-select'>
-                  <div className='button-select-intern-option'>
-                    <div className='left-button-position'>Cadastrar profissionais</div>
-                    <div className='right-button-position'><IoIosArrowForward /></div>
-                  </div>
-                </button>
-                <button className='button-select'>
-                  <div className='button-select-intern-option'>
-                    <div className='left-button-position'>Visualizar profissionais</div>
-                    <div className='right-button-position'><IoIosArrowForward /></div>
-                  </div>
-                </button>
+                <a href='/professionals/create'>
+                  <button className='button-select'>
+                    <div className='button-select-intern-option'>
+                      <div className='left-button-position'>Cadastrar profissionais</div>
+                      <div className='right-button-position'><IoIosArrowForward /></div>
+                    </div>
+                  </button>
+                </a>
+                <a href='/professionals'>
+                  <button className='button-select'>
+                    <div className='button-select-intern-option'>
+                      <div className='left-button-position'>Visualizar profissionais</div>
+                      <div className='right-button-position'><IoIosArrowForward /></div>
+                    </div>
+                  </button>
+                </a>
               </div>
             )}
           </div>
@@ -96,18 +100,22 @@ const AdminSideBar = () => {
             </button>
             {showAdmins && (
               <div className='document-options'>
-                <button className='button-select'>
-                  <div className='button-select-intern-option'>
-                    <div className='left-button-position'>Cadastrar administradores</div>
-                    <div className='right-button-position'><IoIosArrowForward /></div>
-                  </div>
-                </button>
-                <button className='button-select'>
-                  <div className='button-select-intern-option'>
-                    <div className='left-button-position'>Visualizar administradores</div>
-                    <div className='right-button-position'><IoIosArrowForward /></div>
-                  </div>
-                </button>
+                <a href='/admins/create'>
+                  <button className='button-select'>
+                    <div className='button-select-intern-option'>
+                      <div className='left-button-position'>Cadastrar administradores</div>
+                      <div className='right-button-position'><IoIosArrowForward /></div>
+                    </div>
+                  </button>
+                </a>
+                <a href='/admins'>
+                  <button className='button-select'>
+                    <div className='button-select-intern-option'>
+                      <div className='left-button-position'>Visualizar administradores</div>
+                      <div className='right-button-position'><IoIosArrowForward /></div>
+                    </div>
+                  </button>
+                </a>
               </div>
             )}
           </div>

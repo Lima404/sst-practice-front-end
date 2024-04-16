@@ -1,0 +1,42 @@
+.main-admins-admin-dashboard {
+  width: 100%;
+  height: 100%;
+  background-color: var(--cinza-claro);
+  display: flex;
+  color: black;
+}
+
+.sidebar {
+  width: 50%;
+}
+
+.admins-admin-dashboard-content {
+  margin-top: 2em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.admins-table {
+  width: 90%;
+}
+
+.menu-hamburger-dashboard-admin {
+  display: none;
+}
+
+@media screen and (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
+
+  .menu-hamburger-dashboard-admin {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .main-admins-admin-dashboard {
+    gap: 0;
+  }
+}
