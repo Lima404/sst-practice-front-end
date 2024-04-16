@@ -36,12 +36,12 @@ export default function ProfessionalsTable() {
           <TableHead>
             <TableRow>
               <TableCell>Nome</TableCell>
-              <TableCell align="right">E-mail</TableCell>
-              <TableCell align="right">CPF</TableCell>
-              <TableCell align="right">RG</TableCell>
-              <TableCell align="right">Formação</TableCell>
-              <TableCell align="right">Título</TableCell>
-              <TableCell align="right">Função</TableCell>
+              <TableCell align="left">E-mail</TableCell>
+              <TableCell align="left">CPF</TableCell>
+              <TableCell align="left">RG</TableCell>
+              <TableCell align="left">Formação</TableCell>
+              <TableCell align="left">Título</TableCell>
+              <TableCell align="left">Função</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -52,12 +52,12 @@ export default function ProfessionalsTable() {
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="right">{row.emaiL}</TableCell>
-                <TableCell align="right">{row.name}</TableCell>
-                <TableCell align="right">{row.cpf}</TableCell>
-                <TableCell align="right">{row.rg}</TableCell>
-                <TableCell align="right">{row.formation}</TableCell>
-                <TableCell align="right">{row.professionalFunction}</TableCell>
+                <TableCell align="left">{row.emaiL}</TableCell>
+                <TableCell align="left">{row.name}</TableCell>
+                <TableCell align="left">{row.cpf}</TableCell>
+                <TableCell align="left">{row.rg}</TableCell>
+                <TableCell align="left">{row.formation}</TableCell>
+                <TableCell align="left">{row.professionalFunction}</TableCell>
               </TableRow>
             ))}
           </TableBody>

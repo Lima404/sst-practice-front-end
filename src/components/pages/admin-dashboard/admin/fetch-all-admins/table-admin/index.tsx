@@ -31,7 +31,7 @@ export default function AdminsTable() {
           <TableHead>
             <TableRow>
               <TableCell>Nome</TableCell>
-              <TableCell align="right">E-mail</TableCell>
+              <TableCell align="left">E-mail</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -42,7 +42,7 @@ export default function AdminsTable() {
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="right">{row.email}</TableCell>
+                <TableCell align="left">{row.email}</TableCell>
               </TableRow>
             ))}
           </TableBody>
