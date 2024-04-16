@@ -10,21 +10,22 @@ import './index.css'
 
 function createData(
   name: string,
+  emaiL: string,
   cpf: string,
   rg: string,
   formation: string,
   title: string,
   professionalFunction: string,
 ) {
-  return { name, cpf, rg, formation, title, professionalFunction };
+  return { name, emaiL, cpf, rg, formation, title, professionalFunction };
 }
 
 const rows = [
-  createData('Ricardo', '111.111.111-11', '1111.111', 'Médico', 'Médico Cardiologista', 'Examinar pacientes'),
-  createData('Ricardo', '111.111.111-11', '1111.111', 'Médico', 'Médico Cardiologista', 'Examinar pacientes'),
-  createData('Ricardo', '111.111.111-11', '1111.111', 'Médico', 'Médico Cardiologista', 'Examinar pacientes'),
-  createData('Ricardo', '111.111.111-11', '1111.111', 'Médico', 'Médico Cardiologista', 'Examinar pacientes'),
-  createData('Ricardo', '111.111.111-11', '1111.111', 'Médico', 'Médico Cardiologista', 'Examinar pacientes'),
+  createData('Ricardo', 'professional@professional.com', '111.111.111-11', '1111.111', 'Médico', 'Médico Cardiologista', 'Examinar pacientes'),
+  createData('Ricardo', 'professional@professional.com', '111.111.111-11', '1111.111', 'Médico', 'Médico Cardiologista', 'Examinar pacientes'),
+  createData('Ricardo', 'professional@professional.com', '111.111.111-11', '1111.111', 'Médico', 'Médico Cardiologista', 'Examinar pacientes'),
+  createData('Ricardo', 'professional@professional.com', '111.111.111-11', '1111.111', 'Médico', 'Médico Cardiologista', 'Examinar pacientes'),
+  createData('Ricardo', 'professional@professional.com', '111.111.111-11', '1111.111', 'Médico', 'Médico Cardiologista', 'Examinar pacientes'),
 ];
 
 export default function ProfessionalsTable() {
@@ -35,6 +36,7 @@ export default function ProfessionalsTable() {
           <TableHead>
             <TableRow>
               <TableCell>Nome</TableCell>
+              <TableCell align="right">E-mail</TableCell>
               <TableCell align="right">CPF</TableCell>
               <TableCell align="right">RG</TableCell>
               <TableCell align="right">Formação</TableCell>
@@ -50,6 +52,7 @@ export default function ProfessionalsTable() {
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
+                <TableCell align="right">{row.emaiL}</TableCell>
                 <TableCell align="right">{row.name}</TableCell>
                 <TableCell align="right">{row.cpf}</TableCell>
                 <TableCell align="right">{row.rg}</TableCell>

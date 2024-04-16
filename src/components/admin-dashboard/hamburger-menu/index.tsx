@@ -100,13 +100,13 @@ const HamburgerMenu = () => {
               <div className='document-options'>
                 <button className='button-select'>
                   <div className='button-select-intern-option'>
-                    <div className='left-button-position'>Cadastrar administradores</div>
+                    <div className='left-button-position'><a href='/admins/create'>Cadastrar administradores</a></div>
                     <div className='right-button-position'><IoIosArrowForward /></div>
                   </div>
                 </button>
                 <button className='button-select'>
                   <div className='button-select-intern-option'>
-                    <div className='left-button-position'>Visualizar administradores</div>
+                    <div className='left-button-position'><a href='/admins'>Visualizar administradores</a></div>
                     <div className='right-button-position'><IoIosArrowForward /></div>
                   </div>
                 </button>

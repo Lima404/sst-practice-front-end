@@ -50,6 +50,12 @@ const CreateProfessional = () => {
             <div className="ctn-form-input-create-professional">
               <TextField className="form-input-create-professional" id="standard-basic" label="Função" variant="standard" />
             </div>
+            <div className="ctn-form-input-create-professional">
+              <TextField className="form-input-create-professional" id="standard-basic" type="email" label="E-mail" variant="standard" />
+            </div>
+            <div className="ctn-form-input-create-professional">
+              <TextField className="form-input-create-professional" id="standard-basic" type="password" label="Senha" variant="standard" />
+            </div>
             <div className="create-professional-btn-submit">
               <button className="create-professional-btn-submit" type="submit">Cadastrar</button>
             </div>
