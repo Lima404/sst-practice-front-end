@@ -1,144 +1,143 @@
-.main{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--azul-marinho);
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--azul-marinho);
 }
 
 .card--login {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-
 .left--side {
-    background-color: var(--cinza-padrao);
-    width: 100%;
-    padding: 2em;
-    display: flex;
-    padding-top: 70px;
-    justify-content: center;
+  background-color: #fff;
+  width: 100%;
+  padding: 2em;
+  display: flex;
+  padding-top: 70px;
+  justify-content: center;
 }
 
 .right--side {
-    background-color: var(--azul-piscina);
-    width: 100%;
-    padding: 2em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  background-color: var(--azul-piscina);
+  width: 100%;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.data--input{
-    width: 350px;
-    display: flex;
-    flex-direction: column;
+.data--input {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form--login {
-    width: 100%;
+  width: 100%;
 }
 
-.email--input{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 100%;
-    margin-bottom: 10px;
+.email--input {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
-.pass--input{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 100%;
+.pass--input {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
 }
 
-.buttons{
-    margin-top: 2em;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+.buttons {
+  margin-top: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.forget--pass{
-    font-size: 14px;
-    text-decoration: none;
-    color: var(--cinza-escuro);
+.forget--pass {
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--cinza-escuro);
 }
 
-.but-enter{
-    padding: 10px 5px;
-    background-color: var(--azul-marinho);
-    color: white;
-    border-radius: 2;
+.but-enter {
+  padding: 10px 5px;
+  background-color: var(--azul-marinho);
+  color: white;
+  border-radius: 2;
 }
 
-.back-to-menu{
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--cinza-escuro);
-    margin-top: 60px;
+.back-to-menu {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--cinza-escuro);
+  margin-top: 60px;
 }
 
-.title--login{
-    font-weight: 700;
-    text-align: center;
+.title--login {
+  font-weight: 700;
+  text-align: center;
 }
 
-@media (max-width:800px){
-    .right--side{
-        display: none;
-    }
+@media (max-width: 800px) {
+  .right--side {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
-    .card--login {
-        margin: 8em;
-    }
+  .card--login {
+    margin: 8em;
+  }
 
-    .left--side {
-        height: 100vh;
-    }
+  .left--side {
+    height: 100vh;
+  }
 
-    .title--login {
-        font-size: 16px;
-    }
+  .title--login {
+    font-size: 16px;
+  }
 
-    .img-universe {
-        width: 100px;
-    }
-    
-    .forget--pass {
-        font-size: 12px;
-    }
+  .img-universe {
+    width: 100px;
+  }
 
-    .back-to-menu {
-        font-size: 12px;
-    }
+  .forget--pass {
+    font-size: 12px;
+  }
 
-    .but-enter{
-        padding: 4px;
-        font-size: 12px;
-        background-color: var(--azul-marinho);
-        color: white;
-    }
+  .back-to-menu {
+    font-size: 12px;
+  }
+
+  .but-enter {
+    padding: 4px;
+    font-size: 12px;
+    background-color: var(--azul-marinho);
+    color: white;
+  }
 }
 
 @media (min-width: 481px) and (max-width: 767px) {
-    .img-universe {
-        width: 200px;
-    }
+  .img-universe {
+    width: 200px;
+  }
 
-    .title--login {
-        font-size: 20px;
-    }
+  .title--login {
+    font-size: 20px;
+  }
 }
