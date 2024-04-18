@@ -10,14 +10,21 @@ import './index.css'
 import { api } from '../../../../../../services/api';
 import { useEffect, useState } from 'react';
 
+import { CiSearch, CiTrash } from "react-icons/ci";
+import { BsPencilSquare } from "react-icons/bs";
+
 
 interface AdminProps {
   id: string,
-  name: string
+  name: string,
+  user: {
+    email: string
+  }
 }
 
+
 export default function AdminsTable() {
-  const [admins, setAdmins] = useState <AdminProps[]>([]);
+  const [admins, setAdmins] = useState<AdminProps[]>([]);
 
   useEffect(() => {
     const fetchAllAdmins = async () => {
@@ -27,10 +34,10 @@ export default function AdminsTable() {
         console.log("resp", response.data.admins)
       }
       catch (error) {
-        console.log("erro")
+        console.log("Erro na requisição", error)
       }
     }
-      fetchAllAdmins()
+    fetchAllAdmins()
   }, [])
 
   return (
@@ -39,21 +46,20 @@ export default function AdminsTable() {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell align="left">Nome</TableCell>
+              <TableCell>Nome</TableCell>
+              <TableCell align="left">E-mail</TableCell>
               <TableCell align="left">Ações</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {admins?.map((row) => (
-              <TableRow
-                key={row.id}
-              >
-                <TableCell component="th" scope="row">
-                  {row.id}
-                </TableCell>
+              <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
                   {row.name}
+                </TableCell>
+                <TableCell align="left">{row.user.email}</TableCell>
+                <TableCell align="left">
+                  <CiSearch /> <BsPencilSquare /> <CiTrash />
                 </TableCell>
               </TableRow>
             ))}
