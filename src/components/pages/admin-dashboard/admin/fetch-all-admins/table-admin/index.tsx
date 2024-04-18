@@ -7,42 +7,54 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 import './index.css'
+import { api } from '../../../../../../services/api';
+import { useEffect, useState } from 'react';
 
-function createData(
-  name: string,
-  email: string,
-) {
-  return { name, email };
+
+interface AdminProps {
+  id: string,
+  name: string
 }
 
-const rows = [
-  createData('Ricardo', 'admin@admin.com'),
-  createData('Ricardo', 'admin@admin.com'),
-  createData('Ricardo', 'admin@admin.com'),
-  createData('Ricardo', 'admin@admin.com'),
-  createData('Ricardo', 'admin@admin.com'),
-];
-
 export default function AdminsTable() {
+  const [admins, setAdmins] = useState <AdminProps[]>([]);
+
+  useEffect(() => {
+    const fetchAllAdmins = async () => {
+      try {
+        const response = await api.get("/admins")
+        setAdmins(response.data.admins)
+        console.log("resp", response.data.admins)
+      }
+      catch (error) {
+        console.log("erro")
+      }
+    }
+      fetchAllAdmins()
+  }, [])
+
   return (
     <div className='container-admins-table'>
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Nome</TableCell>
-              <TableCell align="left">E-mail</TableCell>
+              <TableCell>ID</TableCell>
+              <TableCell align="left">Nome</TableCell>
+              <TableCell align="left">Ações</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {admins?.map((row) => (
               <TableRow
-                key={row.name}
+                key={row.id}
               >
+                <TableCell component="th" scope="row">
+                  {row.id}
+                </TableCell>
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="left">{row.email}</TableCell>
               </TableRow>
             ))}
           </TableBody>

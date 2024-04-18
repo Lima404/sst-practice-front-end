@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 let cookies = parseCookies();
 
 export const api = axios.create({
-  baseURL: "http://localhost:3333",
+  baseURL: "https://sst-practice.onrender.com",
 
   headers: {
     Authorization: `Bearer ${cookies["sstAuth.token"]}`,

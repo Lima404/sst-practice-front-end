@@ -42,7 +42,6 @@ const Login = () => {
   });
 
   const onSubmit: SubmitHandler<LoginCredentials> = async (data) => {
-    console.log(data);
     await signIn(data);
   };
 

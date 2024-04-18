@@ -52,14 +52,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
         password: password,
       });
 
-      const userId = response.data.userId;
+      // const userId = response.data;
+      const userToken = response.data.token;
+
+      const userType = response.data.type;
       // const userData = await api.get(`/users/${userId}`);
 
-      const token = response.data.access_token;
+      localStorage.setItem("@sst-user", JSON.stringify(userToken));
 
-      localStorage.setItem("@sst-user", JSON.stringify(user));
-
-      setCookie(undefined, "sstAuth.token", token, {
+      setCookie(undefined, "sstAuth.token", userToken, {
         maxAge: 60 * 60 * 24 * 30,
         path: "/",
       });
@@ -68,10 +69,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
         path: "/",
       }); */
 
-      api.defaults.headers["Authorization"] = `Bearer ${token}`;
+      api.defaults.headers["Authorization"] = `Bearer ${userToken}`;
 
-      setUser(userId);
+      setUser(userToken);
       toast.success("Autenticado com sucesso!");
+      // todo: verify user type
       navigate("/admin");
     } catch (err) {
       toast.error("Credenciais inválidas");
