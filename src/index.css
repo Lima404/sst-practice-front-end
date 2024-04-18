@@ -1,16 +1,16 @@
-:root{
+:root {
   color: rgba(255, 255, 255, 0.87);
   background-color: var(--cinza-claro);
   --lilás-escuro: #401258;
-  --azul-claro: #D0E4E8;
-  --azul-marinho: #003F69;
-  --azul-padrao: #106B87;
-  --azul-piscina: #157A8C;
+  --azul-claro: #d0e4e8;
+  --azul-marinho: #003f69;
+  --azul-padrao: #106b87;
+  --azul-piscina: #157a8c;
   --cinza-claro: #f3f3f3;
-  --cinza-padrao: #B3ACA4;
+  --cinza-padrao: #b3aca4;
   --cinza-escuro: #333333;
-  --vermelho-vinho: #680A1D;
-  --vermelho-escuro: #3F1719;
+  --vermelho-vinho: #680a1d;
+  --vermelho-escuro: #3f1719;
 }
 
 #root {
@@ -23,11 +23,11 @@
 
 a {
   font-weight: 500;
-  color: #FFF;
+  color: #fff;
   text-decoration: none;
 }
 a:hover {
-  color: #FFF;
+  color: #fff;
 }
 
 body {
