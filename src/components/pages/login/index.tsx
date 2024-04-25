@@ -1,85 +1,131 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
+import { useContext } from "react";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { FaArrowLeft } from "react-icons/fa6";
-import Planet from "../../../assets/login/saturn.svg"
-import Universe from "../../../assets/login/universe.svg"
-import Logo from '../../../assets/login/logopratica.svg'
-import './styles.css'
+import Planet from "../../../assets/login/saturn.svg";
+import Universe from "../../../assets/login/universe.svg";
+import Logo from "../../../assets/login/logopratica.svg";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import "./styles.css";
+import { AuthContext } from "../../../contexts/AuthContext";
+import { TextField } from "@mui/material";
+
+const schema = Yup.object().shape({
+  email: Yup.string()
+    .email("Insira um email válido")
+    .required("Campo obrigatório")
+    .min(6, "Insira no mínimo 6 caracteres"),
+  password: Yup.string()
+    .required("Campo obrigatório")
+    .min(6, "Insira no mínimo 6 caracteres"),
+});
 
 interface LoginCredentials {
-    email: string,
-    pass: string
+  email: string;
+  password: string;
 }
-
 
 const Login = () => {
+  const { signIn } = useContext(AuthContext);
 
-    const [credentials, setCredentials] = useState<LoginCredentials>({
-        email: '',
-        pass: '',
-    });
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: yupResolver(schema),
+  });
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target
-        setCredentials({
-            ...credentials,
-            [name]: value,
-        })
-    }
+  const onSubmit: SubmitHandler<LoginCredentials> = async (data) => {
+    await signIn(data);
+  };
 
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        // Aqui você pode integrar a lógica de autenticação
-        console.log('Credenciais submetidas:', credentials);
-    };
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#000",
+      },
+    },
+  });
 
-    const theme = createTheme({
-        palette: {
-            primary: {
-                main: '#d5d5d5',
-            }
-        }
-    })
-
-
-
-    return (
-        <div className='main'>
-            <div className="card--login">
-                <div className='left--side'>
-                    <div className='data--input'>
-                        <img src={Logo} alt="" />
-                        <form onSubmit={handleSubmit} className='form--login'>
-                            <div className="email--input">
-                                <ThemeProvider theme={theme}>
-                                    <TextField onChange={handleChange} id="standard-basic" label="Digite seu e-mail..." variant="standard" />
-                                </ThemeProvider>
-                            </div>
-                            <div className="pass--input">
-                                <ThemeProvider theme={theme}>
-                                    <TextField type='password' onChange={handleChange} id="standard-basic" label="Digite sua senha..." variant="standard" />
-                                </ThemeProvider>
-                            </div>
-                            <div className='buttons'>
-                                <a className='forget--pass' href="#">Esqueci minha senha</a>
-                                <button className='but-enter'>Entrar</button>
-                            </div>
-                        </form>
-                        <div className='Back'>
-                            <a className='back-to-menu' href="/"><FaArrowLeft /> Voltar para o menu principal</a>
-                        </div>
-                    </div>
-                </div>
-                <div className='right--side'>
-                    <img src={Planet} alt="icone planeta" />
-                    <h2 className='title--login'>Entre no universo onde cada clique abre novas possibilidades.</h2>
-                    <img className='img-universe' src={Universe} alt="image universe" />
-                </div>
+  return (
+    <div className="main">
+      <div className="card--login">
+        <div className="left--side">
+          <div className="data--input">
+            <img src={Logo} alt="" />
+            <form onSubmit={handleSubmit(onSubmit)} className="form--login">
+              <div className="email--input">
+                <ThemeProvider theme={theme}>
+                  <Controller
+                    name="email"
+                    control={control}
+                    render={({ field }) => (
+                      <TextField
+                        label="Email"
+                        type="text"
+                        id={errors.email ? "filled-error" : "standard-basic"}
+                        variant="standard"
+                        placeholder="Digite seu email"
+                        error={!!errors.email}
+                        helperText={errors.email?.message}
+                        {...field}
+                      />
+                    )}
+                  />
+                </ThemeProvider>
+              </div>
+              <div className="pass--input">
+                <ThemeProvider theme={theme}>
+                  <Controller
+                    name="password"
+                    control={control}
+                    render={({ field }) => (
+                      <TextField
+                        label="Senha"
+                        type="password"
+                        id={errors.password ? "filled-error" : "standard-basic"}
+                        variant="standard"
+                        placeholder="Digite sua senha"
+                        error={!!errors.password}
+                        helperText={errors.password?.message}
+                        {...field}
+                      />
+                    )}
+                  />
+                </ThemeProvider>
+              </div>
+              <div className="buttons">
+                <a className="forget--pass" href="#">
+                  Esqueci minha senha
+                </a>
+                <button type="submit" className="but-enter">
+                  Entrar
+                </button>
+              </div>
+            </form>
+            <div className="Back">
+              <a className="back-to-menu" href="/">
+                <FaArrowLeft /> Voltar para o menu principal
+              </a>
             </div>
+          </div>
         </div>
-    )
+        <div className="right--side">
+          <img src={Planet} alt="icone planeta" />
+          <h2 className="title--login">
+            Entre no universo onde cada clique abre novas possibilidades.
+          </h2>
+          <img className="img-universe" src={Universe} alt="image universe" />
+        </div>
+      </div>
+    </div>
+  );
+};
 
-}
-
-export default Login
+export default Login;
