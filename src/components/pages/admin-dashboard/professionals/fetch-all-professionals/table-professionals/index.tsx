@@ -7,6 +7,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 import './index.css'
+import { CiSearch, CiTrash } from 'react-icons/ci';
+import { BsPencilSquare } from 'react-icons/bs';
 
 function createData(
   name: string,
@@ -42,6 +44,7 @@ export default function ProfessionalsTable() {
               <TableCell align="left">Formação</TableCell>
               <TableCell align="left">Título</TableCell>
               <TableCell align="left">Função</TableCell>
+              <TableCell align='left'>Ações</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -58,6 +61,9 @@ export default function ProfessionalsTable() {
                 <TableCell align="left">{row.rg}</TableCell>
                 <TableCell align="left">{row.formation}</TableCell>
                 <TableCell align="left">{row.professionalFunction}</TableCell>
+                <TableCell align="left">
+                  <CiSearch /> <BsPencilSquare /> <CiTrash />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -7,28 +7,39 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 import './index.css'
+import { CiSearch, CiTrash } from 'react-icons/ci';
+import { BsPencilSquare } from 'react-icons/bs';
+import { useEffect, useState } from 'react';
+import { api } from '../../../../../../services/api';
 
-function createData(
+interface CompanyProps {
+  id: string,
   cnpj: string,
-  email: string,
+  user: {
+    email: string
+  },
   corporate_reason: string,
   fantasy_name: string,
-  cep: string,
   address: string,
-  phone: string,
-) {
-  return { cnpj, email, corporate_reason, fantasy_name, cep, address, phone };
+  phone: string
 }
 
-const rows = [
-  createData('132324345', 'company@company.com', 'SST Prática', 'Prática SST', '59300-00', 'Rua Coronel Martiniano', '84 99999-9999'),
-  createData('132324345', 'company@company.com', 'SST Prática', 'Prática SST', '59300-00', 'Rua Coronel Martiniano', '84 99999-9999'),
-  createData('132324345', 'company@company.com', 'SST Prática', 'Prática SST', '59300-00', 'Rua Coronel Martiniano', '84 99999-9999'),
-  createData('132324345', 'company@company.com', 'SST Prática', 'Prática SST', '59300-00', 'Rua Coronel Martiniano', '84 99999-9999'),
-  createData('132324345', 'company@company.com', 'SST Prática', 'Prática SST', '59300-00', 'Rua Coronel Martiniano', '84 99999-9999'),
-];
-
 export default function CompaniesTable() {
+  const [companies, setCompanies] = useState<CompanyProps[]>([]);
+
+  useEffect(() => {
+    const fetchAllCompanies = async () => {
+      try {
+        const response = await api.get("/companies")
+        setCompanies(response.data.companies)
+      }
+      catch(error) {
+        console.log("Erro na requisição", error)
+      }
+    }
+    fetchAllCompanies()
+  }, [])
+
   return (
     <div className='container-companies-table'>
       <TableContainer component={Paper}>
@@ -39,25 +50,27 @@ export default function CompaniesTable() {
               <TableCell align="left">E-mail</TableCell>
               <TableCell align="left">Razão Social</TableCell>
               <TableCell align="left">Nome Fantasia</TableCell>
-              <TableCell align="left">CEP</TableCell>
               <TableCell align="left">Endereço</TableCell>
               <TableCell align="left">Telefone</TableCell>
+              <TableCell align='left'>Ações</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {companies?.map((row) => (
               <TableRow
-                key={row.cnpj}
+                key={row.id}
               >
                 <TableCell component="th" scope="row">
                   {row.cnpj}
                 </TableCell>
-                <TableCell align="left">{row.email}</TableCell>
+                <TableCell align="left">{row.user.email}</TableCell>
                 <TableCell align="left">{row.corporate_reason}</TableCell>
                 <TableCell align="left">{row.fantasy_name}</TableCell>
-                <TableCell align="left">{row.cep}</TableCell>
                 <TableCell align="left">{row.address}</TableCell>
                 <TableCell align="left">{row.phone}</TableCell>
+                <TableCell align="left">
+                  <CiSearch /> <BsPencilSquare /> <CiTrash />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
