@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -41,8 +41,15 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const onSubmit: SubmitHandler<LoginCredentials> = async (data) => {
-    await signIn(data);
+    setIsLoading(true);
+    try {
+      await signIn(data);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const theme = createTheme({
@@ -105,7 +112,7 @@ const Login = () => {
                   Esqueci minha senha
                 </a>
                 <button type="submit" className="but-enter">
-                  Entrar
+                  {isLoading ? "Carregando..." : "Entrar"}
                 </button>
               </div>
             </form>

@@ -31,7 +31,6 @@ export default function AdminsTable() {
       try {
         const response = await api.get("/admins")
         setAdmins(response.data.admins)
-        console.log("resp", response.data.admins)
       }
       catch (error) {
         console.log("Erro na requisição", error)
