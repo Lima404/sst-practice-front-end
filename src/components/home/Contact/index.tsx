@@ -1,7 +1,7 @@
 import "./styles.css";
 import Instagram from "../../../assets/contass/instagram.svg";
 import Face from "../../../assets/contass/icon.svg";
-import FormMen from "../FormMen";
+import FormMen from "../formMen/index";
 
 const Contact = () => {
   return (
