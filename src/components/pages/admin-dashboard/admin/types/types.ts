@@ -31,4 +31,5 @@ export interface EditAdminModalProps {
   modalOpen: boolean;
   handleClose: () => void;
   adminId: string;
+  userId: string;
 }

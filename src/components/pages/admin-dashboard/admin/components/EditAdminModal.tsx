@@ -16,6 +16,7 @@ export const EditAdminModal = ({
   modalOpen,
   handleClose,
   adminId,
+  userId,
 }: EditAdminModalProps) => {
   const [adminData, setAdminData] = useState<EditAdminRequest>({
     name: "",
@@ -54,7 +55,8 @@ export const EditAdminModal = ({
   const onSubmit: SubmitHandler<EditAdminRequest> = async (data) => {
     try {
       console.log(data);
-      await editAdmin(adminId, data);
+      const formattedData = { ...data, userId: userId };
+      await editAdmin(adminId, formattedData);
       handleCloseModal();
       toast.success("Admin editado com sucesso!");
     } catch (error) {

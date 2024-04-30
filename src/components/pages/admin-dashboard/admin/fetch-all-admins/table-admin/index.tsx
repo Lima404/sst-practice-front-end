@@ -20,6 +20,7 @@ import { EditAdminModal } from "../../components/EditAdminModal";
 export interface AdminProps {
   id: string;
   name: string;
+  userId: string;
   user: {
     email: string;
   };
@@ -28,6 +29,7 @@ export interface AdminProps {
 export default function AdminsTable() {
   const [admins, setAdmins] = useState<AdminProps[]>([]);
   const [currentAdminId, setCurrentAdminId] = useState<string>("");
+  const [currentUserId, setCurrentUserId] = useState<string>("");
 
   const fetchAllAdmins = async () => {
     try {
@@ -41,6 +43,11 @@ export default function AdminsTable() {
     } catch (error) {
       console.log("Erro na requisição", error);
     }
+  };
+
+  const handleSetIds = (adminId: string, userId: string) => {
+    setCurrentAdminId(adminId);
+    setCurrentUserId(userId);
   };
 
   useEffect(() => {
@@ -66,7 +73,7 @@ export default function AdminsTable() {
                 </TableCell>
                 <TableCell align="left">{row.user.email}</TableCell>
                 <TableCell align="left">
-                  <Button onClick={() => setCurrentAdminId(row.id)}>
+                  <Button onClick={() => handleSetIds(row.id, row.userId)}>
                     <BsPencilSquare size={20} />
                   </Button>
                   <Button>
@@ -83,6 +90,7 @@ export default function AdminsTable() {
         modalOpen={currentAdminId !== ""}
         handleClose={() => setCurrentAdminId("")}
         adminId={currentAdminId}
+        userId={currentUserId}
       />
     </div>
   );
