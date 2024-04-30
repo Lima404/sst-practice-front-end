@@ -1,4 +1,4 @@
-import { Modal } from "@mui/material";
+import { Grid } from "@mui/material";
 import {
   EditAdminModalProps,
   EditAdminRequest,
@@ -10,7 +10,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { editAdmin, getAdminById } from "../api";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { ModalContainer } from "./styles";
+import { CustomModal } from "../../../../customModal/CustomModal";
+import Loader from "../../../../loader/Loader";
 
 export const EditAdminModal = ({
   modalOpen,
@@ -23,7 +24,6 @@ export const EditAdminModal = ({
     email: "",
   });
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
 
   const {
     control,
@@ -74,9 +74,6 @@ export const EditAdminModal = ({
         email: response.admin.user.email,
       });
     } catch (error) {
-      setError(
-        "Erro ao buscar informações do admin. Por favor, tente novamente."
-      );
       console.error("Erro ao buscar informações do admin:", error);
     } finally {
       setLoading(false);
@@ -86,11 +83,70 @@ export const EditAdminModal = ({
   const handleCloseModal = () => {
     handleClose();
     setAdminData({ name: "", email: "" });
-    setError("");
   };
 
   return (
-    <Modal open={modalOpen} onClose={handleCloseModal}>
+    <CustomModal
+      isOpen={modalOpen}
+      mode="edit"
+      title="Editar Administrador"
+      handleClose={handleClose}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"name"}>
+            <Controller
+              name="name"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.name ? "filled-error" : "standard-basic"}
+                    label="Nome"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite o nome"
+                    error={!!errors.name}
+                    helperText={errors.name?.message}
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+          </Grid>
+
+          <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
+            <Controller
+              name="email"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.email ? "filled-error" : "standard-basic"}
+                    label="Email"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite o email"
+                    error={!!errors.email}
+                    helperText={errors.email?.message}
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+          </Grid>
+        </>
+      )}
+    </CustomModal>
+  );
+};
+
+/* <Modal open={modalOpen} onClose={handleCloseModal}>
       <ModalContainer>
         {loading ? (
           <p>Carregando...</p>
@@ -146,6 +202,4 @@ export const EditAdminModal = ({
           </form>
         )}
       </ModalContainer>
-    </Modal>
-  );
-};
+    </Modal> */
