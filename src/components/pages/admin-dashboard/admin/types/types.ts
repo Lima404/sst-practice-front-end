@@ -32,4 +32,5 @@ export interface EditAdminModalProps {
   handleClose: () => void;
   adminId: string;
   userId: string;
+  onUpdateSuccess: () => void;
 }

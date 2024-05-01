@@ -7,10 +7,9 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 import "./index.css";
-import { api } from "../../../../../../services/api";
 import { useEffect, useState } from "react";
 
-import { CiSearch, CiTrash } from "react-icons/ci";
+import { CiTrash } from "react-icons/ci";
 import { BsPencilSquare } from "react-icons/bs";
 import { fetchAdminData } from "../../api";
 import { toast } from "react-toastify";
@@ -50,6 +49,10 @@ export default function AdminsTable() {
     setCurrentUserId(userId);
   };
 
+  const handleUpdateSuccess = () => {
+    fetchAllAdmins();
+  };
+
   useEffect(() => {
     fetchAllAdmins();
   }, []);
@@ -73,11 +76,11 @@ export default function AdminsTable() {
                 </TableCell>
                 <TableCell align="left">{row.user.email}</TableCell>
                 <TableCell align="left">
-                  <Button onClick={() => handleSetIds(row.id, row.userId)}>
-                    <BsPencilSquare size={20} />
+                  <Button className="actions-btn" onClick={() => handleSetIds(row.id, row.userId)}>
+                    <BsPencilSquare className="update-btn" size={20} />
                   </Button>
-                  <Button>
-                    <CiTrash size={20} />
+                  <Button className="actions-btn">
+                    <CiTrash className="delete-btn" size={20} />
                   </Button>
                 </TableCell>
               </TableRow>
@@ -91,6 +94,7 @@ export default function AdminsTable() {
         handleClose={() => setCurrentAdminId("")}
         adminId={currentAdminId}
         userId={currentUserId}
+        onUpdateSuccess={handleUpdateSuccess}
       />
     </div>
   );

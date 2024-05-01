@@ -18,6 +18,7 @@ export const EditAdminModal = ({
   handleClose,
   adminId,
   userId,
+  onUpdateSuccess,
 }: EditAdminModalProps) => {
   const [adminData, setAdminData] = useState<EditAdminRequest>({
     name: "",
@@ -28,7 +29,7 @@ export const EditAdminModal = ({
   const {
     control,
     handleSubmit,
-    reset, // Adicione reset
+    reset, 
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -45,7 +46,6 @@ export const EditAdminModal = ({
   }, [modalOpen]);
 
   useEffect(() => {
-    // Resetar o formulário sempre que adminData mudar
     reset({
       name: adminData.name,
       email: adminData.email,
@@ -59,6 +59,7 @@ export const EditAdminModal = ({
       await editAdmin(adminId, formattedData);
       handleCloseModal();
       toast.success("Admin editado com sucesso!");
+      onUpdateSuccess();
     } catch (error) {
       toast.error("Erro ao editar o admin. Por favor, tente novamente.");
       console.error("Erro ao editar o admin:", error);
