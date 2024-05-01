@@ -10,6 +10,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import "./styles.css";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { TextField } from "@mui/material";
+import Loader from "../../loader/Loader";
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -111,9 +112,9 @@ const Login = () => {
                 <a className="forget--pass" href="#">
                   Esqueci minha senha
                 </a>
-                <button type="submit" className="but-enter">
-                  {isLoading ? "Carregando..." : "Entrar"}
-                </button>
+                {isLoading ? (
+                  <Loader />
+                ) : <button type="submit" className="but-enter">Entrar</button>}
               </div>
             </form>
             <div className="Back">
