@@ -11,6 +11,7 @@ import { CiSearch, CiTrash } from 'react-icons/ci';
 import { BsPencilSquare } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
 import { api } from '../../../../../../services/api';
+import { Button } from '@mui/material';
 
 interface CompanyProps {
   id: string,
@@ -26,6 +27,8 @@ interface CompanyProps {
 
 export default function CompaniesTable() {
   const [companies, setCompanies] = useState<CompanyProps[]>([]);
+  const [currentAdminId, setCurrentAdminId] = useState<string>("");
+  const [currentUserId, setCurrentUserId] = useState<string>("");
 
   useEffect(() => {
     const fetchAllCompanies = async () => {
@@ -33,7 +36,7 @@ export default function CompaniesTable() {
         const response = await api.get("/companies")
         setCompanies(response.data.companies)
       }
-      catch(error) {
+      catch (error) {
         console.log("Erro na requisição", error)
       }
     }
@@ -69,7 +72,12 @@ export default function CompaniesTable() {
                 <TableCell align="left">{row.address}</TableCell>
                 <TableCell align="left">{row.phone}</TableCell>
                 <TableCell align="left">
-                  <CiSearch /> <BsPencilSquare /> <CiTrash />
+                  <Button className="actions-btn">
+                    <BsPencilSquare className="update-btn" size={20} />
+                  </Button>
+                  <Button className="actions-btn">
+                    <CiTrash className="delete-btn" size={20} />
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
