@@ -7,15 +7,18 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 import './index.css'
-import { CiSearch, CiTrash } from 'react-icons/ci';
+import { CiTrash } from 'react-icons/ci';
 import { BsPencilSquare } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
-import { api } from '../../../../../../services/api';
 import { Button } from '@mui/material';
+import { fetchCompanyData } from '../../api';
+import { toast } from 'react-toastify';
+import { EditCompanyModal } from '../../components/editCompanyModal';
 
 interface CompanyProps {
   id: string,
   cnpj: string,
+  userId: string,
   user: {
     email: string
   },
@@ -27,21 +30,35 @@ interface CompanyProps {
 
 export default function CompaniesTable() {
   const [companies, setCompanies] = useState<CompanyProps[]>([]);
-  const [currentAdminId, setCurrentAdminId] = useState<string>("");
+  const [currentCompanyId, setCurrentCompanyId] = useState<string>("");
   const [currentUserId, setCurrentUserId] = useState<string>("");
 
-  useEffect(() => {
-    const fetchAllCompanies = async () => {
-      try {
-        const response = await api.get("/companies")
-        setCompanies(response.data.companies)
-      }
-      catch (error) {
-        console.log("Erro na requisição", error)
-      }
+  const fetchAllCompanies = async () => {
+    try {
+      fetchCompanyData().then((response) => {
+        if (response.companies.length === 0) {
+          toast.error("Não foram encontrados registros!");
+        }
+        toast.success(`${response.companies.length} registros encontrados`);
+        setCompanies(response.companies);
+      })
+    } catch (error) {
+      console.log("Erro na requisição", error);
     }
-    fetchAllCompanies()
-  }, [])
+  };
+
+  const handleUpdateSuccess = () => {
+    fetchAllCompanies();
+  };
+
+  useEffect(() => {
+    fetchAllCompanies();
+  }, []);
+
+  const handleSetIds = (companyId: string, userId: string) => {
+    setCurrentCompanyId(companyId);
+    setCurrentUserId(userId)
+  }
 
   return (
     <div className='container-companies-table'>
@@ -72,7 +89,7 @@ export default function CompaniesTable() {
                 <TableCell align="left">{row.address}</TableCell>
                 <TableCell align="left">{row.phone}</TableCell>
                 <TableCell align="left">
-                  <Button className="actions-btn">
+                  <Button className="actions-btn" onClick={() => handleSetIds(row.id, row.userId)}>
                     <BsPencilSquare className="update-btn" size={20} />
                   </Button>
                   <Button className="actions-btn">
@@ -84,6 +101,14 @@ export default function CompaniesTable() {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <EditCompanyModal
+        modalOpen={currentCompanyId !== ""}
+        handleClose={() => setCurrentCompanyId("")}
+        companyId={currentCompanyId}
+        userId={currentUserId}
+        onUpdateSuccess={handleUpdateSuccess}
+      />
     </div>
   )
 }
