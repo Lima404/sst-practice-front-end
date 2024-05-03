@@ -17,7 +17,6 @@ export const CustomModalContainer = styled.form<CustomModalContainerProps>`
     margin: 0 1rem;
     width: 100%;
     height: fit-content;
-    max-height: 890.15px;
 
     background: #ffffff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

@@ -58,8 +58,11 @@ export const CustomModal = ({
                     container
                     spacing={3}
                     style={{
+                      marginTop: 0,
                       padding: "2rem 2rem",
                       alignItems: "flex-start",
+                      maxHeight: "500px",
+                      overflow: "auto",
                     }}
                   >
                     {children}
