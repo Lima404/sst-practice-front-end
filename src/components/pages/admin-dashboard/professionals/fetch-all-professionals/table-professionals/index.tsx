@@ -7,13 +7,17 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 import './index.css'
-import { CiSearch, CiTrash } from 'react-icons/ci';
+import { CiTrash } from 'react-icons/ci';
 import { BsPencilSquare } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
-import { api } from '../../../../../../services/api';
+import { fetchProfessionalData } from '../../api';
+import { toast } from 'react-toastify';
+import { Button } from '@mui/material';
+import { EditProfessionalModal } from '../../components/editProfessionalModal';
 
 interface professionalProps {
   id: string,
+  userId: string,
   name: string,
   user: {
     email: string
@@ -26,20 +30,35 @@ interface professionalProps {
 
 export default function ProfessionalsTable() {
   const [professionals, setProfessionals] = useState<professionalProps[]>([]);
+  const [currentProfessionalId, setCurrentProfessionalId] = useState<string>("");
+  const [currentUserId, setCurrentUserId] = useState<string>("");
+
+
+  const fetchAllProfessionals = async () => {
+    try {
+      const response = await fetchProfessionalData();
+      if (response.professionals.length === 0) {
+        toast.error("Não foram encontrados registros!");
+      }
+      toast.success(`${response.professionals.length} registros encontrados`);
+      setProfessionals(response.professionals);
+    } catch (error) {
+      console.log("Erro na requisição", error);
+    }
+  };
+
+  const handleUpdateSuccess = () => {
+    fetchAllProfessionals();
+  };
 
   useEffect(() => {
-    const fetchAllProfessionals = async () => {
-      try {
-        const response = await api.get("/professionals")
-        setProfessionals(response.data.professionals)
-        console.log(response.data.professionals)
-      }
-      catch (error) {
-        console.log("Erro na requisição", error)
-      }
-    }
-    fetchAllProfessionals()
-  }, [])
+    fetchAllProfessionals();
+  }, []);
+
+  const handleSetIds = (professionalId: string, userId: string) => {
+    setCurrentProfessionalId(professionalId);
+    setCurrentUserId(userId)
+  }
 
   return (
     <div className='container-companies-table'>
@@ -70,13 +89,26 @@ export default function ProfessionalsTable() {
                 <TableCell align="left">{row.formation}</TableCell>
                 <TableCell align="left">{row.title}</TableCell>
                 <TableCell align="left">
-                  <CiSearch /> <BsPencilSquare /> <CiTrash />
+                  <Button className="actions-btn" onClick={() => handleSetIds(row.id, row.userId)}>
+                    <BsPencilSquare className="update-btn" size={20} />
+                  </Button>
+                  <Button className="actions-btn">
+                    <CiTrash className="delete-btn" size={20} />
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+
+      <EditProfessionalModal
+        modalOpen={currentProfessionalId !== ""}
+        handleClose={() => setCurrentProfessionalId("")}
+        professionalId={currentProfessionalId}
+        userId={currentUserId}
+        onUpdateSuccess={handleUpdateSuccess}
+      />
     </div>
   )
 }

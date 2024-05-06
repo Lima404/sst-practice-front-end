@@ -87,7 +87,6 @@ export const EditCompanyModal = ({
     } catch (error) {
       toast.error("Erro ao editar a empresa. Por favor, tente novamente.");
       console.error("Erro ao editar a empresa:", error);
-      console.log(data.email)
     }
   };
 
@@ -107,7 +106,6 @@ export const EditCompanyModal = ({
         phone: response.company.phone,
         dt_start_esocial: response.company.dt_start_esocial,
       });
-      console.log(setCompanyData)
     } catch (error) {
       console.error("Erro ao buscar informações da empresa:", error);
     } finally {
