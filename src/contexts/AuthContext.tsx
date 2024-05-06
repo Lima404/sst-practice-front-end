@@ -56,7 +56,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const userToken = response.data.token;
 
       const userType = response.data.type;
-      // const userData = await api.get(`/users/${userId}`);
 
       localStorage.setItem("@sst-user", JSON.stringify(userToken));
 
@@ -73,8 +72,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       setUser(userToken);
       toast.success("Autenticado com sucesso!");
-      // todo: verify user type
-      navigate("/admin");
+
+      switch (userType) {
+        case "admin":
+          navigate("/admin");
+          break;
+        case "company":
+          console.log("/company");
+          break;
+        case "professional":
+          console.log("/professional");
+          break;
+        default:
+          navigate("/");
+      }
     } catch (err) {
       toast.error("Credenciais inválidas");
       setUser(null);
