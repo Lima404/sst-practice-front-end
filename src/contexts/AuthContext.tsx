@@ -78,10 +78,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
           navigate("/admin");
           break;
         case "company":
-          console.log("/company");
+          navigate("/company");
           break;
         case "professional":
-          console.log("/professional");
+          navigate("/professional");
           break;
         default:
           navigate("/");

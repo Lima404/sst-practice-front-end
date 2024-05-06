@@ -7,6 +7,8 @@ import Professionals from "../components/pages/admin-dashboard/professionals/fet
 import CreateProfessional from "../components/pages/admin-dashboard/professionals/create-professional";
 import Admins from "../components/pages/admin-dashboard/admin/fetch-all-admins";
 import CreateAdmin from "../components/pages/admin-dashboard/admin/create-admin";
+import CompanyDashboard from "../components/pages/company-dashboard";
+import ProfessionalDashboard from "../components/pages/professional-dashboard";
 
 const App = () => {
   return (
@@ -48,6 +50,14 @@ export const protectedRoutes = [
       {
         path: "admins/create",
         element: <CreateAdmin />,
+      },
+      {
+        path: "company",
+        element: <CompanyDashboard />,
+      },
+      {
+        path: "professional",
+        element: <ProfessionalDashboard />,
       },
       {
         path: "*",
