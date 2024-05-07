@@ -94,7 +94,7 @@ const CompanySideBar = () => {
             </button>
             {showProfessionals && (
               <div className="document-options">
-                <a onClick={() => navigate("/")}>
+                <a onClick={() => navigate("/units/create")}>
                   <button className="button-select">
                     <div className="button-select-intern-option">
                       <div className="left-button-position">
