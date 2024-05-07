@@ -1,5 +1,5 @@
+import CompanySideBar from '../../company-components/sidebar';
 import './index.css'
-import CompanySideBar from "../../professional-components/sidebar";
 
 function CompanyDashboard() {
   return (

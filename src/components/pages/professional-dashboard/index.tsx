@@ -1,4 +1,4 @@
-import ProfessionalSideBar from "../../professional-components/sidebar";
+import ProfessionalSideBar from "../../company-components/sidebar";
 
 function ProfessionalDashboard() {
   return (
