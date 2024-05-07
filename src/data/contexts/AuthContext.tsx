@@ -17,9 +17,11 @@ type User = {
 
 type AuthContextData = {
   signIn(credentials: SignInCredentials): Promise<void>;
+  getUserProfile(token: string): Promise<void>;
   user: User | null;
   isAuthenticated: boolean;
   signOut: () => void;
+  userTypeId: string | null;
 };
 
 type AuthProviderProps = {
@@ -30,6 +32,7 @@ export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
+  const [userTypeId, setUserTypeId] = useState<string | null>(null);
   const navigate = useNavigate();
   const isAuthenticated = !!user;
 
@@ -52,10 +55,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         password: password,
       });
 
-      // const userId = response.data;
       const userToken = response.data.token;
-
-      const userType = response.data.type;
 
       localStorage.setItem("@sst-user", JSON.stringify(userToken));
 
@@ -63,17 +63,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
         maxAge: 60 * 60 * 24 * 30,
         path: "/",
       });
-      /* setCookie(undefined, "sstAuth.refreshToken", refreshToken, {
-        maxAge: 60 * 60 * 24 * 30,
-        path: "/",
-      }); */
 
       api.defaults.headers["Authorization"] = `Bearer ${userToken}`;
 
       setUser(userToken);
       toast.success("Autenticado com sucesso!");
 
-      switch (userType) {
+      await getUserProfile(userToken);
+
+      switch (response.data.type) {
         case "admin":
           navigate("/admin");
           break;
@@ -93,6 +91,28 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
+  async function getUserProfile(token: string) {
+    try {
+      const response = await api.get('/profile', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      const userProfile = response.data;
+
+      console.log("PERFIL DO USUÁRIO AQUI", userProfile);
+      const userType = response.data.user.type;
+      const userTypeData = response.data.switchedUser[userType];
+      const userTypeId = userTypeData ? userTypeData.id : null;
+
+      setUserTypeId(userTypeId);
+    } catch (error) {
+      console.error('Erro ao obter o perfil do usuário:', error);
+      throw error;
+    }
+  }
+
   function signOut() {
     destroyCookie(undefined, "sstAuth.token");
     destroyCookie(undefined, "sstAuth.refreshToken");
@@ -100,8 +120,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     navigate("/");
   }
+
   return (
-    <AuthContext.Provider value={{ signIn, isAuthenticated, user, signOut }}>
+    <AuthContext.Provider value={{ signIn, getUserProfile, isAuthenticated, user, signOut, userTypeId }}>
       {children}
     </AuthContext.Provider>
   );

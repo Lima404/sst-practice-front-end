@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export interface CreateUnitRequest {
-  companyId: string;
+  companyId: string | null;
   identification: string;
   cnpj: string;
   cnea: string;
