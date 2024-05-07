@@ -5,7 +5,9 @@ function ProfessionalDashboard() {
     <div className="main-admin-dashboard">
       <ProfessionalSideBar />
 
-      hello professional
+      <div className='admin-dashboard-content'>
+        hello professional
+      </div>
     </div>
   )
 }

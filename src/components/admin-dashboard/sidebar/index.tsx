@@ -12,7 +12,7 @@ import { FaRegBuilding } from "react-icons/fa";
 import { FaUserDoctor } from "react-icons/fa6";
 import { RiAdminFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../../contexts/AuthContext";
+import { AuthContext } from "../../../data/contexts/AuthContext";
 
 const AdminSideBar = () => {
   const [showCompanies, setShowCompanies] = useState(false);

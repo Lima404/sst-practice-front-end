@@ -1,4 +1,4 @@
-import { api } from "../../../../../services/api";
+import { api } from "../../../../../data/services/api";
 import { CreateAdminRequest, EditAdminRequest } from "../types/types";
 
 export const fetchAdminData = async () => {

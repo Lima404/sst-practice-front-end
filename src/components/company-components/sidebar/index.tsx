@@ -11,7 +11,7 @@ import { GoSignOut } from "react-icons/go";
 import { FaRegBuilding } from "react-icons/fa";
 import { FaUserDoctor } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../../contexts/AuthContext";
+import { AuthContext } from "../../../data/contexts/AuthContext";
 
 const CompanySideBar = () => {
   const [showCompanies, setShowCompanies] = useState(false);

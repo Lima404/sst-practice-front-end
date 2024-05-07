@@ -8,7 +8,7 @@ import Universe from "../../../assets/login/universe.svg";
 import Logo from "../../../assets/login/logopratica.svg";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import "./styles.css";
-import { AuthContext } from "../../../contexts/AuthContext";
+import { AuthContext } from "../../../data/contexts/AuthContext";
 import { TextField } from "@mui/material";
 import Loader from "../../loader/Loader";
 

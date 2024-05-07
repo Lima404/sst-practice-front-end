@@ -4,7 +4,7 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { AppRoutes } from "./routes/index.tsx";
-import { AuthProvider } from "./contexts/AuthContext.tsx";
+import { AuthProvider } from "./data/contexts/AuthContext.tsx";
 import "react-toastify/dist/ReactToastify.css";
 /* import Home from "./components/pages/home/index.tsx";
 import Login from "./components/pages/login/index.tsx";

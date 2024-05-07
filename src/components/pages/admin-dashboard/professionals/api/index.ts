@@ -1,4 +1,4 @@
-import { api } from "../../../../../services/api";
+import { api } from "../../../../../data/services/api";
 import { CreateProfessionalRequest, EditProfessionalRequest } from "../types";
 
 export const createCompany = async (professionalBody: CreateProfessionalRequest) => {

@@ -6,7 +6,10 @@ function CompanyDashboard() {
     <div className="main-admin-dashboard">
 
       <CompanySideBar />
-      hello company
+      
+      <div className='admin-dashboard-content'>
+        hello company
+      </div>
     </div>
   )
 }
