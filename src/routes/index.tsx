@@ -3,7 +3,7 @@ import { Navigate, useRoutes } from "react-router-dom";
 import { protectedRoutes } from "./protected";
 import { publicRoutes } from "./public";
 import Home from "../components/pages/home";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "../data/contexts/AuthContext";
 import Login from "../components/pages/login";
 
 export const AppRoutes = () => {
