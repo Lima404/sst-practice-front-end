@@ -1,0 +1,11 @@
+.card-company-container {
+  background-color: #FFF;
+  border-radius: 4px;
+  margin-right: 4em;
+  color: var(--azul-piscina);
+  padding: 1em;
+}
+
+.no-cards-found {
+  color: var(--azul-piscina);
+}
