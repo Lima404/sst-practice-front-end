@@ -11,10 +11,11 @@ import { useContext, useEffect, useState } from "react";
 
 import { CiTrash } from "react-icons/ci";
 import { BsPencilSquare } from "react-icons/bs";
-import { fetchUnitData } from "../../api";
+import { deleteUnit, fetchUnitData } from "../../api";
 import { toast } from "react-toastify";
 import { Button } from "@mui/material";
 import { AuthContext } from "../../../../../../data/contexts/AuthContext";
+import { EditUnitModal } from "../../components/EditUnitModal";
 
 export interface UnitProps {
   id: string;
@@ -46,10 +47,21 @@ export default function UnitsTable() {
           setUnits(response.units);
         });
       } else {
-        console.log("userTypeId is null");
+        console.log("não foi possível encontrar unidades para essa empresa");
       }
     } catch (error) {
       console.log("Erro na requisição", error);
+    }
+  };
+
+  const handleDeleteUnit = async (id: string) => {
+    try {
+      await deleteUnit(id);
+      fetchAllUnits();
+      toast.success("Unidade excluída com sucesso!");
+    } catch (error) {
+      console.error("Erro ao excluir unidade:", error);
+      toast.error("Erro ao excluir unidade. Por favor, tente novamente mais tarde.");
     }
   };
 
@@ -71,8 +83,15 @@ export default function UnitsTable() {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Nome</TableCell>
+              <TableCell align="left">Identificação</TableCell>
+              <TableCell align="left">CNPJ</TableCell>
+              <TableCell align="left">CEP</TableCell>
+              <TableCell align="left">Endereço</TableCell>
+              <TableCell align="left">Bairro</TableCell>
+              <TableCell align="left">Cidade</TableCell>
+              <TableCell align="left">Estado</TableCell>
               <TableCell align="left">E-mail</TableCell>
+              <TableCell align="left">Telefone</TableCell>
               <TableCell align="left">Ações</TableCell>
             </TableRow>
           </TableHead>
@@ -94,7 +113,7 @@ export default function UnitsTable() {
                   <Button className="actions-btn" onClick={() => handleSetIds(row.id)}>
                     <BsPencilSquare className="update-btn" size={20} />
                   </Button>
-                  <Button className="actions-btn">
+                  <Button className="actions-btn" onClick={() => handleDeleteUnit(row.id)}>
                     <CiTrash className="delete-btn" size={20} />
                   </Button>
                 </TableCell>
@@ -104,12 +123,12 @@ export default function UnitsTable() {
         </Table>
       </TableContainer>
 
-      {/* <EditAdminModal
+      <EditUnitModal
         modalOpen={currentUnitId !== ""}
         handleClose={() => setCurrentUnitId("")}
-        adminId={currentUnitId}
+        unitId={currentUnitId}
         onUpdateSuccess={handleUpdateSuccess}
-      /> */}
+      />
     </div>
   );
 }
