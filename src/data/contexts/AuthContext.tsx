@@ -101,7 +101,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       const userProfile = response.data;
 
-      console.log("PERFIL DO USUÁRIO AQUI", userProfile);
       const userType = response.data.user.type;
       const userTypeData = response.data.switchedUser[userType];
       const userTypeId = userTypeData ? userTypeData.id : null;

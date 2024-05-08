@@ -10,6 +10,7 @@ import CreateAdmin from "../components/pages/admin-dashboard/admin/create-admin"
 import CompanyDashboard from "../components/pages/company-dashboard";
 import ProfessionalDashboard from "../components/pages/professional-dashboard";
 import CreateUnit from "../components/pages/company-dashboard/units/create-unit";
+import Units from "../components/pages/company-dashboard/units/fetch-all-units";
 
 const App = () => {
   return (
@@ -59,6 +60,10 @@ export const protectedRoutes = [
       {
         path: "units/create",
         element: <CreateUnit />,
+      },
+      {
+        path: "units",
+        element: <Units />,
       },
       {
         path: "professional",
