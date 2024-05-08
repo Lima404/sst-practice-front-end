@@ -19,7 +19,12 @@ function CompanyDashboard() {
   useEffect(() => {
     const companyId = userTypeId ?? '';
     fetchCardsData(companyId)
-      .then((data) => {
+      .then((response) => {
+        const data = response.cards.map((card: any) => ({
+          professional: card.professionalId, // Assuming professionalId contains the professional name
+          company: card.companyId, // Assuming companyId contains the company name
+          employee: card.employeeId // Assuming employeeId contains the employee name
+        }));
         setCardsData(data);
         setIsLoading(false);
       })
@@ -29,13 +34,14 @@ function CompanyDashboard() {
       });
   }, []);
 
+
   return (
     <div className="main-admin-dashboard">
       <CompanySideBar />
       <div className="admin-dashboard-content">
         {isLoading ? (
           <p>Carregando...</p>
-        ) : cardsData.length === 0 ? (
+        ) : cardsData === null || cardsData.length === 0 ? (
           <h2 className='no-cards-found'>Nenhum card encontrado</h2>
         ) : (
           cardsData.map((card, index) => (
