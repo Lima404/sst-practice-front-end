@@ -11,6 +11,8 @@ import CompanyDashboard from "../components/pages/company-dashboard";
 import ProfessionalDashboard from "../components/pages/professional-dashboard";
 import CreateUnit from "../components/pages/company-dashboard/units/create-unit";
 import Units from "../components/pages/company-dashboard/units/fetch-all-units";
+import CreateEmployees from "../components/pages/company-dashboard/employees/create-emplyees";
+import Employees from "../components/pages/company-dashboard/employees/fetch-all-employees";
 
 const App = () => {
   return (
