@@ -15,24 +15,25 @@ import { deleteEmployees, fetchEmployeesData } from "../../api";
 import { toast } from "react-toastify";
 import { Button } from "@mui/material";
 import { AuthContext } from "../../../../../../data/contexts/AuthContext";
-import { EditUnitModal } from "../../components/EditUnitModal";
+import { EditEmployeeModal } from "../../components/EditEmployeesModal";
 
-export interface UnitProps {
-  id: string;
-  identification: string;
-  cnpj: string;
-  cep: string;
-  adress: string;
-  neighborhood: string;
-  city: string;
-  state: string;
-  email: string;
-  phone: string;
+export interface EmployeesProps {
+  id: string,
+  name: string,
+  cpf: string,
+  nis: string,
+  rg: string,
+  br_pdh: string,
+  sex: string,
+  dt_birth: number,
+  phone: string,
+  phone_number: string,
+  blood_type: string,
 }
 
-export default function UnitsTable() {
-  const [units, setUnits] = useState<UnitProps[]>([]);
-  const [currentUnitId, setCurrentUnitId] = useState<string>("");
+export default function EmployeeTable() {
+  const [employees, setEmployees] = useState<EmployeesProps[]>([]);
+  const [currentEmployeesId, setCurrentEmployeesId] = useState<string>("");
   const { userTypeId } = useContext(AuthContext);
 
   const fetchAllEmployees = async () => {
@@ -40,14 +41,14 @@ export default function UnitsTable() {
       if (userTypeId !== null) {
         const companyId = userTypeId;
         fetchEmployeesData(companyId).then((response) => {
-          if (response.units.length === 0) {
+          if (response.employees.length === 0 ){
             toast.error("Não foram encontrados registros!");
           }
-          toast.success(`${response.units.length} registros encontrados`);
-          setUnits(response.units);
+          toast.success(`${response.employees.length} registros encontrados`);
+          setEmployees(response.employees);
         });
       } else {
-        console.log("não foi possível encontrar colaboradores para essa empresa");
+          console.log("não foi possível encontrar colaboradores para essa empresa");
       }
     } catch (error) {
       console.log("Erro na requisição", error);
@@ -58,15 +59,15 @@ export default function UnitsTable() {
     try {
       await deleteEmployees(id);
       fetchAllEmployees();
-      toast.success("Colaborador excluída com sucesso!");
+      toast.success("Colaborador inativado com sucesso!");
     } catch (error) {
-      console.error("Erro ao excluir colaborador:", error);
-      toast.error("Erro ao excluir colaborador. Por favor, tente novamente mais tarde.");
+      console.error("Erro ao inativar colaborador:", error);
+      toast.error("Erro ao inativar colaborador. Por favor, tente novamente mais tarde.");
     }
   };
 
-  const handleSetIds = (unitId: string) => {
-    setCurrentUnitId(unitId);
+  const handleSetIds = (employeeId: string) => {
+    setCurrentEmployeesId(employeeId);
   };
 
   const handleUpdateSuccess = () => {
@@ -77,58 +78,63 @@ export default function UnitsTable() {
     fetchAllEmployees();
   }, []);
 
-  return (
-    <div className="container-units-table">
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="left">Identificação</TableCell>
-              <TableCell align="left">CNPJ</TableCell>
-              <TableCell align="left">CEP</TableCell>
-              <TableCell align="left">Endereço</TableCell>
-              <TableCell align="left">Bairro</TableCell>
-              <TableCell align="left">Cidade</TableCell>
-              <TableCell align="left">Estado</TableCell>
-              <TableCell align="left">E-mail</TableCell>
-              <TableCell align="left">Telefone</TableCell>
-              <TableCell align="left">Ações</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {units?.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                  {row.identification}
-                </TableCell>
-                <TableCell align="left">{row.cnpj}</TableCell>
-                <TableCell align="left">{row.cep}</TableCell>
-                <TableCell align="left">{row.adress}</TableCell>
-                <TableCell align="left">{row.neighborhood}</TableCell>
-                <TableCell align="left">{row.city}</TableCell>
-                <TableCell align="left">{row.state}</TableCell>
-                <TableCell align="left">{row.email}</TableCell>
-                <TableCell align="left">{row.phone}</TableCell>
-                <TableCell align="left">
-                  <Button className="actions-btn" onClick={() => handleSetIds(row.id)}>
-                    <BsPencilSquare className="update-btn" size={20} />
-                  </Button>
-                  <Button className="actions-btn" onClick={() => handleDeleteEmployees(row.id)}>
-                    <CiTrash className="delete-btn" size={20} />
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
 
-      <EditUnitModal
-        modalOpen={currentUnitId !== ""}
-        handleClose={() => setCurrentUnitId("")}
-        unitId={currentUnitId}
-        onUpdateSuccess={handleUpdateSuccess}
-      />
-    </div>
-  );
+  return (
+      <div className="container-units-table">
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="left">Nome</TableCell>
+                <TableCell align="left">CPF</TableCell>
+                <TableCell align="left">NIS</TableCell>
+                <TableCell align="left">RG</TableCell>
+
+                <TableCell align="left">br_pdh</TableCell>
+
+                <TableCell align="left">Gênero</TableCell>
+                <TableCell align="left">Data de aniversario</TableCell>
+                <TableCell align="left">Telefone</TableCell>
+                <TableCell align="left">Celular</TableCell>
+                <TableCell align="left">Tipo Sanguineo</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {employees?.map((row) => (
+                <TableRow key={row.id}>
+                  <TableCell component="th" scope="row">
+                    {row.cpf}
+                  </TableCell>
+                  <TableCell align="left">{row.name}</TableCell>
+                  <TableCell align="left">{row.cpf}</TableCell>
+                  <TableCell align="left">{row.nis}</TableCell>
+                  <TableCell align="left">{row.rg}</TableCell>
+                  <TableCell align="left">{row.br_pdh}</TableCell>
+                  <TableCell align="left">{row.sex}</TableCell>
+                  <TableCell align="left">{row.dt_birth}</TableCell>
+                  <TableCell align="left">{row.phone}</TableCell>
+                  <TableCell align="left">{row.phone_number}</TableCell>
+                  <TableCell align="left">{row.blood_type}</TableCell>
+                  <TableCell align="left">
+                    <Button className="actions-btn" onClick={() => handleSetIds(row.id)}>
+                      <BsPencilSquare className="update-btn" size={20} />
+                    </Button>
+                    <Button className="actions-btn" onClick={() => handleDeleteEmployees(row.id)}>
+                      <CiTrash className="delete-btn" size={20} />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+  
+        <EditEmployeeModal
+          modalOpen={currentEmployeesId !== ""}
+          handleClose={() => setCurrentEmployeesId("")}
+          employeeId={currentEmployeesId}
+          onUpdateSuccess={handleUpdateSuccess}
+        />
+      </div>
+    );
 }
