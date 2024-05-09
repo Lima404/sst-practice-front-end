@@ -66,6 +66,14 @@ export const protectedRoutes = [
         element: <Units />,
       },
       {
+        path: "employees/create",
+        element: <CreateEmployee />,
+      },
+      {
+        path: "employees",
+        element: <Employees />,
+      },
+      {
         path: "professional",
         element: <ProfessionalDashboard />,
       },
