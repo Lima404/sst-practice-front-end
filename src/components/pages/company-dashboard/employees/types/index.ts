@@ -8,7 +8,7 @@ export interface CreateEmployeesRequest {
     rg: string,
     br_pdh: string,
     sex: string,
-    dt_birth: number,
+    dt_birth: Date,
     phone: string,
     phone_number: string,
     blood_type: string,
@@ -36,7 +36,7 @@ export interface EditEmployeesRequest {
     rg: string,
     br_pdh: string,
     sex: string,
-     dt_birth: number, /* Aqui é um number ou uma string? */
+    dt_birth: Date, /* Aqui é um number ou uma string? */
     phone: string,
     phone_number: string,
     blood_type: string,

@@ -27,7 +27,7 @@ export const EditEmployeeModal = ({
         rg: "",
         br_pdh: "",
         sex: "",
-        dt_birth: 0, /* Aqui é um number ou uma string? */
+        dt_birth: new Date(),
         phone: "",
         phone_number: "",
         blood_type: "",
@@ -48,7 +48,7 @@ export const EditEmployeeModal = ({
             rg: "",
             br_pdh: "",
             sex: "",
-            dt_birth: 0, /* Aqui é um number ou uma string? */
+            dt_birth: new Date(),
             phone: "",
             phone_number: "",
             blood_type: "",
@@ -64,14 +64,14 @@ export const EditEmployeeModal = ({
 
     useEffect(() => {
         reset({
-            companyId: employeeData.companyId, /* erro type */
+            companyId: employeeData.companyId ?? null, /* erro variavel tipo string | undefinded porém o que está declarado é string | null */
             name: employeeData.name,
             cpf: employeeData.cpf,
             nis: employeeData.nis,
             rg: employeeData.rg,
             br_pdh: employeeData.br_pdh,
             sex: employeeData.sex,
-            dt_birth: employeeData.dt_birth, /* Aqui é um number ou uma string? */
+            dt_birth: employeeData.dt_birth,
             phone: employeeData.phone,
             phone_number: employeeData.phone_number,
             blood_type: employeeData.blood_type,
@@ -126,7 +126,7 @@ export const EditEmployeeModal = ({
             rg: "",
             br_pdh: "",
             sex: "",
-            dt_birth: 0, /* Aqui é um number ou uma string? */
+            dt_birth: new Date(), /* Aqui é um number ou uma string? */
             phone: "",
             phone_number: "",
             blood_type: "",
