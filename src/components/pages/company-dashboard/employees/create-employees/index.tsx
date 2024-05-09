@@ -27,7 +27,7 @@ const CreateEmployees = () => {
             rg: "",
             br_pdh: "",
             sex: "",
-            dt_birth: 0, /* Aqui é um number ou uma string? */
+            dt_birth: "",
             phone: "",
             phone_number: "",
             blood_type: "",
@@ -63,10 +63,10 @@ const CreateEmployees = () => {
                         <TextField
                         className="form-input-create-unit"
                         id={errors.name ? "filled-error" : "standard-basic"}
-                        label="Identificação"
+                        label="Nome"
                         type="text"
                         variant="standard"
-                        placeholder="Identificação"
+                        placeholder="Nome"
                         error={!!errors.name}
                         helperText={errors.name?.message}
                         {...field}
@@ -83,10 +83,10 @@ const CreateEmployees = () => {
                         <TextField
                         className="form-input-create-unit"
                         id={errors.cpf ? "filled-error" : "standard-basic"}
-                        label="Identificação"
+                        label="CPF"
                         type="text"
                         variant="standard"
-                        placeholder="Identificação"
+                        placeholder="CPF"
                         error={!!errors.cpf}
                         helperText={errors.cpf?.message}
                         {...field}
@@ -103,10 +103,10 @@ const CreateEmployees = () => {
                         <TextField
                         className="form-input-create-unit"
                         id={errors.nis ? "filled-error" : "standard-basic"}
-                        label="Identificação"
+                        label="NIS"
                         type="text"
                         variant="standard"
-                        placeholder="Identificação"
+                        placeholder="NIS"
                         error={!!errors.nis}
                         helperText={errors.nis?.message}
                         {...field}
@@ -123,10 +123,10 @@ const CreateEmployees = () => {
                         <TextField
                         className="form-input-create-unit"
                         id={errors.rg ? "filled-error" : "standard-basic"}
-                        label="Identificação"
+                        label="RG"
                         type="text"
                         variant="standard"
-                        placeholder="Identificação"
+                        placeholder="RG"
                         error={!!errors.rg}
                         helperText={errors.rg?.message}
                         {...field}
@@ -143,10 +143,10 @@ const CreateEmployees = () => {
                         <TextField
                         className="form-input-create-unit"
                         id={errors.br_pdh ? "filled-error" : "standard-basic"}
-                        label="Identificação"
+                        label="BR PDH"
                         type="text"
                         variant="standard"
-                        placeholder="Identificação"
+                        placeholder="BR PDH"
                         error={!!errors.br_pdh}
                         helperText={errors.br_pdh?.message}
                         {...field}
@@ -163,10 +163,10 @@ const CreateEmployees = () => {
                         <TextField
                         className="form-input-create-unit"
                         id={errors.sex ? "filled-error" : "standard-basic"}
-                        label="Identificação"
+                        label="Sexo"
                         type="text"
                         variant="standard"
-                        placeholder="Identificação"
+                        placeholder="Sexo"
                         error={!!errors.sex}
                         helperText={errors.sex?.message}
                         {...field}
@@ -183,10 +183,10 @@ const CreateEmployees = () => {
                         <TextField
                         className="form-input-create-unit"
                         id={errors.dt_birth ? "filled-error" : "standard-basic"}
-                        label="Identificação"
+                        label="Data de aniversário"
                         type="text"
                         variant="standard"
-                        placeholder="Identificação"
+                        placeholder="Data de aniversário"
                         error={!!errors.dt_birth}
                         helperText={errors.dt_birth?.message}
                         {...field}
@@ -203,10 +203,10 @@ const CreateEmployees = () => {
                         <TextField
                         className="form-input-create-unit"
                         id={errors.phone ? "filled-error" : "standard-basic"}
-                        label="Identificação"
+                        label="Telefone"
                         type="text"
                         variant="standard"
-                        placeholder="Identificação"
+                        placeholder="Telefone"
                         error={!!errors.phone}
                         helperText={errors.phone?.message}
                         {...field}
@@ -223,10 +223,10 @@ const CreateEmployees = () => {
                         <TextField
                         className="form-input-create-unit"
                         id={errors.phone_number ? "filled-error" : "standard-basic"}
-                        label="Identificação"
+                        label="Celular"
                         type="text"
                         variant="standard"
-                        placeholder="Identificação"
+                        placeholder="Celular"
                         error={!!errors.phone_number}
                         helperText={errors.phone_number?.message}
                         {...field}
@@ -243,10 +243,10 @@ const CreateEmployees = () => {
                         <TextField
                         className="form-input-create-unit"
                         id={errors.blood_type ? "filled-error" : "standard-basic"}
-                        label="Identificação"
+                        label="Tipo sanguíneo"
                         type="text"
                         variant="standard"
-                        placeholder="Identificação"
+                        placeholder="Tipo sanguíneo"
                         error={!!errors.blood_type}
                         helperText={errors.blood_type?.message}
                         {...field}

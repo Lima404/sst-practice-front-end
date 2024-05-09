@@ -8,7 +8,7 @@ export interface CreateEmployeesRequest {
     rg: string,
     br_pdh: string,
     sex: string,
-    dt_birth: Date,
+    dt_birth: string,
     phone: string,
     phone_number: string,
     blood_type: string,
@@ -29,14 +29,14 @@ export const createEmployeesSchema = z.object({
 });
 
 export interface EditEmployeesRequest {
-    companyId: string | null;
+    companyId: string;
     name: string,
     cpf: string,
     nis: string,
     rg: string,
     br_pdh: string,
     sex: string,
-    dt_birth: Date, /* Aqui é um number ou uma string? */
+    dt_birth: Date,
     phone: string,
     phone_number: string,
     blood_type: string,

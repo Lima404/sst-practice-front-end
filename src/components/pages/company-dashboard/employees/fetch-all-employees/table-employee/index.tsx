@@ -92,19 +92,17 @@ export default function EmployeeTable() {
 
                 <TableCell align="left">br_pdh</TableCell>
 
-                <TableCell align="left">Gênero</TableCell>
+                <TableCell align="left">Sexo</TableCell>
                 <TableCell align="left">Data de aniversario</TableCell>
                 <TableCell align="left">Telefone</TableCell>
                 <TableCell align="left">Celular</TableCell>
                 <TableCell align="left">Tipo Sanguineo</TableCell>
+                <TableCell align="left">Ações</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {employees?.map((row) => (
                 <TableRow key={row.id}>
-                  <TableCell component="th" scope="row">
-                    {row.cpf}
-                  </TableCell>
                   <TableCell align="left">{row.name}</TableCell>
                   <TableCell align="left">{row.cpf}</TableCell>
                   <TableCell align="left">{row.nis}</TableCell>

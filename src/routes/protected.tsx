@@ -11,7 +11,7 @@ import CompanyDashboard from "../components/pages/company-dashboard";
 import ProfessionalDashboard from "../components/pages/professional-dashboard";
 import CreateUnit from "../components/pages/company-dashboard/units/create-unit";
 import Units from "../components/pages/company-dashboard/units/fetch-all-units";
-import CreateEmployees from "../components/pages/company-dashboard/employees/create-emplyees";
+import CreateEmployees from "../components/pages/company-dashboard/employees/create-employees";
 import Employees from "../components/pages/company-dashboard/employees/fetch-all-employees";
 
 const App = () => {
@@ -69,11 +69,11 @@ export const protectedRoutes = [
       },
       {
         path: "employees/create",
-        element: <CreateEmployees />, // Corrigir rota
+        element: <CreateEmployees />,
       },
       {
         path: "employees",
-        element: <Employees />, // Corrigir rota
+        element: <Employees />,
       },
       {
         path: "professional",

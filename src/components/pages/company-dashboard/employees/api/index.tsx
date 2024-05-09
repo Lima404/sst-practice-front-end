@@ -12,7 +12,7 @@ export const fetchEmployeesData = async (companyId: string) => {
 }
 
 export const editEmployees = async (id: string, employeesBody: EditEmployeesRequest) => {
-  const response = await api.put(`/employee/update/${id}`, employeesBody);
+  const response = await api.put(`/employees/update/${id}`, employeesBody);
   return response.data;
 };
 
