@@ -64,7 +64,7 @@ export const EditEmployeeModal = ({
 
     useEffect(() => {
         reset({
-            companyId: employeeData.companyId,
+            companyId: employeeData.companyId, /* erro type */
             name: employeeData.name,
             cpf: employeeData.cpf,
             nis: employeeData.nis,
