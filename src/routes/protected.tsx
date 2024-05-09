@@ -67,11 +67,11 @@ export const protectedRoutes = [
       },
       {
         path: "employees/create",
-        element: <CreateEmployee />,
+        element: <CreateEmployees />, // Corrigir rota
       },
       {
         path: "employees",
-        element: <Employees />,
+        element: <Employees />, // Corrigir rota
       },
       {
         path: "professional",
