@@ -1,4 +1,4 @@
-import ProfessionalSideBar from "../../company-components/sidebar";
+import ProfessionalSideBar from "../../professional-components/sidebar";
 
 function ProfessionalDashboard() {
   return (
@@ -6,7 +6,7 @@ function ProfessionalDashboard() {
       <ProfessionalSideBar />
 
       <div className='admin-dashboard-content'>
-        hello professional
+        professional dashboard
       </div>
     </div>
   )

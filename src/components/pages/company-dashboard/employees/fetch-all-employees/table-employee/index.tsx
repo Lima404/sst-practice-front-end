@@ -25,7 +25,7 @@ export interface EmployeesProps {
   rg: string,
   br_pdh: string,
   sex: string,
-  dt_birth: number,
+  dt_birth: string,
   phone: string,
   phone_number: string,
   blood_type: string,
