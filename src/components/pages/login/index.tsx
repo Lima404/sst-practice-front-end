@@ -112,9 +112,10 @@ const Login = () => {
                 <a className="forget--pass" href="#">
                   Esqueci minha senha
                 </a>
-                {isLoading ? (
-                  <Loader />
-                ) : <button type="submit" className="but-enter">Entrar</button>}
+                <button type="submit" className="but-enter" disabled={isLoading}>
+                  {isLoading ? <Loader /> : "Entrar"}
+                </button>
+
               </div>
             </form>
             <div className="Back">
