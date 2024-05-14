@@ -38,9 +38,6 @@ const CreateAdmin = () => {
 
   return (
     <div className="main-create-admin-admin-dashboard">
-      <AdminSideBar />
-      <HamburgerMenu />
-
       <div className="create-admin-admin-dashboard-content">
         <h2 className="create-admin-page-title">Cadastrar Administrador</h2>
         <div className="create-admin-form">

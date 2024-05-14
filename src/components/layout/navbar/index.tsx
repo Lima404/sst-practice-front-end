@@ -5,6 +5,14 @@ import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const navigate = useNavigate();
+
+  const handleScrollTo = (session: string) => {
+    const servicosSection = document.getElementById(session);
+    if (servicosSection) {
+      servicosSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="header">
       <nav className="menu-hamburger">
@@ -26,19 +34,19 @@ function Navbar() {
 
           <div className="div-items-center">
             <li className="items-menu-center">
-              <a>Serviços</a>
+              <a onClick={() => handleScrollTo("servicos")}>Serviços</a>
             </li>
 
             <li className="items-menu-center">
-              <a>Sistema</a>
+              <a onClick={() => handleScrollTo("sistema")}>Sistema</a>
             </li>
 
             <li className="items-menu-center">
-              <a>Motivações</a>
+              <a onClick={() => handleScrollTo("motivacoes")}>Motivações</a>
             </li>
 
             <li className="items-menu-center">
-              <a>Contatos</a>
+              <a onClick={() => handleScrollTo("contatos")}>Contatos</a>
             </li>
           </div>
 
@@ -48,11 +56,12 @@ function Navbar() {
             </a>
           </li>
 
-          <li className="items-menu-right">
-            <a className="orc-but" href="/orcamento">
-              Faça um orçamento! <FaArrowRight />
-            </a>
-          </li>
+          <div className="items-menu-right">
+            <div className="orc-but">
+              <p>Faça um orçamento!</p>
+              <FaArrowRight />
+            </div>
+          </div>
         </ul>
       </nav>
     </div>

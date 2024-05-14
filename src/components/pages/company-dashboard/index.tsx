@@ -1,9 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
-import Card from '../../company-components/cards';
-import CompanySideBar from '../../company-components/sidebar';
-import './index.css';
-import { AuthContext } from '../../../data/contexts/AuthContext';
-import { fetchCardsData } from './api';
+import { useContext, useEffect, useState } from "react";
+import Card from "../../company-components/cards";
+import CompanySideBar from "../../company-components/sidebar";
+import "./index.css";
+import { AuthContext } from "../../../data/contexts/AuthContext";
+import { fetchCardsData } from "./api";
 
 interface CardData {
   professional: string;
@@ -17,13 +17,13 @@ function CompanyDashboard() {
   const { userTypeId } = useContext(AuthContext);
 
   useEffect(() => {
-    const companyId = userTypeId ?? '';
+    const companyId = userTypeId ?? "";
     fetchCardsData(companyId)
       .then((response) => {
         const data = response.cards.map((card: any) => ({
           professional: card.professionalId, // Assuming professionalId contains the professional name
           company: card.companyId, // Assuming companyId contains the company name
-          employee: card.employeeId // Assuming employeeId contains the employee name
+          employee: card.employeeId, // Assuming employeeId contains the employee name
         }));
         setCardsData(data);
         setIsLoading(false);
@@ -34,15 +34,13 @@ function CompanyDashboard() {
       });
   }, []);
 
-
   return (
     <div className="main-admin-dashboard">
-      <CompanySideBar />
       <div className="admin-dashboard-content">
         {isLoading ? (
           <p>Carregando...</p>
         ) : cardsData === null || cardsData.length === 0 ? (
-          <h2 className='no-cards-found'>Nenhum card encontrado</h2>
+          <h2 className="no-cards-found">Nenhum card encontrado</h2>
         ) : (
           cardsData.map((card, index) => (
             <Card
