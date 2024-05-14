@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import AdminDashboard from "../components/pages/admin-dashboard";
 import Companies from "../components/pages/admin-dashboard/companies/fetch-all-companies";
@@ -13,12 +12,20 @@ import CreateUnit from "../components/pages/company-dashboard/units/create-unit"
 import Units from "../components/pages/company-dashboard/units/fetch-all-units";
 import CreateEmployees from "../components/pages/company-dashboard/employees/create-employees";
 import Employees from "../components/pages/company-dashboard/employees/fetch-all-employees";
+import { Dashboard } from "../components/pages/dashboard";
+import HamburgerMenu from "../components/admin-dashboard/hamburger-menu";
+import SideBar from "../components/admin-dashboard/sidebar";
 
 const App = () => {
   return (
-    <Suspense fallback={<h1>loading...</h1>}>
-      <Outlet />
-    </Suspense>
+    <div className="main-admin-dashboard">
+      <SideBar />
+      <HamburgerMenu />
+
+      <div className="admin-dashboard-content">
+        <Outlet />
+      </div>
+    </div>
   );
 };
 
@@ -27,6 +34,10 @@ export const protectedRoutes = [
     path: "/*",
     element: <App />,
     children: [
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
       {
         path: "admin",
         element: <AdminDashboard />,

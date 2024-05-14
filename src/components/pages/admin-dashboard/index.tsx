@@ -1,21 +1,8 @@
-import Cards from '../../admin-dashboard/cards'
-import HamburgerMenu from '../../admin-dashboard/hamburger-menu'
-import AdminSideBar from '../../admin-dashboard/sidebar'
-import './index.css'
+import Cards from "../../admin-dashboard/cards";
+import "./index.css";
 
 function AdminDashboard() {
-  return (
-    <div className='main-admin-dashboard'>
-      
-      <AdminSideBar />
-      
-      <HamburgerMenu />
-      
-      <div className='admin-dashboard-content'>
-        <Cards />
-      </div>
-    </div>
-  )
+  return <Cards />;
 }
 
-export default AdminDashboard
+export default AdminDashboard;

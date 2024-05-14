@@ -5,7 +5,7 @@ import FormMen from "../FormMen";
 
 const Contact = () => {
   return (
-    <div className="contact">
+    <div className="contact" id="contatos">
       <div className="contacts">
         <div className="talk">
           <h3 className="tit-contact">Fale Conosco</h3>

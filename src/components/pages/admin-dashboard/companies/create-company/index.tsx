@@ -1,13 +1,15 @@
-import HamburgerMenu from "../../../../admin-dashboard/hamburger-menu"
-import AdminSideBar from "../../../../admin-dashboard/sidebar"
-import TextField from '@mui/material/TextField'
-import "./index.css"
-import { useNavigate } from "react-router-dom"
-import { Controller, SubmitHandler, useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { CreateCompanyRequest, createCompanySchema } from "../types"
-import { toast } from "react-toastify"
-import { createCompany } from "../api"
+import TextField from "@mui/material/TextField";
+import "./index.css";
+import { useNavigate } from "react-router-dom";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CreateCompanyRequest, createCompanySchema } from "../types";
+import { toast } from "react-toastify";
+import { createCompany } from "../api";
+import { applyCnpjMask } from "../../../../utils/applyCnpjMask";
+import { applyCepMask } from "../../../../utils/applyCepMask";
+import { applyPhoneMask } from "../../../../utils/applyPhoneMask";
+import { applyDateMask } from "../../../../utils/applyDateMask";
 
 const CreateCompany = () => {
   const navigate = useNavigate();
@@ -28,7 +30,6 @@ const CreateCompany = () => {
       neighborhood: "",
       phone: "",
       dt_start_esocial: "",
-
     },
     resolver: zodResolver(createCompanySchema),
   });
@@ -46,13 +47,9 @@ const CreateCompany = () => {
   };
   return (
     <div className="main-create-company-admin-dashboard">
-
-      <AdminSideBar />
-      <HamburgerMenu />
-
-      <div className='create-company-admin-dashboard-content'>
+      <div className="create-company-admin-dashboard-content">
         <h2 className="create-company-page-title">Cadastrar Empresa</h2>
-        <div className='create-company-form'>
+        <div className="create-company-form">
           <form onSubmit={handleSubmit(onSubmit)}>
             <Controller
               name="email"
@@ -109,10 +106,13 @@ const CreateCompany = () => {
                     error={!!errors.cnpj}
                     helperText={errors.cnpj?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyCnpjMask(e.target.value))}
                   />
                 </div>
               )}
             />
+
+
 
             <Controller
               name="corporate_reason"
@@ -121,7 +121,11 @@ const CreateCompany = () => {
                 <div className="ctn-form-input-create-company">
                   <TextField
                     className="form-input-create-company"
-                    id={errors.corporate_reason ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.corporate_reason
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
                     label="Razão Social"
                     type="text"
                     variant="standard"
@@ -161,7 +165,9 @@ const CreateCompany = () => {
                 <div className="ctn-form-input-create-company">
                   <TextField
                     className="form-input-create-company"
-                    id={errors.identification ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.identification ? "filled-error" : "standard-basic"
+                    }
                     label="Identificação"
                     type="text"
                     variant="standard"
@@ -189,6 +195,7 @@ const CreateCompany = () => {
                     error={!!errors.cep}
                     helperText={errors.cep?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyCepMask(e.target.value))}
                   />
                 </div>
               )}
@@ -249,6 +256,7 @@ const CreateCompany = () => {
                     error={!!errors.phone}
                     helperText={errors.phone?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyPhoneMask(e.target.value))}
                   />
                 </div>
               )}
@@ -261,27 +269,36 @@ const CreateCompany = () => {
                 <div className="ctn-form-input-create-company">
                   <TextField
                     className="form-input-create-company"
-                    id={errors.dt_start_esocial ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.dt_start_esocial
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
                     label="Data de início no e-social"
                     type="text"
                     variant="standard"
-                    placeholder="Data de início no e-social"
+                    placeholder="DD-MM-AAAA"
                     error={!!errors.dt_start_esocial}
                     helperText={errors.dt_start_esocial?.message}
                     {...field}
+                    onChange={(e) => {
+                      const formattedDate = applyDateMask(e.target.value);
+                      field.onChange(formattedDate);
+                    }}
                   />
                 </div>
               )}
             />
             <div className="create-company-btn-submit">
-              <button className="create-company-btn-submit" type="submit">Cadastrar</button>
+              <button className="create-company-btn-submit" type="submit">
+                Cadastrar
+              </button>
             </div>
           </form>
         </div>
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default CreateCompany
+export default CreateCompany;

@@ -1,7 +1,7 @@
 import { api } from "../../../../../data/services/api";
 import { CreateProfessionalRequest, EditProfessionalRequest } from "../types";
 
-export const createCompany = async (professionalBody: CreateProfessionalRequest) => {
+export const createProfessional = async (professionalBody: CreateProfessionalRequest) => {
   const response = await api.post("/professionals", professionalBody);
   return response.data;
 };

@@ -14,7 +14,7 @@ import { RiAdminFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../data/contexts/AuthContext";
 
-const AdminSideBar = () => {
+const SideBar = () => {
   const [showCompanies, setShowCompanies] = useState(false);
   const [showProfessionals, setShowProfessionals] = useState(false);
   const [showAdmins, setShowAdmins] = useState(false);
@@ -195,4 +195,4 @@ const AdminSideBar = () => {
   );
 };
 
-export default AdminSideBar;
+export default SideBar;

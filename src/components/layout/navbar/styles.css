@@ -5,6 +5,12 @@
   flex-direction: column;
   color: whitesmoke;
   background-color: #fff;
+  width: 100%;
+  position: fixed;
+}
+
+a {
+  cursor: pointer;
 }
 
 .menu-hamburger {
@@ -50,8 +56,20 @@
 .orc-but {
   background-color: var(--azul-piscina);
   color: var(--cinza-claro) !important;
-  padding: 0.8em;
   border-radius: 8px;
+  border: 1px solid var(--azul-piscina);
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 0.8em;
+  cursor: pointer;
+
+  p {
+    font-size: 16px;
+    margin: 0;
+    color: #fff !important;
+  }
 }
 
 .menu-hamburguer-elements li {
@@ -66,9 +84,13 @@
 }
 
 .orc-but:hover {
-  background-color: var(--cinza-claro);
+  background-color: #fff;
   border: 1px solid var(--azul-piscina);
   color: var(--azul-piscina) !important;
+
+  p {
+    color: var(--azul-piscina) !important;
+  }
 }
 
 .menu-hamburguer-elements a {

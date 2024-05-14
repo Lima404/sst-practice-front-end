@@ -1,6 +1,4 @@
 import { TextField } from "@mui/material";
-import HamburgerMenu from "../../../../admin-dashboard/hamburger-menu";
-import AdminSideBar from "../../../../admin-dashboard/sidebar";
 import "./index.css";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,9 +36,6 @@ const CreateAdmin = () => {
 
   return (
     <div className="main-create-admin-admin-dashboard">
-      <AdminSideBar />
-      <HamburgerMenu />
-
       <div className="create-admin-admin-dashboard-content">
         <h2 className="create-admin-page-title">Cadastrar Administrador</h2>
         <div className="create-admin-form">
