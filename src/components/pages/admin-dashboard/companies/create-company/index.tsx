@@ -1,5 +1,3 @@
-import HamburgerMenu from "../../../../admin-dashboard/hamburger-menu";
-import AdminSideBar from "../../../../admin-dashboard/sidebar";
 import TextField from "@mui/material/TextField";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +6,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateCompanyRequest, createCompanySchema } from "../types";
 import { toast } from "react-toastify";
 import { createCompany } from "../api";
+import { applyCnpjMask } from "../../../../utils/applyCnpjMask";
+import { applyCepMask } from "../../../../utils/applyCepMask";
+import { applyPhoneMask } from "../../../../utils/applyPhoneMask";
+import { applyDateMask } from "../../../../utils/applyDateMask";
 
 const CreateCompany = () => {
   const navigate = useNavigate();
@@ -104,10 +106,13 @@ const CreateCompany = () => {
                     error={!!errors.cnpj}
                     helperText={errors.cnpj?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyCnpjMask(e.target.value))}
                   />
                 </div>
               )}
             />
+
+
 
             <Controller
               name="corporate_reason"
@@ -190,6 +195,7 @@ const CreateCompany = () => {
                     error={!!errors.cep}
                     helperText={errors.cep?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyCepMask(e.target.value))}
                   />
                 </div>
               )}
@@ -250,6 +256,7 @@ const CreateCompany = () => {
                     error={!!errors.phone}
                     helperText={errors.phone?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyPhoneMask(e.target.value))}
                   />
                 </div>
               )}
@@ -270,10 +277,14 @@ const CreateCompany = () => {
                     label="Data de início no e-social"
                     type="text"
                     variant="standard"
-                    placeholder="Data de início no e-social"
+                    placeholder="DD-MM-AAAA"
                     error={!!errors.dt_start_esocial}
                     helperText={errors.dt_start_esocial?.message}
                     {...field}
+                    onChange={(e) => {
+                      const formattedDate = applyDateMask(e.target.value);
+                      field.onChange(formattedDate);
+                    }}
                   />
                 </div>
               )}
