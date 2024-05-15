@@ -1,11 +1,11 @@
 import "./index.css";
-import LogoSidebar from "../../../assets/sidebar/sstLogoSidebar.svg";
 import { useContext, useState } from "react";
 
 import {
   IoIosArrowDown,
   IoIosArrowForward,
   IoIosSettings,
+  IoMdDocument,
 } from "react-icons/io";
 import { GoSignOut } from "react-icons/go";
 import { FaRegBuilding } from "react-icons/fa";
@@ -16,6 +16,7 @@ import { AuthContext } from "../../../data/contexts/AuthContext";
 const ProfessionalSideBar = () => {
   const [showCompanies, setShowCompanies] = useState(false);
   const [showProfessionals, setShowProfessionals] = useState(false);
+  const [showDocuments, setShowDocuments] = useState(false);
   const { signOut } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -25,6 +26,10 @@ const ProfessionalSideBar = () => {
 
   const toggleProfessionals = () => {
     setShowProfessionals(!showProfessionals);
+  };
+
+  const toggleDocuments = () => {
+    setShowDocuments(!showDocuments);
   };
 
   const handleSignOut = () => {
@@ -106,6 +111,47 @@ const ProfessionalSideBar = () => {
           </div>
         )}
       </div>
+
+      <div className="document-select">
+            <button className="button-select" onClick={toggleDocuments}>
+              <div className="button-select-intern">
+                <div className="left-button-position">
+                  <IoMdDocument /> Documentos
+                </div>
+                <div className="right-button-position">
+                  <IoIosArrowDown />
+                </div>
+              </div>
+            </button>
+            {showDocuments && (
+              <div className="document-options">
+                <a onClick={() => navigate("/admins/create")}>
+                  <button className="button-select">
+                    <div className="button-select-intern-option">
+                      <div className="left-button-position">
+                        Cadastrar documentos
+                      </div>
+                      <div className="right-button-position">
+                        <IoIosArrowForward />
+                      </div>
+                    </div>
+                  </button>
+                </a>
+                <a onClick={() => navigate("/admins")}>
+                  <button className="button-select">
+                    <div className="button-select-intern-option">
+                      <div className="left-button-position">
+                        Visualizar documentos
+                      </div>
+                      <div className="right-button-position">
+                        <IoIosArrowForward />
+                      </div>
+                    </div>
+                  </button>
+                </a>
+              </div>
+            )}
+          </div>
 
       <div className="profile-options">
         <div className="document-select">
