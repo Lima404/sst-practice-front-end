@@ -22,7 +22,7 @@ type AuthContextData = {
   isAuthenticated: boolean;
   signOut: () => void;
   userTypeId: string | null;
-  userType: User | null;
+  userType: string | null;
 };
 
 type AuthProviderProps = {
@@ -33,7 +33,7 @@ export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
-  const [userType, setUserType] = useState<User | null>(null);
+  const [userType, setUserType] = useState<string | null>(null);
   const [userTypeId, setUserTypeId] = useState<string | null>(null);
   const navigate = useNavigate();
   const isAuthenticated = !!user;

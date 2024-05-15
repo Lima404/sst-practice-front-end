@@ -1,13 +1,24 @@
 import { useContext } from "react";
 import Cards from "../../admin-dashboard/cards";
-import HamburgerMenu from "../../admin-dashboard/hamburger-menu";
-import AdminSideBar from "../../admin-dashboard/sidebar";
 import { AuthContext } from "../../../data/contexts/AuthContext";
+import CompanyDashboard from "../company-dashboard";
+import ProfessionalDashboard from "../professional-dashboard";
 
 export const Dashboard = () => {
   const { userType } = useContext(AuthContext);
 
-  console.log(userType);
+  const switchDashboardContent = () => {
+    switch (userType) {
+      case "admin":
+        return <Cards />;
+      case "company":
+        return <CompanyDashboard />;
+      case "professional":
+        return <ProfessionalDashboard />;
+      default:
+        return <Cards />;
+    }
+  };
 
-  return <Cards />;
+  return switchDashboardContent();
 };

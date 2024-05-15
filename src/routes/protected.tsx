@@ -14,7 +14,7 @@ import CreateEmployees from "../components/pages/company-dashboard/employees/cre
 import Employees from "../components/pages/company-dashboard/employees/fetch-all-employees";
 import { Dashboard } from "../components/pages/dashboard";
 import HamburgerMenu from "../components/admin-dashboard/hamburger-menu";
-import SideBar from "../components/admin-dashboard/sidebar";
+import SideBar from "../components/sidebar";
 
 const App = () => {
   return (
