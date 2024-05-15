@@ -12,7 +12,7 @@ export default function Loader() {
         width: "100%",
       }}
     >
-      <CircularProgress size={15}/>
+      <CircularProgress size={15} style={{ color: "white" }}/>
     </Box>
   );
 }

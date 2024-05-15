@@ -61,7 +61,7 @@ export default function ProfessionalsTable() {
   }
 
   return (
-    <div className='container-companies-table'>
+    <div className='container-professionals-table'>
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>

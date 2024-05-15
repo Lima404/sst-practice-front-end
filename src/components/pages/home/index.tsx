@@ -5,7 +5,7 @@ import OurServices from "../../home/ourServices";
 import Soluctions from "../../home/soluctions";
 import Flyer from "../../home/flyer";
 import Footer from "../../layout/Footer";
-import Contact from "../../home/Contact";
+import Contact from "../../home/contact";
 
 function Home() {
   return (
