@@ -125,7 +125,7 @@ const ProfessionalSideBar = () => {
             </button>
             {showDocuments && (
               <div className="document-options">
-                <a onClick={() => navigate("/admins/create")}>
+                <a onClick={() => navigate("/documents/upload/")}>
                   <button className="button-select">
                     <div className="button-select-intern-option">
                       <div className="left-button-position">
