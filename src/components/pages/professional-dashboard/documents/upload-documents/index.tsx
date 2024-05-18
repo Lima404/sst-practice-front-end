@@ -6,11 +6,8 @@ import {
   CreateUploadDocumentRequest,
   createUploadDocumentRequestSchema,
 } from "../types/index";
-import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 
 const UploadDocuments = () => {
-  // const navigate = useNavigate();
   const {
     control,
     handleSubmit,
