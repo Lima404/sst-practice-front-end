@@ -8,25 +8,13 @@ import {
   IoMdDocument,
 } from "react-icons/io";
 import { GoSignOut } from "react-icons/go";
-import { FaRegBuilding } from "react-icons/fa";
-import { FaUserDoctor } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../data/contexts/AuthContext";
 
 const ProfessionalSideBar = () => {
-  const [showCompanies, setShowCompanies] = useState(false);
-  const [showProfessionals, setShowProfessionals] = useState(false);
   const [showDocuments, setShowDocuments] = useState(false);
   const { signOut } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  const toggleCompanies = () => {
-    setShowCompanies(!showCompanies);
-  };
-
-  const toggleProfessionals = () => {
-    setShowProfessionals(!showProfessionals);
-  };
 
   const toggleDocuments = () => {
     setShowDocuments(!showDocuments);
@@ -38,80 +26,6 @@ const ProfessionalSideBar = () => {
 
   return (
     <div className="sidebar-buttons">
-      <div className="document-select">
-        <button className="button-select" onClick={toggleCompanies}>
-          <div className="button-select-intern">
-            <div className="left-button-position">
-              <FaRegBuilding /> Exames
-            </div>
-            <div className="right-button-position">
-              <IoIosArrowDown />
-            </div>
-          </div>
-        </button>
-        {showCompanies && (
-          <div className="document-options">
-            <a onClick={() => navigate("/employees/create")}>
-              <button className="button-select">
-                <div className="button-select-intern-option">
-                  <div className="left-button-position">Cadastrar exame</div>
-                  <div className="right-button-position">
-                    <IoIosArrowForward />
-                  </div>
-                </div>
-              </button>
-            </a>
-            <a onClick={() => navigate("/employees")}>
-              <button className="button-select">
-                <div className="button-select-intern-option">
-                  <div className="left-button-position">Visualizar exames</div>
-                  <div className="right-button-position">
-                    <IoIosArrowForward />
-                  </div>
-                </div>
-              </button>
-            </a>
-          </div>
-        )}
-      </div>
-
-      <div className="document-select">
-        <button className="button-select" onClick={toggleProfessionals}>
-          <div className="button-select-intern">
-            <div className="left-button-position">
-              <FaUserDoctor /> ASO
-            </div>
-            <div className="right-button-position">
-              <IoIosArrowDown />
-            </div>
-          </div>
-        </button>
-        {showProfessionals && (
-          <div className="document-options">
-            <a onClick={() => navigate("/units/create")}>
-              <button className="button-select">
-                <div className="button-select-intern-option">
-                  <div className="left-button-position">Cadastrar ASO</div>
-                  <div className="right-button-position">
-                    <IoIosArrowForward />
-                  </div>
-                </div>
-              </button>
-            </a>
-            <a onClick={() => navigate("/asos")}>
-              <button className="button-select">
-                <div className="button-select-intern-option">
-                  <div className="left-button-position">Visualizar ASO</div>
-                  <div className="right-button-position">
-                    <IoIosArrowForward />
-                  </div>
-                </div>
-              </button>
-            </a>
-          </div>
-        )}
-      </div>
-
       <div className="document-select">
             <button className="button-select" onClick={toggleDocuments}>
               <div className="button-select-intern">
@@ -129,7 +43,7 @@ const ProfessionalSideBar = () => {
                   <button className="button-select">
                     <div className="button-select-intern-option">
                       <div className="left-button-position">
-                        Cadastrar documentos
+                        Enviar documento
                       </div>
                       <div className="right-button-position">
                         <IoIosArrowForward />
@@ -137,11 +51,11 @@ const ProfessionalSideBar = () => {
                     </div>
                   </button>
                 </a>
-                <a onClick={() => navigate("/admins")}>
+                <a onClick={() => navigate("/documents/create")}>
                   <button className="button-select">
                     <div className="button-select-intern-option">
                       <div className="left-button-position">
-                        Visualizar documentos
+                        Cadastrar documentos
                       </div>
                       <div className="right-button-position">
                         <IoIosArrowForward />

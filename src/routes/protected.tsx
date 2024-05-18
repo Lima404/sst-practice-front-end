@@ -16,6 +16,7 @@ import { Dashboard } from "../components/pages/dashboard";
 import HamburgerMenu from "../components/admin-dashboard/hamburger-menu";
 import SideBar from "../components/sidebar";
 import UploadDocuments from "../components/pages/professional-dashboard/documents/upload-documents";
+import { CreateDocuments } from "../components/pages/professional-dashboard/documents/create-documents";
 
 const App = () => {
   return (
@@ -95,10 +96,10 @@ export const protectedRoutes = [
         path: "documents/upload",
         element: <UploadDocuments />,
       },
-      // {
-      //   path: "documents/create",
-      //   element: < />,
-      // },
+      {
+         path: "documents/create",
+         element: <CreateDocuments/>,
+       },
       {
         path: "*",
         element: <Navigate to="." />,

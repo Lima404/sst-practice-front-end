@@ -20,17 +20,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        {/* <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/companies" element={<Companies />} />
-        <Route path="/companies/create" element={<CreateCompany />} />
-        <Route path="/professionals" element={<Professionals />} />
-        <Route path="/professionals/create" element={<CreateProfessional />} />
-        <Route path="/admins" element={<Admins />} />
-        <Route path="/admins/create" element={<CreateAdmin />} />
-      </Routes> */}
         <ToastContainer />
         <AppRoutes />
       </AuthProvider>
