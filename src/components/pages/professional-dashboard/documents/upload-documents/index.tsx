@@ -10,6 +10,7 @@ import { useContext, useEffect, useState } from "react";
 import { fetchCompanyData, fetchEmployeeData, uploadDocument } from "./api";
 import { AuthContext } from "../../../../../data/contexts/AuthContext";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const UploadDocuments = () => {
   const { userTypeId } = useContext(AuthContext);
@@ -21,6 +22,7 @@ const UploadDocuments = () => {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
       name: "",
@@ -59,6 +61,11 @@ const UploadDocuments = () => {
           'Content-Type': 'application/pdf'
         }
       })
+
+    reset();
+    setFiles(null);
+    toast.success("Documento cadastrado com sucesso");
+
     } catch (error) {
       console.error("Erro ao enviar documento:", error);
     }
