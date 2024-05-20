@@ -16,7 +16,7 @@ const UploadDocuments = () => {
   const { userTypeId } = useContext(AuthContext);
   const [companies, setCompanies] = useState([]);
   const [employees, setEmployees] = useState([]);
-  const [files, setFiles] = useState<FileList | null>(null)
+  const [files, setFiles] = useState<FileList | null>(null);
 
   const {
     control,
@@ -30,14 +30,14 @@ const UploadDocuments = () => {
       companyId: "",
       employeeId: "",
       professionalId: "",
-      fileUpload: undefined
+      fileUpload: undefined,
     },
     resolver: zodResolver(createUploadDocumentRequestSchema),
   });
 
   const onSubmit: SubmitHandler<CreateUploadDocumentRequest> = async (data) => {
     try {
-      const { name, companyId, employeeId, } = data;
+      const { name, companyId, employeeId } = data;
 
       if (!files || files.length === 0) {
         return;
@@ -56,29 +56,20 @@ const UploadDocuments = () => {
 
       const signedURL = uploadResponse.signedUrl;
 
-      axios.put(signedURL, file, {
+      await axios.put(signedURL, file, {
         headers: {
-          'Content-Type': 'application/pdf'
-        }
-      })
+          'Content-Type': 'application/pdf',
+        },
+      });
 
-    reset();
-    setFiles(null);
-    toast.success("Documento cadastrado com sucesso");
+      reset();
+      setFiles(null);
+      toast.success("Documento cadastrado com sucesso");
 
     } catch (error) {
       console.error("Erro ao enviar documento:", error);
     }
   };
-
-  const [fileName, setFileName] = useState('');
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setFileName(file.name);
-    }
-  };
-
 
   useEffect(() => {
     const fetchCompaniesData = async () => {
@@ -100,7 +91,6 @@ const UploadDocuments = () => {
       console.log("Erro ao buscar dados do colaborador", error);
     }
   };
-
 
   type Employee = {
     id: string;
@@ -143,7 +133,6 @@ const UploadDocuments = () => {
                 </div>
               )}
             />
-
 
             <Controller
               name="employeeId"
@@ -191,40 +180,33 @@ const UploadDocuments = () => {
             />
 
             <Controller
-                    name="fileUpload"
-                    control={control}
-                    render={({ field }) => (
-                      <div className="ctn-form-input-create-admin">
-                        <Box>
-                          <FormControl error={!!errors.fileUpload} fullWidth>
-                            <InputLabel shrink htmlFor="file-upload" style={{ marginTop: '20px'}}>
-                              Upload de Arquivo
-                            </InputLabel>
+              name="fileUpload"
+              control={control}
+              render={() => (
+                <div className="ctn-form-input-create-admin">
+                  <Box>
+                    <FormControl error={!!errors.fileUpload} fullWidth>
+                      <div className="file-upload-container">
+                        <div className="file-upload-wrapper">
+                          <label className="custom-file-upload">
+                            Escolher Arquivo
                             <input
                               id="file-upload"
                               type="file"
                               accept="application/pdf"
-                              onChange={(e) => {
-                                handleFileChange(e);
-                                field.onChange(e);
-                              }}
+                              onChange={(e) => setFiles(e.target.files)}
                               className="file-upload-input"
                             />
-                            <div className="upload-btn-submit">
-                              <button
-                                className="upload-btn-submit"
-                                onClick={() => document.getElementById('file-upload').click()}
-                              >
-                                Escolher Arquivo
-                              </button>
-                              {fileName && <p className="file-name">{fileName}</p>}
-                            </div>
-                            {errors.fileUpload && <p className="error-text">{errors.fileUpload.message}</p>}
-                          </FormControl>
-                        </Box>
+                          </label>
+                        </div>
+                        {files && files[0] && <p className="file-name">{files[0].name}</p>}
                       </div>
-                    )}
-                  />
+                      {errors.fileUpload && <p className="error-text">{errors.fileUpload.message}</p>}
+                    </FormControl>
+                  </Box>
+                </div>
+              )}
+            />
 
             <div className="create-admin-btn-submit">
               <button className="create-admin-btn-submit" type="submit">
