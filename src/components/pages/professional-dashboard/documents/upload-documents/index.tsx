@@ -71,6 +71,14 @@ const UploadDocuments = () => {
     }
   };
 
+  const [fileName, setFileName] = useState('');
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFileName(file.name);
+    }
+  };
+
 
   useEffect(() => {
     const fetchCompaniesData = async () => {
@@ -183,28 +191,40 @@ const UploadDocuments = () => {
             />
 
             <Controller
-              name="fileUpload"
-              control={control}
-              render={() => (
-                <div className="ctn-form-input-create-admin">
-                  <Box>
-                    <FormControl error={!!errors.fileUpload} fullWidth>
-                      <InputLabel shrink htmlFor="file-upload" style={{marginTop: '20px', left: '-6px'}}>
-                        Upload de Arquivo
-                      </InputLabel>
-                      <input
-                        id="file-upload"
-                        type="file"
-                        accept="application/pdf"
-                        onChange={(e) => setFiles(e.target.files)}
-                        style={{ display: 'block', marginTop: '30px' }}
-                      />
-                      {errors.fileUpload && <p className="error-text">{errors.fileUpload.message}</p>}
-                    </FormControl>
-                  </Box>
-                </div>
-              )}
-            />
+                    name="fileUpload"
+                    control={control}
+                    render={({ field }) => (
+                      <div className="ctn-form-input-create-admin">
+                        <Box>
+                          <FormControl error={!!errors.fileUpload} fullWidth>
+                            <InputLabel shrink htmlFor="file-upload" style={{ marginTop: '20px'}}>
+                              Upload de Arquivo
+                            </InputLabel>
+                            <input
+                              id="file-upload"
+                              type="file"
+                              accept="application/pdf"
+                              onChange={(e) => {
+                                handleFileChange(e);
+                                field.onChange(e);
+                              }}
+                              className="file-upload-input"
+                            />
+                            <div className="upload-btn-submit">
+                              <button
+                                className="upload-btn-submit"
+                                onClick={() => document.getElementById('file-upload').click()}
+                              >
+                                Escolher Arquivo
+                              </button>
+                              {fileName && <p className="file-name">{fileName}</p>}
+                            </div>
+                            {errors.fileUpload && <p className="error-text">{errors.fileUpload.message}</p>}
+                          </FormControl>
+                        </Box>
+                      </div>
+                    )}
+                  />
 
             <div className="create-admin-btn-submit">
               <button className="create-admin-btn-submit" type="submit">
