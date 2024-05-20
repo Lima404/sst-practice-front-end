@@ -11,7 +11,7 @@ export default function DocumentsTab() {
   };
 
   return (
-    <Box sx={{ maxWidth: { xs: 320, sm: 480 }, bgcolor: 'background.paper' }}>
+    <Box sx={{ maxWidth: { xs: 320, sm: 800 }, bgcolor: 'background.paper' }}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -19,13 +19,18 @@ export default function DocumentsTab() {
         scrollButtons="auto"
         aria-label="scrollable auto tabs example"
       >
-        <Tab label="Item One" />
-        <Tab label="Item Two" />
-        <Tab label="Item Three" />
-        <Tab label="Item Four" />
-        <Tab label="Item Five" />
-        <Tab label="Item Six" />
-        <Tab label="Item Seven" />
+        <Tab label="Anamnese" />
+        <Tab label="ASO" />
+        <Tab label="Atestado" />
+        <Tab label="Comparecimento" />
+        <Tab label="Laudo" />
+        <Tab label="Relatório" />
+        <Tab label="Receituário" />
+        <Tab label="Receituário especial" />
+        <Tab label="Relatório" />
+        <Tab label="Solicitação de exame tipo 1" />
+        <Tab label="Solicitação de exame tipo 2" />
+
       </Tabs>
     </Box>
   );
