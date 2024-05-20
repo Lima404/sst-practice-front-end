@@ -1,11 +1,11 @@
 import { z } from "zod";
 
 export interface CreateUploadDocumentRequest {
-  name: string;
-  contentType: string;
-  companyId: string;
-  employeeId: string;
-  professionalId: string;
+  name: string | null;
+  contentType: string | null;
+  companyId: string | null;
+  employeeId: string | null;
+  professionalId: string | null;
 }
 
 export const createUploadDocumentRequestSchema = z.object({

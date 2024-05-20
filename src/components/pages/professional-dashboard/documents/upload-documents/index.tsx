@@ -6,8 +6,17 @@ import {
   CreateUploadDocumentRequest,
   createUploadDocumentRequestSchema,
 } from "../types/index";
+import { useContext, useEffect, useState } from "react";
+import { fetchCompanyData, fetchEmployeeData, uploadDocument } from "./api";
+import { AuthContext } from "../../../../../data/contexts/AuthContext";
+import axios from "axios";
 
 const UploadDocuments = () => {
+  const { userTypeId } = useContext(AuthContext);
+  const [companies, setCompanies] = useState([]);
+  const [employees, setEmployees] = useState([]);
+  const [files, setFiles] = useState<FileList | null>(null)
+
   const {
     control,
     handleSubmit,
@@ -19,23 +28,74 @@ const UploadDocuments = () => {
       companyId: "",
       employeeId: "",
       professionalId: "",
+      fileUpload: undefined
     },
     resolver: zodResolver(createUploadDocumentRequestSchema),
   });
 
-  const onSubmit: SubmitHandler<CreateUploadDocumentRequest> = async () => {
+  const onSubmit: SubmitHandler<CreateUploadDocumentRequest> = async (data) => {
     try {
-      console.log("ok");
-    } catch (err: any) {
-      console.log(err);
+      const { name, companyId, employeeId, } = data;
+
+      if (!files || files.length === 0) {
+        return;
+      }
+
+      const file = files[0];
+
+      const documentBody = {
+        name,
+        contentType: "application/pdf",
+        companyId,
+        employeeId,
+        professionalId: userTypeId,
+      };
+      const uploadResponse = await uploadDocument(documentBody);
+
+      const signedURL = uploadResponse.signedUrl;
+
+      axios.put(signedURL, file, {
+        headers: {
+          'Content-Type': 'application/pdf'
+        }
+      })
+    } catch (error) {
+      console.error("Erro ao enviar documento:", error);
     }
   };
 
-  const companies = [
-    { id: 1, name: 'Empresa 1' },
-    { id: 2, name: 'Ricardo 10' },
-    { id: 3, name: 'Breno' },
-  ]
+
+  useEffect(() => {
+    const fetchCompaniesData = async () => {
+      try {
+        const companiesData = await fetchCompanyData();
+        setCompanies(companiesData.companies);
+      } catch (error) {
+        console.error("Erro ao buscar dados da empresa:", error);
+      }
+    };
+    fetchCompaniesData();
+  }, []);
+
+  const fetchEmployeesData = async (companyId: string) => {
+    try {
+      const employeesData = await fetchEmployeeData(companyId);
+      setEmployees(employeesData.employees);
+    } catch (error) {
+      console.log("Erro ao buscar dados do colaborador", error);
+    }
+  };
+
+
+  type Employee = {
+    id: string;
+    name: string;
+  }
+
+  type Company = {
+    id: string;
+    fantasy_name: string;
+  }
 
   return (
     <div className="main-create-admin-admin-dashboard">
@@ -43,26 +103,6 @@ const UploadDocuments = () => {
         <h2 className="create-admin-page-title">Enviar Documento</h2>
         <div className="create-admin-form">
           <form onSubmit={handleSubmit(onSubmit)}>
-            
-            {/* <Controller
-              name="companyId"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-admin">
-                  <TextField
-                    className="form-input-create-admin"
-                    id={errors.companyId ? "filled-error" : "standard-basic"}
-                    label="Empresa"
-                    type="text"
-                    variant="standard"
-                    placeholder="Empresa"
-                    error={!!errors.companyId}
-                    helperText={errors.companyId?.message}
-                    {...field}
-                  />
-                </div>
-              )}
-            /> */}
 
             <Controller
               name="companyId"
@@ -77,9 +117,9 @@ const UploadDocuments = () => {
                         label="Empresa"
                         {...field}
                       >
-                        {companies.map((company) => (
-                          <MenuItem key={company.id} value={company.id}>
-                            {company.name}
+                        {companies.map((company: Company) => (
+                          <MenuItem key={company.id} value={company.id} onClick={() => fetchEmployeesData(company.id)}>
+                            {company.fantasy_name}
                           </MenuItem>
                         ))}
                       </Select>
@@ -89,22 +129,28 @@ const UploadDocuments = () => {
               )}
             />
 
+
             <Controller
               name="employeeId"
               control={control}
               render={({ field }) => (
                 <div className="ctn-form-input-create-admin">
-                  <TextField
-                    className="form-input-create-admin"
-                    id={errors.employeeId ? "filled-error" : "standard-basic"}
-                    label="Colaborador"
-                    type="text"
-                    variant="standard"
-                    placeholder="Colaborador"
-                    error={!!errors.employeeId}
-                    helperText={errors.employeeId?.message}
-                    {...field}
-                  />
+                  <Box>
+                    <FormControl error={!!errors.employeeId} fullWidth>
+                      <InputLabel>Colaborador</InputLabel>
+                      <Select
+                        id={errors.employeeId ? "filled-error" : "standard-basic"}
+                        label="Colaborador"
+                        {...field}
+                      >
+                        {employees.map((employee: Employee) => (
+                          <MenuItem key={employee.id} value={employee.id}>
+                            {employee.name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Box>
                 </div>
               )}
             />
@@ -125,6 +171,30 @@ const UploadDocuments = () => {
                     helperText={errors.name?.message}
                     {...field}
                   />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="fileUpload"
+              control={control}
+              render={() => (
+                <div className="ctn-form-input-create-admin">
+                  <Box>
+                    <FormControl error={!!errors.fileUpload} fullWidth>
+                      <InputLabel shrink htmlFor="file-upload">
+                        Upload de Arquivo
+                      </InputLabel>
+                      <input
+                        id="file-upload"
+                        type="file"
+                        accept="application/pdf"
+                        onChange={(e) => setFiles(e.target.files)}
+                        style={{ display: 'block', marginTop: '16px' }}
+                      />
+                      {errors.fileUpload && <p className="error-text">{errors.fileUpload.message}</p>}
+                    </FormControl>
+                  </Box>
                 </div>
               )}
             />

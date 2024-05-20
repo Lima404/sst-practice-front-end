@@ -6,7 +6,6 @@ import { CreateEmployeesRequest, createEmployeesSchema } from "../types";
 import { createEmployees } from "../api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import CompanySideBar from "../../../../company-components/sidebar";
 import { useContext } from "react";
 import { AuthContext } from "../../../../../data/contexts/AuthContext";
 
