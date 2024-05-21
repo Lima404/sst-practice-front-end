@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 
 import { IoCloudDownloadOutline } from "react-icons/io5";
 import { Button } from "@mui/material";
-import { fetchAllDocumentsByEmployeeIdData } from "../../api";
+import { fetchAllDocumentsByEmployeeIdData, getDocumentById } from "../../api";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -43,6 +43,24 @@ export default function EmployeeDocumentsTable() {
     fetchAllDocumentsByEmployeeId();
   }, []);
 
+  const handleDownloadDocument = async (documentId: string) => {
+    try {
+      const response = await getDocumentById(documentId);
+      const signedUrl = response.signedUrl;
+
+      const link = document.createElement('a');
+      link.href = signedUrl;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 
   return (
     <div className="container-units-table">
@@ -61,7 +79,7 @@ export default function EmployeeDocumentsTable() {
                 <TableCell align="left">{row.name}</TableCell>
                 <TableCell align="left">{row.contentType}</TableCell>
                 <TableCell align="left">
-                  <Button className="actions-btn">
+                  <Button className="actions-btn" onClick={() => handleDownloadDocument(row.id)}>
                     <IoCloudDownloadOutline className="update-btn" size={20} />
                   </Button>
                 </TableCell>
