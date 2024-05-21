@@ -17,6 +17,7 @@ import HamburgerMenu from "../components/admin-dashboard/hamburger-menu";
 import SideBar from "../components/sidebar";
 import UploadDocuments from "../components/pages/professional-dashboard/documents/upload-documents";
 import { CreateDocuments } from "../components/pages/professional-dashboard/documents/create-documents";
+import EmployeeDocuments from "../components/pages/company-dashboard/employees/employees-documents";
 
 const App = () => {
   return (
@@ -88,6 +89,10 @@ export const protectedRoutes = [
         path: "employees",
         element: <Employees />,
       },
+      {
+        path: "employee/documents/:employeeId",
+        element: <EmployeeDocuments />,
+      },      
       {
         path: "professional",
         element: <ProfessionalDashboard />,
