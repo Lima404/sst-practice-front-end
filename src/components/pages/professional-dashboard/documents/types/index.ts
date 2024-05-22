@@ -151,3 +151,20 @@ export const createAsoDocumentSchema = z.object({
   // special skills
   special_skills: z.array(z.string()),
 })
+
+export interface CreateStatementsRequest {
+  title: string,
+  name: string;
+  cpf: string;
+  dt_birth: string;
+  text_field: string;
+}
+
+export const createStatementsSchema = z.object({
+  title: z.string(),
+  name: z.string(),
+  cpf: z.string(),
+  dt_birth: z.string(),
+  text_field: z.string(),
+})
+

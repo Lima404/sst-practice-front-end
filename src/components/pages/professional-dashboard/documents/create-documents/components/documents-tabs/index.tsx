@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CreateAnamnese from '../default-documents/anamnese';
 import CreateAsoDocument from '../default-documents/aso';
+import CreateStatements from '../default-documents/declaracao';
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -52,14 +53,10 @@ export default function DocumentsTab() {
       >
         <Tab label="Anamnese" {...a11yProps(0)} />
         <Tab label="ASO" {...a11yProps(1)} />
-        <Tab label="Atestado" {...a11yProps(2)} />
-        <Tab label="Comparecimento" {...a11yProps(3)} />
-        <Tab label="Laudo" {...a11yProps(4)} />
-        <Tab label="Relatório" {...a11yProps(5)} />
-        <Tab label="Receituário" {...a11yProps(6)} />
-        <Tab label="Receituário especial" {...a11yProps(7)} />
-        <Tab label="Solicitação de exame tipo 1" {...a11yProps(8)} />
-        <Tab label="Solicitação de exame tipo 2" {...a11yProps(9)} />
+        <Tab label="Declarações" {...a11yProps(2)} />
+        <Tab label="Receituário especial" {...a11yProps(3)} />
+        <Tab label="Solicitação de exame tipo 1" {...a11yProps(4)} />
+        <Tab label="Solicitação de exame tipo 2" {...a11yProps(5)} />
       </Tabs>
 
       <TabPanel value={value} index={0}>
@@ -71,7 +68,7 @@ export default function DocumentsTab() {
       </TabPanel>
 
       <TabPanel value={value} index={2}>
-        Conteúdo da Aba Três
+        <CreateStatements />
       </TabPanel>
 
       <TabPanel value={value} index={3}>
@@ -85,23 +82,6 @@ export default function DocumentsTab() {
       <TabPanel value={value} index={5}>
         Conteúdo da Aba Seis
       </TabPanel>
-
-      <TabPanel value={value} index={6}>
-        Conteúdo da Aba Sete
-      </TabPanel>
-
-      <TabPanel value={value} index={7}>
-        Conteúdo da Aba Oito
-      </TabPanel>
-
-      <TabPanel value={value} index={8}>
-        Conteúdo da Aba Nove
-      </TabPanel>
-
-      <TabPanel value={value} index={9}>
-        Conteúdo da Aba Dez
-      </TabPanel>
-      
     </Box>
   );
 }
