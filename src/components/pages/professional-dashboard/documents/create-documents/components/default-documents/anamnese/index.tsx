@@ -1,54 +1,10 @@
-import { TextField } from "@mui/material";
+import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import RHFCheckbox from "../../checkbox";
 import '../../checkbox/index.css'
-import { CreateAnamneseDocumentRequest, createUploadDocumentRequestSchema } from "../../../../types";
-
-// interface FormValues {
-//   employer: string;
-//   companyName: string;
-//   cnpj: string;
-//   employeeName: string;
-//   employeeCpf: string;
-//   employeeRg: string;
-//   employeeDateBirth: string;
-//   employeeRegistration: string;
-//   employeeFunction: string;
-//   employeeRole: string;
-//   employeeSector: string;
-//   physicalRisks: string;
-//   chemicalRisks: string;
-//   biologicalRisks: string;
-//   ergonomicRisks: string;
-//   mechanicalRiks: string;
-//   examDate: string;
-//   examName: string;
-//   chiefComplaint: string;
-//   clinicalHistory: string;
-//   pathologicalPersonalAndFamilyHistory: string;
-//   physicalExam: boolean;
-//   generalCondition: boolean;
-//   facies: boolean;
-//   gait: boolean;
-//   rombergTest: boolean;
-//   visualAcuity: boolean;
-//   correction: boolean;
-//   cardiovascular: boolean;
-//   respiratory: boolean;
-//   abdominal: boolean;
-//   spine: boolean;
-//   upperLimbs: boolean;
-//   maneuversUpperLimbs: boolean;
-//   lowerLimbs: boolean;
-//   complementaryExams: boolean;
-//   diagnosticHypothesis: boolean;
-//   conclusion: boolean;
-//   specialSkills: boolean;
-// }
+import { CreateAnamneseDocumentRequest, createAnamneseDocumentRequestSchema } from "../../../../types";
 
 const CreateAnamnese = () => {
-  // const navigate = useNavigate();
   const {
     control,
     handleSubmit,
@@ -76,164 +32,33 @@ const CreateAnamnese = () => {
       chiefComplaint: "",
       clinicalHistory: "",
       pathologicalPersonalAndFamilyHistory: "",
+      conclusionObservation: "",
 
-      physicalExam: false,
-      generalCondition: false,
-      facies: false,
-      gait: false,
-      rombergTest: false,
-      visualAcuity: false,
-      correction: false,
-      cardiovascular: false,
-      respiratory: false,
-      abdominal: false,
-      spine: false,
-      upperLimbs: false,
-      maneuversUpperLimbs: false,
-      lowerLimbs: false,
-      complementaryExams: false,
-      diagnosticHypothesis: false,
-      conclusion: false,
-      specialSkills: false,
+      physicalExam: [],
+      generalCondition: [],
+      facies: [],
+      gait: [],
+      rombergTest: [],
+      visualAcuity: [],
+      correction: [],
+      cardiovascular: [],
+      respiratory: [],
+      abdominal: [],
+      spine: [],
+      upperLimbs: [],
+      maneuversUpperLimbs: [],
+      lowerLimbs: [],
+      complementaryExams: [],
+      conclusion: [],
+      diagnosticHypothesis: "",
+      specialSkills: [],
     },
-    resolver: zodResolver(createUploadDocumentRequestSchema),
+    resolver: zodResolver(createAnamneseDocumentRequestSchema),
   });
 
   const onSubmit: SubmitHandler<CreateAnamneseDocumentRequest> = async (data) => {
     console.log(data);
   };
-
-  const visualAcuityOptions = [
-    "Não realizado",
-    "20/20",
-    "20/25",
-    "20/30",
-    "20/40",
-    "20/50",
-    "20/70",
-    "20/100",
-    "20/200",
-    "Conta dedos",
-    "Vê vultos",
-    "Enucleado",
-    "C/ prótese"
-  ];
-
-  const generalConditionOptions = ["Bom", "Regular", "Ruim", "Comprometido"];
-
-  const faciesOptions = [
-    "Atípica", "Normal", "Acromegálica", "Adenoidiana", "Cushingóide", "De depressão", "De dor", "Esclerodérmica",
-    "Hipertireoidea", "Hipocrática", "Leonina", "Miastênica", "Mixedematosa", "Paralisia facial periférica",
-    "Renal", "Sindrômica", "Tetânica"
-  ];
-
-  const gaitOptions = [
-    "Atípica", "Normal", "Anserina", "Antálgica", "Atáxica", "Ceifante à direita", "Ceifante à esquerda",
-    "Claudicante à direita", "Claudicante à esquerda", "Ebriosa", "Em tesoura", "Escarvante", "Festinante",
-    "Parkinsoniana", "Talonante"
-  ];
-
-  const rombergTestOptions = ["Positivo", "Negativo", "Não realizado/não aplicável"];
-
-  const correctionOptions = [
-    "C/ correção",
-    "S/ correção",
-    "C/ trocas"
-  ];
-
-  const cardiovascularOptions = [
-    "Normal",
-    "Ritmo cardíaco regular, com bulhas normofonéticas, sem sopros",
-    "Ritmo cardíaco regulas, com bulhas hipofonéticas, sem sopros",
-    "Ritmo cardíaco regular, com sopro diastólico em foco mitral",
-    "Ritmo cardíaco regular, com sopro diastólico em foco tricúspide",
-    "Ritmo cardíaco regular, com sopro sistólico em foco aórtico",
-    "Ritmo cardíaco regular, com sopro sistólico em foco mitral",
-    "Ritmo cardíaco regular, com sopro sistólico em foco pulmonar",
-    "Ritmo cardíaco regular, com sopro sistólico em foco tricúspide",
-    "Alterado"
-  ];
-
-  const respiratoryOptions = [
-    "Normal",
-    "Murmúrio vesicular presente, simétrico, sem ruídos adventícios",
-    "Alterado"
-  ];
-
-  const abdominalOptions = [
-    "Normal",
-    "Plano, flácido, indolor, sem massas ou viceromegalias palpáveis",
-    "Com cicatriz(es)",
-    "Sem cicatriz(es)",
-    "Alterado"
-  ];
-
-  const spineOptions = [
-    "Normal",
-    "Amplitude articular preservada, sem desvios",
-    "Amplit. articular preserv., com desvio (convexidade p/ a direita)",
-    "Amplit. articular preserv., com desvio (convexidade p/ a esquerda)",
-    "Amplit. articular reduzida por queixas álgicas (flexão anterior)",
-    "Amplit. articular reduzida por queixas álgicas (flexão posterior)",
-    "Bloqueio voluntário da flexão anterior",
-    "Bloqueio voluntário da flexão posterior",
-    "Alterada"
-  ];
-
-  const upperLimbsOptions = [
-    "Normais",
-    "Sem abaulamentos, sem atrofias, sem alterações funcionais",
-    "Sem alterações funcionais",
-    "Sem alterações funcionais e sem sinais flogísticos",
-    "Sem sinais flogísticos",
-    "Alterado"
-  ];
-
-  const maneuversUpperLimbsOptions = [
-    "Normal",
-    "Negativo",
-    "Não realizado",
-    "Positivo à direita",
-    "Positivo à esquerda",
-    "Positivo bilateralmente"
-  ];
-
-  const lowerLimbsOptions = [
-    "Normais",
-    "Sem abaulamentos, sem atrofias, sem alterações funcionais",
-    "Sem abaulamentos, sem atrofias, sem alterações funcionais, com varizes",
-    "Sem abaulamentos, sem atrofias, sem alterações funcionais, sem varizes",
-    "Sem alterações funcionais",
-    "Sem alterações funcionais e sem sinais flogísticos",
-    "Sem sinais flogísticos",
-    "Alterado"
-  ];
-
-  const complementaryExamsOptions = [
-    "Exames complementares anexos, com alterações clínicas",
-    "Exames complementares anexos, com alterações ocupacionais",
-    "Exames complementares anexos, sem alterações",
-    "Exames complementares obrigatórios para a função não realizados",
-    "Não realizou exames complementares",
-    "Hipótese diagnóstica",
-    "Conduta"
-  ];
-
-  const conclusionOptions = [
-    "Apto",
-    "Inapto",
-    "Observação sobre aptidão: (campo aberto)"
-  ];
-
-  const specialSkillsOptions = [
-    "Apto(a) para manipulação de alimentos",
-    "Apto(a) para realizar instalações e serviços em eletricidade (NR10)",
-    "Apto(a) para operação de máquinas autopropelidas (NR-12)",
-    "Apto(a) para uso de arma de fogo",
-    "Apto(a) para trabalho em espaço confinado (NR-33)",
-    "Apto(a) para trabalho em altura (NR-35)"
-  ];
-
 
   return (
     <div className="main-create-admin-admin-dashboard">
@@ -646,117 +471,2261 @@ const CreateAnamnese = () => {
               )}
             />
 
-            <div className="checkbox-container">
-              <h4>Estado geral</h4>
-              {generalConditionOptions.map((label) => (
-                <RHFCheckbox key={label} name="generalCondition" control={control} label={label} />
-              ))}
-            </div>
+            <Controller
+              name="generalCondition"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h4>Condição geral</h4>
 
-            <div className="checkbox-container">
-              <h4>Fácies</h4>
-              {faciesOptions.map((label) => (
-                <RHFCheckbox key={label} name="facies" control={control} label={label} />
-              ))}
-            </div>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="generalCondition"
+                        value="Bom"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item: string) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Bom"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="generalCondition"
+                        value="Regular"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Regular"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="generalCondition"
+                        value="Ruim"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Ruim"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="generalCondition"
+                        value="Comprometido"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Comprometido"
+                  />
 
-            <div className="checkbox-container">
-              <h4>Marcha</h4>
-              {gaitOptions.map((label) => (
-                <RHFCheckbox key={label} name="gait" control={control} label={label} />
-              ))}
-            </div>
+                  {errors.generalCondition && <p>{errors.generalCondition.message}</p>}
+                </div>
+              )}
+            />
 
-            <div className="checkbox-container">
-              <h4>Teste de Romberg</h4>
-              {rombergTestOptions.map((label) => (
-                <RHFCheckbox key={label} name="rombergTest" control={control} label={label} />
-              ))}
-            </div>
+            <Controller
+              name="facies"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h4>FÁCIES</h4>
 
-            <div className="checkbox-container">
-              <h4>Acuidade visual</h4>
-              {visualAcuityOptions.map((label) => (
-                <RHFCheckbox key={label} name="visualAcuity" control={control} label={label} />
-              ))}
-            </div>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="facies"
+                        value="Atípica"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item: string) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Atípica"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="facies"
+                        value="Normal"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Normal"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="facies"
+                        value="Acromegálica"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Acromegálica"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="facies"
+                        value="Adenoidiana"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Adenoidiana"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="facies"
+                        value="Cushingóide"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Cushingóide"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="facies"
+                        value="De depressão"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="De depressão"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="facies"
+                        value="De dor"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="De dor"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="facies"
+                        value="Esclerodérmica"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Esclerodérmica"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="facies"
+                        value="Hipertireoidea"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Hipertireoidea"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="facies"
+                        value="Hipocrática"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Hipocrática"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="facies"
+                        value="Leonina"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Leonina"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="facies"
+                        value="Miastênica"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Miastênica"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="facies"
+                        value="Mixedematosa"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Mixedematosa"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="facies"
+                        value="Paralisia facial periférica"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Paralisia facial periférica"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="facies"
+                        value="Renal"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Renal"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="facies"
+                        value="Sindrômica"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Sindrômica"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="facies"
+                        value="Tetânica"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Tetânica"
+                  />
 
-            <div className="checkbox-container">
-              <h4>Correção</h4>
-              {correctionOptions.map((label) => (
-                <RHFCheckbox key={label} name="correction" control={control} label={label} />
-              ))}
-            </div>
+                  {errors.facies && <p>{errors.facies.message}</p>}
+                </div>
+              )}
+            />
 
-            <div className="checkbox-container">
-              <h4>Cardiovascular</h4>
-              {cardiovascularOptions.map((label) => (
-                <RHFCheckbox key={label} name="cardiovascular" control={control} label={label} />
-              ))}
-            </div>
+            <Controller
+              name="gait"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h4>Marcha</h4>
 
-            <div className="checkbox-container">
-              <h4>Respiratório</h4>
-              {respiratoryOptions.map((label) => (
-                <RHFCheckbox key={label} name="respiratory" control={control} label={label} />
-              ))}
-            </div>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="gait"
+                        value="Atípica"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item: string) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Atípica"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="gait"
+                        value="Normal"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Normal"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="gait"
+                        value="anserina"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="anserina"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="gait"
+                        value="antálgica"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="antálgica"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="gait"
+                        value="atáxica"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="atáxica"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="gait"
+                        value="ceifante à direita"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="ceifante à direita"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="gait"
+                        value="ceifante à esquerda"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="ceifante à esquerda"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="gait"
+                        value="claudicante à direita"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="claudicante à direita"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="gait"
+                        value="claudicante à esquerda"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="claudicante à esquerda"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="gait"
+                        value="ebriosa"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="ebriosa"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="gait"
+                        value="em tesoura"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="em tesoura"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="gait"
+                        value="escarvante"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="escarvante"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="gait"
+                        value="festinante"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="festinante"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="gait"
+                        value="parkinsoniana"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="parkinsoniana"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="gait"
+                        value="talonante"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="talonante"
+                  />
+                  {errors.gait && <p>{errors.gait.message}</p>}
+                </div>
+              )}
+            />
 
-            <div className="checkbox-container">
-              <h4>Dor abdominal</h4>
-              {abdominalOptions.map((label) => (
-                <RHFCheckbox key={label} name="abdominal" control={control} label={label} />
-              ))}
-            </div>
+            <Controller
+              name="rombergTest"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h4>Teste de Romberg</h4>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="rombergTest"
+                        value="positivo"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="positivo"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="rombergTest"
+                        value="negativo"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="negativo"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="rombergTest"
+                        value="não realizado/não aplicável"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="não realizado/não aplicável"
+                  />
+                  {errors.rombergTest && <p>{errors.rombergTest.message}</p>}
+                </div>
+              )}
+            />
 
-            <div className="checkbox-container">
-              <h4>Coluna</h4>
-              {spineOptions.map((label) => (
-                <RHFCheckbox key={label} name="spine" control={control} label={label} />
-              ))}
-            </div>
+            <Controller
+              name="visualAcuity"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h4>Acuidade Visual</h4>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="visualAcuity"
+                        value="não realizado"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="não realizado"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="visualAcuity"
+                        value="20/20"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="20/20"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="visualAcuity"
+                        value="20/25"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="20/25"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="visualAcuity"
+                        value="20/30"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="20/30"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="visualAcuity"
+                        value="20/40"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="20/40"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="visualAcuity"
+                        value="20/50"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="20/50"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="visualAcuity"
+                        value="20/70"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="20/70"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="visualAcuity"
+                        value="20/100"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="20/100"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="visualAcuity"
+                        value="20/200"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="20/200"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="visualAcuity"
+                        value="conta dedos"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="conta dedos"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="visualAcuity"
+                        value="vê vultos"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="vê vultos"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="visualAcuity"
+                        value="enucleado"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="enucleado"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="visualAcuity"
+                        value="c/ prótese"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="c/ prótese"
+                  />
+                  {errors.visualAcuity && <p>{errors.visualAcuity.message}</p>}
+                </div>
+              )}
+            />
 
-            <div className="checkbox-container">
-              <h4>MMSS</h4>
-              {upperLimbsOptions.map((label) => (
-                <RHFCheckbox key={label} name="upperLimbs" control={control} label={label} />
-              ))}
-            </div>
+            <Controller
+              name="correction"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h4>Correção</h4>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="correction"
+                        value="c/ correção"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="c/ correção"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="correction"
+                        value="s/ correção"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="s/ correção"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="correction"
+                        value="c/ trocas"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="c/ trocas"
+                  />
+                  {errors.correction && <p>{errors.correction.message}</p>}
+                </div>
+              )}
+            />
 
-            <div className="checkbox-container">
-              <h4>Manobras MMSS</h4>
-              {maneuversUpperLimbsOptions.map((label) => (
-                <RHFCheckbox key={label} name="maneuversUpperLimbs" control={control} label={label} />
-              ))}
-            </div>
+            <Controller
+              name="cardiovascular"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h4>Cardiovascular</h4>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="cardiovascular"
+                        value="normal"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="normal"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="cardiovascular"
+                        value="ritmo cardíaco regular, com bulhas normofonéticas, sem sopros"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="ritmo cardíaco regular, com bulhas normofonéticas, sem sopros"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="cardiovascular"
+                        value="ritmo cardíaco regular, com bulhas hipofonéticas, sem sopros"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="ritmo cardíaco regular, com bulhas hipofonéticas, sem sopros"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="cardiovascular"
+                        value="ritmo cardíaco regular, com sopro diastólico em foco mitral"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="ritmo cardíaco regular, com sopro diastólico em foco mitral"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="cardiovascular"
+                        value="ritmo cardíaco regular, com sopro diastólico em foco tricúspide"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="ritmo cardíaco regular, com sopro diastólico em foco tricúspide"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="cardiovascular"
+                        value="ritmo cardíaco regular, com sopro sistólico em foco aórtico"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="ritmo cardíaco regular, com sopro sistólico em foco aórtico"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="cardiovascular"
+                        value="ritmo cardíaco regular, com sopro sistólico em foco mitral"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="ritmo cardíaco regular, com sopro sistólico em foco mitral"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="cardiovascular"
+                        value="ritmo cardíaco regular, com sopro sistólico em foco pulmonar"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="ritmo cardíaco regular, com sopro sistólico em foco pulmonar"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="cardiovascular"
+                        value="ritmo cardíaco regular, com sopro sistólico em foco tricúspide"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="ritmo cardíaco regular, com sopro sistólico em foco tricúspide"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="cardiovascular"
+                        value="alterado"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="alterado"
+                  />
+                  {errors.cardiovascular && <p>{errors.cardiovascular.message}</p>}
+                </div>
+              )}
+            />
 
-            <div className="checkbox-container">
-              <h4>MMII</h4>
-              {lowerLimbsOptions.map((label) => (
-                <RHFCheckbox key={label} name="lowerLimbs" control={control} label={label} />
-              ))}
-            </div>
+            <Controller
+              name="respiratory"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h4>Respiratório</h4>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="respiratory"
+                        value="normal"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="normal"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="respiratory"
+                        value="murmúrio vesicular presente, simétrico, sem ruídos adventícios"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="murmúrio vesicular presente, simétrico, sem ruídos adventícios"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="respiratory"
+                        value="alterado"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="alterado"
+                  />
+                  {errors.respiratory && <p>{errors.respiratory.message}</p>}
+                </div>
+              )}
+            />
 
-            <div className="checkbox-container">
-              <h4>Exames complementares</h4>
-              {complementaryExamsOptions.map((label) => (
-                <RHFCheckbox key={label} name="complementaryExams" control={control} label={label} />
-              ))}
-            </div>
+            <Controller
+              name="abdominal"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h4>Abdominal</h4>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="abdominal"
+                        value="Normal"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Normal"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="abdominal"
+                        value="plano, flácido, indolor, sem massas ou viceromegalias palpáveis."
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="plano, flácido, indolor, sem massas ou viceromegalias palpáveis."
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="abdominal"
+                        value="com cicatriz(es)"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="com cicatriz(es)"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="abdominal"
+                        value="sem cicatriz(es)"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="sem cicatriz(es)"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="abdominal"
+                        value="alterado"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="alterado"
+                  />
+                  {errors.abdominal && <p>{errors.abdominal.message}</p>}
+                </div>
+              )}
+            />
 
-            <div className="checkbox-container">
-              <h4>Conclusão</h4>
-              {conclusionOptions.map((label) => (
-                <RHFCheckbox key={label} name="conclusion" control={control} label={label} />
-              ))}
-            </div>
+            <Controller
+              name="spine"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h4>Spine</h4>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="spine"
+                        value="normal"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="normal"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="spine"
+                        value="amplitude articular preservada, sem desvios."
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="amplitude articular preservada, sem desvios."
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="spine"
+                        value="amplit. articular preserv., com desvio (convexidade p/ a direita)"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="amplit. articular preserv., com desvio (convexidade p/ a direita)"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="spine"
+                        value="amplit. articular reduzida por queixas álgicas (flexão anterior)"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="amplit. articular reduzida por queixas álgicas (flexão anterior)"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="spine"
+                        value="amplit. articular reduzida por queixas álgicas (flexão posterior)"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="amplit. articular reduzida por queixas álgicas (flexão posterior)"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="spine"
+                        value="bloqueio voluntário da flexão anterior"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="bloqueio voluntário da flexão anterior"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="spine"
+                        value="bloqueio voluntário da flexão posterior"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="bloqueio voluntário da flexão posterior"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="spine"
+                        value="alterada"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="alterada"
+                  />
+                  {errors.spine && <p>{errors.spine.message}</p>}
+                </div>
+              )}
+            />
 
-            <div className="checkbox-container">
-              <h4>Aptidões especiais</h4>
-              {specialSkillsOptions.map((label) => (
-                <RHFCheckbox key={label} name="specialSkills" control={control} label={label} />
-              ))}
-            </div>
+            <Controller
+              name="upperLimbs"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h4>Membros Superiores</h4>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="upperLimbs"
+                        value="normais - sem abaulamentos, sem atrofias, sem alterações funcionais"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="normais - sem abaulamentos, sem atrofias, sem alterações funcionais"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="upperLimbs"
+                        value="sem alterações funcionais"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="sem alterações funcionais"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="upperLimbs"
+                        value="sem alterações funcionais e sem sinais flogísticos"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="sem alterações funcionais e sem sinais flogísticos"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="upperLimbs"
+                        value="sem sinais flogísticos"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="sem sinais flogísticos"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="upperLimbs"
+                        value="alterado"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="alterado"
+                  />
+                  {errors.upperLimbs && <p>{errors.upperLimbs.message}</p>}
+                </div>
+              )}
+            />
+
+            <Controller
+              name="maneuversUpperLimbs"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h4>Manobras Membros Superiores</h4>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="maneuversUpperLimbs"
+                        value="normal"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="normal"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="maneuversUpperLimbs"
+                        value="negativo"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="negativo"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="maneuversUpperLimbs"
+                        value="não realizado"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="não realizado"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="maneuversUpperLimbs"
+                        value="positivo à direita"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="positivo à direita"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="maneuversUpperLimbs"
+                        value="positivo à esquerda"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="positivo à esquerda"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="maneuversUpperLimbs"
+                        value="positivo bilateralmente"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="positivo bilateralmente"
+                  />
+                  {errors.maneuversUpperLimbs && <p>{errors.maneuversUpperLimbs.message}</p>}
+                </div>
+              )}
+            />
+
+            <Controller
+              name="lowerLimbs"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h4>Membros Inferiores</h4>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="lowerLimbs"
+                        value="normais"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="normais"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="lowerLimbs"
+                        value="sem abaulamentos, sem atrofias, sem alterações funcionais"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="sem abaulamentos, sem atrofias, sem alterações funcionais"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="lowerLimbs"
+                        value="sem abaulamentos, sem atrofias, sem alterações funcionais, com varizes"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="sem abaulamentos, sem atrofias, sem alterações funcionais, com varizes"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="lowerLimbs"
+                        value="sem abaulamentos, sem atrofias, sem alterações funcionais, sem varizes"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="sem abaulamentos, sem atrofias, sem alterações funcionais, sem varizes"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="lowerLimbs"
+                        value="sem alterações funcionais"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="sem alterações funcionais"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="lowerLimbs"
+                        value="sem alterações funcionais e sem sinais flogísticos"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="sem alterações funcionais e sem sinais flogísticos"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="lowerLimbs"
+                        value="sem sinais flogísticos"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="sem sinais flogísticos"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="lowerLimbs"
+                        value="alterado"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="alterado"
+                  />
+                  {errors.lowerLimbs && <p>{errors.lowerLimbs.message}</p>}
+                </div>
+              )}
+            />
+
+            <Controller
+              name="complementaryExams"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h4>Exames Complementares</h4>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="complementaryExams"
+                        value="Exames complementares anexos, com alterações clínicas"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Exames complementares anexos, com alterações clínicas"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="complementaryExams"
+                        value="Exames complementares anexos, com alterações ocupacionais"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Exames complementares anexos, com alterações ocupacionais"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="complementaryExams"
+                        value="Exames complementares anexos, sem alterações"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Exames complementares anexos, sem alterações"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="complementaryExams"
+                        value="Exames complementares obrigatórios para a função não realizados"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Exames complementares obrigatórios para a função não realizados"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="complementaryExams"
+                        value="Não realizou exames complementares"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Não realizou exames complementares"
+                  />
+                  {errors.complementaryExams && <p>{errors.complementaryExams.message}</p>}
+                </div>
+              )}
+            />
+
+            <Controller
+              name="diagnosticHypothesis"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <h4>Hipótese diagnóstica</h4>
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.diagnosticHypothesis ? "filled-error" : "standard-basic"}
+                    label="Hipótese diagnóstica"
+                    type="text"
+                    variant="standard"
+                    placeholder="Hipótese diagnóstica"
+                    error={!!errors.diagnosticHypothesis}
+                    helperText={errors.diagnosticHypothesis?.message}
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="conclusion"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h4>Conclusão</h4>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="conclusion"
+                        value="Apto(a)"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Apto(a)"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="conclusion"
+                        value="Inapto(a)"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Inapto(a)"
+                  />
+                  {errors.conclusion && <p>{errors.conclusion.message}</p>}
+                </div>
+              )}
+            />
+
+            <Controller
+              name="conclusionObservation"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <h4>Observação de conclusão</h4>
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.conclusionObservation ? "filled-error" : "standard-basic"}
+                    label="Observação de conclusão"
+                    type="text"
+                    variant="standard"
+                    placeholder="Observação de conclusão"
+                    error={!!errors.conclusionObservation}
+                    helperText={errors.conclusionObservation?.message}
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+            <Controller
+              name="specialSkills"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h4>Habilidades Especiais</h4>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="specialSkills"
+                        value="Apto(a) para manipulação de alimentos"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Apto(a) para manipulação de alimentos"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="specialSkills"
+                        value="Apto(a) para realizar instalações e serviços em eletricidade (NR10)"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Apto(a) para realizar instalações e serviços em eletricidade (NR10)"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="specialSkills"
+                        value="Apto(a) para operação de máquinas autopropelidas (NR-12)"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Apto(a) para operação de máquinas autopropelidas (NR-12)"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="specialSkills"
+                        value="Apto(a) para uso de arma de fogo"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Apto(a) para uso de arma de fogo"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="specialSkills"
+                        value="Apto(a) para trabalho em espaço confinado (NR-33)"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Apto(a) para trabalho em espaço confinado (NR-33)"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="specialSkills"
+                        value="Apto(a) para trabalho em altura (NR-35)"
+                        defaultChecked={false}
+                        onChange={(e) => {
+                          const newValue = e.target.checked
+                            ? [...value, e.target.value]
+                            : value.filter((item) => item !== e.target.value);
+                          onChange(newValue);
+                        }}
+                        color="primary"
+                        {...control}
+                      />
+                    }
+                    label="Apto(a) para trabalho em altura (NR-35)"
+                  />
+                  {errors.specialSkills && <p>{errors.specialSkills.message}</p>}
+                </div>
+              )}
+            />
 
             <div className="create-admin-btn-submit">
               <button className="create-unit-btn-submit" type="submit">

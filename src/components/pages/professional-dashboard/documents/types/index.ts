@@ -38,24 +38,25 @@ export const createAnamneseDocumentRequestSchema = z.object({
   chiefComplaint: z.string(),
   clinicalHistory: z.string(),
   pathologicalPersonalAndFamilyHistory: z.string(),
-  physicalExam: z.boolean(),
-  generalCondition: z.boolean(),
-  facies: z.boolean(),
-  gait: z.boolean(),
-  rombergTest: z.boolean(),
-  visualAcuity: z.boolean(),
-  correction: z.boolean(),
-  cardiovascular: z.boolean(),
-  respiratory: z.boolean(),
-  abdominal: z.boolean(),
-  spine: z.boolean(),
-  upperLimbs: z.boolean(),
-  maneuversUpperLimbs: z.boolean(),
-  lowerLimbs: z.boolean(),
-  complementaryExams: z.boolean(),
-  diagnosticHypothesis: z.boolean(),
-  conclusion: z.boolean(),
-  specialSkills: z.boolean()
+  physicalExam: z.array(z.string()),
+  generalCondition: z.array(z.string()),
+  facies: z.array(z.string()),
+  gait: z.array(z.string()),
+  rombergTest: z.array(z.string()),
+  visualAcuity: z.array(z.string()),
+  correction: z.array(z.string()),
+  cardiovascular: z.array(z.string()),
+  respiratory: z.array(z.string()),
+  abdominal: z.array(z.string()),
+  spine: z.array(z.string()),
+  upperLimbs: z.array(z.string()),
+  maneuversUpperLimbs: z.array(z.string()),
+  lowerLimbs: z.array(z.string()),
+  complementaryExams: z.array(z.string()),
+  diagnosticHypothesis: z.string(),
+  conclusion: z.array(z.string()),
+  conclusionObservation: z.string(),
+  specialSkills: z.array(z.string())
 })
 
 export interface CreateAnamneseDocumentRequest {
@@ -80,24 +81,25 @@ export interface CreateAnamneseDocumentRequest {
   chiefComplaint: string;
   clinicalHistory: string;
   pathologicalPersonalAndFamilyHistory: string;
-  physicalExam: boolean;
-  generalCondition: boolean;
-  facies: boolean;
-  gait: boolean;
-  rombergTest: boolean;
-  visualAcuity: boolean;
-  correction: boolean;
-  cardiovascular: boolean;
-  respiratory: boolean;
-  abdominal: boolean;
-  spine: boolean;
-  upperLimbs: boolean;
-  maneuversUpperLimbs: boolean;
-  lowerLimbs: boolean;
-  complementaryExams: boolean;
-  diagnosticHypothesis: boolean;
-  conclusion: boolean;
-  specialSkills: boolean;
+  physicalExam: string[];
+  generalCondition: string[];
+  facies: string[];
+  gait: string[];
+  rombergTest: string[];
+  visualAcuity: string[];
+  correction: string[];
+  cardiovascular: string[];
+  respiratory: string[];
+  abdominal: string[];
+  spine: string[];
+  upperLimbs: string[];
+  maneuversUpperLimbs: string[];
+  lowerLimbs: string[];
+  complementaryExams: string[];
+  diagnosticHypothesis: string;
+  conclusion: string[];
+  conclusionObservation: string;
+  specialSkills: string[];
 }
 
 export interface CreateAsoDocumentRequest {
