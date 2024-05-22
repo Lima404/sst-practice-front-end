@@ -4,6 +4,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CreateAnamnese from '../default-documents/anamnese';
+import CreateAsoDocument from '../default-documents/aso';
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -66,7 +67,7 @@ export default function DocumentsTab() {
       </TabPanel>
 
       <TabPanel value={value} index={1}>
-        Conteúdo da Aba Dois
+        <CreateAsoDocument />
       </TabPanel>
 
       <TabPanel value={value} index={2}>

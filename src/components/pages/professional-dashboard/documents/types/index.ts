@@ -99,3 +99,53 @@ export interface CreateAnamneseDocumentRequest {
   conclusion: boolean;
   specialSkills: boolean;
 }
+
+export interface CreateAsoDocumentRequest {
+  // company
+  corporate_reason: string;
+  cnpj: string;
+  //employee
+  name: string;
+  cpf: string;
+  rg: string;
+  dt_birth: string;
+  registration: string;
+  employeeFunction: string;
+  office: string;
+  sector: string
+  // risk factors
+  risk_factors: string[];
+  // exams
+  exam_date: string;
+  exam_name: string;
+  // conclusion
+  conclusion: string;
+  observation: string;
+  // special skills
+  special_skills: string[];
+}
+
+export const createAsoDocumentSchema = z.object({
+  // company
+  corporate_reason: z.string(),
+  cnpj: z.string(),
+  //employee
+  name: z.string(),
+  cpf: z.string(),
+  rg: z.string(),
+  dt_birth: z.string(),
+  registration: z.string(),
+  employeeFunction: z.string(),
+  office: z.string(),
+  sector: z.string(),
+  // risk factors
+  risk_factors: z.array(z.string()),
+  // exams
+  exam_date: z.string(),
+  exam_name: z.string(),
+  // conclusion
+  conclusion: z.string(),
+  observation: z.string(),
+  // special skills
+  special_skills: z.array(z.string()),
+})

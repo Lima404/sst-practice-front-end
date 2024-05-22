@@ -99,12 +99,8 @@ const CreateAnamnese = () => {
     resolver: zodResolver(createUploadDocumentRequestSchema),
   });
 
-  const onSubmit: SubmitHandler<CreateAnamneseDocumentRequest> = async () => {
-    try {
-
-    } catch (err: any) {
-
-    }
+  const onSubmit: SubmitHandler<CreateAnamneseDocumentRequest> = async (data) => {
+    console.log(data);
   };
 
   const visualAcuityOptions = [
@@ -244,6 +240,7 @@ const CreateAnamnese = () => {
       <div className="create-admin-admin-dashboard-content">
         <h2 className="create-admin-page-title">Cadastrar Anamnese</h2>
         <div className="create-admin-form">
+
           <form onSubmit={handleSubmit(onSubmit)}>
             <Controller
               name="employer"
@@ -648,13 +645,13 @@ const CreateAnamnese = () => {
                 </div>
               )}
             />
+
             <div className="checkbox-container">
               <h4>Estado geral</h4>
               {generalConditionOptions.map((label) => (
                 <RHFCheckbox key={label} name="generalCondition" control={control} label={label} />
               ))}
             </div>
-
 
             <div className="checkbox-container">
               <h4>Fácies</h4>
@@ -683,7 +680,6 @@ const CreateAnamnese = () => {
                 <RHFCheckbox key={label} name="visualAcuity" control={control} label={label} />
               ))}
             </div>
-
 
             <div className="checkbox-container">
               <h4>Correção</h4>
@@ -763,8 +759,8 @@ const CreateAnamnese = () => {
             </div>
 
             <div className="create-admin-btn-submit">
-              <button className="create-admin-btn-submit" type="submit">
-                Exportar
+              <button className="create-unit-btn-submit" type="submit">
+                Cadastrar
               </button>
             </div>
           </form>
