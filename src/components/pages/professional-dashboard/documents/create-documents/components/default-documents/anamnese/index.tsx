@@ -295,7 +295,7 @@ const CreateAnamnese = () => {
                     className="form-input-create-admin"
                     id={errors.cnpj ? "filled-error" : "standard-basic"}
                     label="CNPJ"
-                    type="password"
+                    type="text"
                     variant="standard"
                     placeholder="Digite o CNPJ da empresa"
                     error={!!errors.cnpj}
@@ -637,26 +637,6 @@ const CreateAnamnese = () => {
                   <TextField
                     className="form-input-create-admin"
                     id={errors.clinicalHistory ? "filled-error" : "standard-basic"}
-                    label="Histórico clínico"
-                    type="text"
-                    variant="standard"
-                    placeholder="Digite o histórico clínico"
-                    error={!!errors.clinicalHistory}
-                    helperText={errors.clinicalHistory?.message}
-                    {...field}
-                  />
-                </div>
-              )}
-            />
-
-            <Controller
-              name="clinicalHistory"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-admin">
-                  <TextField
-                    className="form-input-create-admin"
-                    id={errors.clinicalHistory ? "filled-error" : "standard-basic"}
                     label="Histórico familiar"
                     type="text"
                     variant="standard"
@@ -782,10 +762,9 @@ const CreateAnamnese = () => {
               ))}
             </div>
 
-
             <div className="create-admin-btn-submit">
               <button className="create-admin-btn-submit" type="submit">
-                Cadastrar
+                Exportar
               </button>
             </div>
           </form>
