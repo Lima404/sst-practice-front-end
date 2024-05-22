@@ -5,6 +5,50 @@ import { CreateAdminRequest, createAdminSchema } from "../../../../../../admin-d
 import { createAdmin } from "../../../../../../admin-dashboard/admin/api/index"
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import RHFCheckbox from "../../checkbox";
+import '../../checkbox/index.css'
+
+interface FormValues {
+  employer: string;
+  companyName: string;
+  cnpj: string;
+  employeeName: string;
+  employeeCpf: string;
+  employeeRg: string;
+  employeeDateBirth: string; 
+  employeeRegistration: string;
+  employeeFunction: string;
+  employeeRole: string;
+  employeeSector: string;
+  physicalRisks: string;
+  chemicalRisks: string;
+  biologicalRisks: string;
+  ergonomicRisks: string;
+  mechanicalRiks: string;
+  examDate: string;
+  examName: string;
+  chiefComplaint: string;
+  clinicalHistory: string;
+  pathologicalPersonalAndFamilyHistory: string;
+  physicalExam: boolean;
+  generalCondition: boolean;
+  facies: boolean;
+  gait: boolean;
+  rombergTest: boolean;
+  visualAcuity: boolean;
+  correction: boolean;
+  cardiovascular: boolean;
+  respiratory: boolean;
+  abdominal: boolean;
+  spine: boolean;
+  upperLimbs: boolean;
+  maneuversUpperLimbs: boolean;
+  lowerLimbs: boolean;
+  complementaryExams: boolean;
+  diagnosticHypothesis: boolean;
+  conclusion: boolean;
+  specialSkills: boolean;
+}
 
 const CreateAnamnese = () => {
   const navigate = useNavigate();
@@ -12,7 +56,7 @@ const CreateAnamnese = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormValues>({
     defaultValues: {
       employer: "",
       companyName: "",
@@ -35,59 +79,25 @@ const CreateAnamnese = () => {
       chiefComplaint: "",
       clinicalHistory: "",
       pathologicalPersonalAndFamilyHistory: "",
-
-      // CHECKBOX EXAME FISICO
-      physicalExam: "",
-
-      // CHECKBOX ESTADO GERAL
-      generalCondition: "",
-
-      // CHECKBOX FÁCIES
-      facies: "",
-
-      // CHECKBOX MARCHA 
-      gait: "",
-
-      // CHECKBOX ROMBERG TEST
-      rombergTest: "",
-
-      // CHECKBOX VISUAL ACUITY
-      visualAcuity: "",
-
-      // CHECKBOX CORRECTION
-      correction: "",
-
-      // CHECKBOX CARDIOVASCULAR
-      cardiovascular: "",
-
-      // CHECKBOX RESPIRATORY
-      respiratory: "",
-
-      // CHECKBOX ABDOMINAL
-      abdominal: "",
-
-      // CHECKBOX SPINE
-      spine: "",
-
-      // CHECKBOX MMSS
-      upperLimbs: "",
-
-      // CHECKBOX UPPER LIMB MANEUVERS
-      maneuversUpperLimbs: "",
-
-      // CHECKBOX MMSS
-      lowerLimbs: "",
-
-      // CHECKBOX COMPLEMENTARY EXAMS
-      complementaryExams: "",
-
-      diagnosticHypothesis: "",
-
-      // CHECKBOX CONCLUSION
-      conclusion: "",
-
-      // CHECKBOX SPECIAL SKILLS
-      specialSkills: "",
+    
+      physicalExam: false,
+      generalCondition: false,
+      facies: false,
+      gait: false,
+      rombergTest: false,
+      visualAcuity: false,
+      correction: false,
+      cardiovascular: false,
+      respiratory: false,
+      abdominal: false,
+      spine: false,
+      upperLimbs: false,
+      maneuversUpperLimbs: false,
+      lowerLimbs: false,
+      complementaryExams: false,
+      diagnosticHypothesis: false,
+      conclusion: false,
+      specialSkills: false,
     },
     resolver: zodResolver(createAdminSchema),
   });
@@ -533,6 +543,187 @@ const CreateAnamnese = () => {
                 </div>
               )}
             />
+              <div className="checkbox-container">
+                <h4>Estado geral</h4>
+                <RHFCheckbox name="generalCondition" control={control} label="Bom" />
+                <RHFCheckbox name="generalCondition" control={control} label="Regular" />
+                <RHFCheckbox name="generalCondition" control={control} label="Ruim" />
+                <RHFCheckbox name="generalCondition" control={control} label="Comprometido" />
+              </div>
+
+              <div className="checkbox-container">
+                <h4>Fácies</h4>
+                <RHFCheckbox name="facies" control={control} label="Atípica" />
+                <RHFCheckbox name="facies" control={control} label="Normal" />
+                <RHFCheckbox name="facies" control={control} label="Acromegálica" />
+                <RHFCheckbox name="facies" control={control} label="Adenoidiana" />
+                <RHFCheckbox name="facies" control={control} label="Cushingóide" />
+                <RHFCheckbox name="facies" control={control} label="De depressão" />
+                <RHFCheckbox name="facies" control={control} label="De dor" />
+                <RHFCheckbox name="facies" control={control} label="Esclerodérmica" />
+                <RHFCheckbox name="facies" control={control} label="Hipertireoidea" />
+                <RHFCheckbox name="facies" control={control} label="Hipocrática" />
+                <RHFCheckbox name="facies" control={control} label="Leonina" />
+                <RHFCheckbox name="facies" control={control} label="Miastênica" />
+                <RHFCheckbox name="facies" control={control} label="Mixedematosa" />
+                <RHFCheckbox name="facies" control={control} label="Paralisia facial periférica" />
+                <RHFCheckbox name="facies" control={control} label="Renal" />
+                <RHFCheckbox name="facies" control={control} label="Sindrômica" />
+                <RHFCheckbox name="facies" control={control} label="Tetânica" />
+              </div>
+
+              <div className="checkbox-container">
+                <h4>Marcha</h4> 
+                <RHFCheckbox name="gait" control={control} label="Atípica" />
+                <RHFCheckbox name="gait" control={control} label="Normal" />
+                <RHFCheckbox name="gait" control={control} label="Anserina" />
+                <RHFCheckbox name="gait" control={control} label="Antálgica" />
+                <RHFCheckbox name="gait" control={control} label="Atáxica" />
+                <RHFCheckbox name="gait" control={control} label="Ceifante à direita" />
+                <RHFCheckbox name="gait" control={control} label="Ceifante à esquerda" />
+                <RHFCheckbox name="gait" control={control} label="Claudicante à direita" />
+                <RHFCheckbox name="gait" control={control} label="Claudicante à esquerda" />
+                <RHFCheckbox name="gait" control={control} label="Ebriosa" />
+                <RHFCheckbox name="gait" control={control} label="Em tesoura" />
+                <RHFCheckbox name="gait" control={control} label="Escarvante" />
+                <RHFCheckbox name="gait" control={control} label="Festinante" />
+                <RHFCheckbox name="gait" control={control} label="Parkinsoniana" />
+                <RHFCheckbox name="gait" control={control} label="Talonante" />
+              </div>
+
+              <div className="checkbox-container">
+                <h4>Teste de Romberg</h4>
+                <RHFCheckbox name="rombergTest" control={control} label="Positivo" />
+                <RHFCheckbox name="rombergTest" control={control} label="Negativo" />
+                <RHFCheckbox name="rombergTest" control={control} label="Não realizado/não aplicável" />
+              </div>
+
+              <div className="checkbox-container">
+                <h4>Acuidade visual</h4>
+                <RHFCheckbox name="visualAcuity" control={control} label="Não realizado" />
+                <RHFCheckbox name="visualAcuity" control={control} label="20/20" />
+                <RHFCheckbox name="visualAcuity" control={control} label="20/25" />
+                <RHFCheckbox name="visualAcuity" control={control} label="20/30" />
+                <RHFCheckbox name="visualAcuity" control={control} label="20/40" />
+                <RHFCheckbox name="visualAcuity" control={control} label="20/50" />
+                <RHFCheckbox name="visualAcuity" control={control} label="20/70" />
+                <RHFCheckbox name="visualAcuity" control={control} label="20/100" />
+                <RHFCheckbox name="visualAcuity" control={control} label="20/200" />
+                <RHFCheckbox name="visualAcuity" control={control} label="Conta dedos" />
+                <RHFCheckbox name="visualAcuity" control={control} label="Vê vultos" />
+                <RHFCheckbox name="visualAcuity" control={control} label="Enucleado" />
+                <RHFCheckbox name="visualAcuity" control={control} label="C/ prótese" />
+              </div>
+
+              <div className="checkbox-container">
+                <h4>Correção</h4>
+                <RHFCheckbox name="correction" control={control} label="C/ correção" />
+                <RHFCheckbox name="correction" control={control} label="S/ correção" />
+                <RHFCheckbox name="correction" control={control} label="C/ trocas" />
+              </div>
+
+              <div className="checkbox-container">
+                <h4>Cardiovascular</h4>
+                <RHFCheckbox name="cardiovascular" control={control} label="normal" />
+                <RHFCheckbox name="cardiovascular" control={control} label="ritmo cardíaco regular, com bulhas normofonéticas, sem sopros" />
+                <RHFCheckbox name="cardiovascular" control={control} label="ritmo cardíaco regulas, com bulhas hipofonéticas, sem sopros" />
+                <RHFCheckbox name="cardiovascular" control={control} label="ritmo cardíaco regular, com sopro diastólico em foco mitral" />
+                <RHFCheckbox name="cardiovascular" control={control} label="ritmo cardíaco regular, com sopro diastólico em foco tricúspide" />
+                <RHFCheckbox name="cardiovascular" control={control} label="ritmo cardíaco regular, com sopro sistólico em foco aórtico" />
+                <RHFCheckbox name="cardiovascular" control={control} label="ritmo cardíaco regular, com sopro sistólico em foco mitral" />
+                <RHFCheckbox name="cardiovascular" control={control} label="ritmo cardíaco regular, com sopro sistólico em foco pulmonar" />
+                <RHFCheckbox name="cardiovascular" control={control} label="ritmo cardíaco regular, com sopro sistólico em foco tricúspide" />
+                <RHFCheckbox name="cardiovascular" control={control} label="alterado" />
+              </div>
+
+              <div className="checkbox-container">
+                <h4>Respiratório</h4>
+                <RHFCheckbox name="respiratory" control={control} label="Normal" />
+                <RHFCheckbox name="respiratory" control={control} label="Murmúrio vesicular presente, simétrico, sem ruídos adventícios" />
+                <RHFCheckbox name="respiratory" control={control} label="Alterado" />
+              </div>
+
+              <div className="checkbox-container">
+                <h4>Dor abdominal</h4>
+                <RHFCheckbox name="abdominal" control={control} label="Normal" />
+                <RHFCheckbox name="abdominal" control={control} label="plano, flácido, indolor, sem massas ou viceromegalias palpáveis" />
+                <RHFCheckbox name="abdominal" control={control} label="com cicatriz(es" />
+                <RHFCheckbox name="abdominal" control={control} label="sem cicatriz(es)" />
+                <RHFCheckbox name="abdominal" control={control} label="alterado" />
+              </div>
+
+              <div className="checkbox-container">
+                <h4>Coluna</h4>
+                <RHFCheckbox name="spine" control={control} label="Normal" />
+                <RHFCheckbox name="spine" control={control} label="Amplitude articular preservada, sem desvios" />
+                <RHFCheckbox name="spine" control={control} label="Amplit. articular preserv., com desvio (convexidade p/ a direita)" />
+                <RHFCheckbox name="spine" control={control} label="Amplit. articular preserv., com desvio (convexidade p/ a direita)" />
+                <RHFCheckbox name="spine" control={control} label="Amplit. articular reduzida por queixas álgicas (flexão anterior)" />
+                <RHFCheckbox name="spine" control={control} label="Amplit. articular reduzida por queixas álgicas (flexão posterior)" />
+                <RHFCheckbox name="spine" control={control} label="Bloqueio voluntário da flexão anterior" />
+                <RHFCheckbox name="spine" control={control} label="Bloqueio voluntário da flexão posterior" />
+                <RHFCheckbox name="spine" control={control} label="Alterada" />
+              </div>
+
+              <div className="checkbox-container">
+                <h4>MMSS</h4>
+                <RHFCheckbox name="upperLimbs" control={control} label="Normais" />
+                <RHFCheckbox name="upperLimbs" control={control} label="Sem abaulamentos, sem atrofias, sem alterações funcionais" />
+                <RHFCheckbox name="upperLimbs" control={control} label="Sem alterações funcionais" />
+                <RHFCheckbox name="upperLimbs" control={control} label="Sem alterações funcionais e sem sinais flogísticos" />
+                <RHFCheckbox name="upperLimbs" control={control} label="Sem sinais flogísticos" />
+                <RHFCheckbox name="upperLimbs" control={control} label="Alterado" />
+              </div>
+
+              <div className="checkbox-container">
+                <h4>Cardiovascular</h4>
+                <RHFCheckbox name="maneuversUpperLimbs" control={control} label="Normal" />
+                <RHFCheckbox name="maneuversUpperLimbs" control={control} label="Negativo" />
+                <RHFCheckbox name="maneuversUpperLimbs" control={control} label="Não realizado" />
+                <RHFCheckbox name="maneuversUpperLimbs" control={control} label="Positivo à direita" />
+                <RHFCheckbox name="maneuversUpperLimbs" control={control} label="Positivo à esquerda" />
+                <RHFCheckbox name="maneuversUpperLimbs" control={control} label="Positivo bilateralmente" />
+              </div>
+
+              <div className="checkbox-container">
+                <h4>MMII</h4>
+                <RHFCheckbox name="lowerLimbs" control={control} label="Normais" />
+                <RHFCheckbox name="lowerLimbs" control={control} label="Sem abaulamentos, sem atrofias, sem alterações funcionais" />
+                <RHFCheckbox name="lowerLimbs" control={control} label="Sem abaulamentos, sem atrofias, sem alterações funcionais, com varizes" />
+                <RHFCheckbox name="lowerLimbs" control={control} label="Sem abaulamentos, sem atrofias, sem alterações funcionais, sem varizes" />
+                <RHFCheckbox name="lowerLimbs" control={control} label="Sem alterações funcionais" />
+                <RHFCheckbox name="lowerLimbs" control={control} label="Sem alterações funcionais e sem sinais flogísticos" />
+                <RHFCheckbox name="lowerLimbs" control={control} label="Sem sinais flogísticos" />
+                <RHFCheckbox name="lowerLimbs" control={control} label="Alterado" />
+              </div>
+
+              <div className="checkbox-container">
+                <h4>Exames complementares</h4>
+                <RHFCheckbox name="complementaryExams" control={control} label="Exames complementares anexos, com alterações clínicas" />
+                <RHFCheckbox name="complementaryExams" control={control} label="Exames complementares anexos, com alterações ocupacionais" />
+                <RHFCheckbox name="complementaryExams" control={control} label="Exames complementares anexos, sem alterações" />
+                <RHFCheckbox name="complementaryExams" control={control} label="Exames complementares obrigatórios para a função não realizados" />
+                <RHFCheckbox name="complementaryExams" control={control} label="Não realizou exames complementares" />
+                <RHFCheckbox name="complementaryExams" control={control} label="Hipótese diagnóstica" />
+                <RHFCheckbox name="complementaryExams" control={control} label="Conduta" />
+              </div>
+
+              <div className="checkbox-container">
+              <h4>Conclusão</h4>
+                <RHFCheckbox name="conclusion" control={control} label="Apto" />
+                <RHFCheckbox name="conclusion" control={control} label="Inapto" />
+                <RHFCheckbox name="conclusion" control={control} label="Observação sobre aptidão: (campo aberto)" />
+              </div>
+
+              <div className="checkbox-container">
+              <h4>Aptidões especiais</h4>
+                <RHFCheckbox name="specialSkills" control={control} label="Apto(a) para manipulação de alimentos" />
+                <RHFCheckbox name="specialSkills" control={control} label="Apto(a) para realizar instalações e serviços em eletricidade (NR10)" />
+                <RHFCheckbox name="specialSkills" control={control} label="Apto(a) para operação de máquinas autopropelidas (NR-12)" />
+                <RHFCheckbox name="specialSkills" control={control} label="Apto(a) para uso de arma de fogo" />
+                <RHFCheckbox name="specialSkills" control={control} label="Apto(a) para trabalho em espaço confinado (NR-33)" />
+                <RHFCheckbox name="specialSkills" control={control} label="Apto(a) para trabalho em altura (NR-35)" />
+              </div>            
 
             <div className="create-admin-btn-submit">
               <button className="create-admin-btn-submit" type="submit">
