@@ -7,6 +7,7 @@ import CreateAnamnese from '../default-documents/anamnese';
 import CreateAsoDocument from '../default-documents/aso';
 import CreateStatements from '../default-documents/declaracao';
 import CreateEspecialDocument from '../default-documents/receituario-especial';
+import CreateExam1 from '../default-documents/exame-1';
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -77,7 +78,7 @@ export default function DocumentsTab() {
       </TabPanel>
 
       <TabPanel value={value} index={4}>
-        Conteúdo da Aba Cinco
+        <CreateExam1 />
       </TabPanel>
 
       <TabPanel value={value} index={5}>

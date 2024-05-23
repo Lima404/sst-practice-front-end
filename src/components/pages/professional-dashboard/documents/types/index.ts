@@ -185,3 +185,23 @@ export const CreateEspecialDocumentsSchema = z.object({
   use_mode: z.string(),
   quantity: z.string(),
 })
+
+export interface CreateExamRequest {
+  name: string;
+  cpf: string;
+  dt_birth: string;
+  company: string;
+  exams: string[];
+  chemical_agents: string[];
+  text_field: string;
+}
+
+export const createExamSchema = z.object({
+  name: z.string(),
+  cpf: z.string(),
+  dt_birth: z.string(),
+  company: z.string(),
+  exams: z.array(z.string()),
+  chemical_agents: z.array(z.string()),
+  text_field: z.string(),
+})
