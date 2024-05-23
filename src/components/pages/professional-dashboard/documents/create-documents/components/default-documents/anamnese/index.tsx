@@ -43,6 +43,7 @@ const CreateAnamnese = () => {
       clinicalHistory: "",
       pathologicalPersonalAndFamilyHistory: "",
       conclusionObservation: "",
+      location: "",
 
       physicalExam: [],
       generalCondition: [],
@@ -124,6 +125,11 @@ const CreateAnamnese = () => {
                     <td><p className="p-text-export-document">Nome:</p></td>
                     <td><p className="p-text-export-document">CPF:</p></td>
                   </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
                   <tr>
                     <td><p className="p-text-export-document">RG:</p></td>
                     <td><p className="p-text-export-document">Data de Nascimento:</p></td>
@@ -206,6 +212,277 @@ const CreateAnamnese = () => {
                   </tr>
                   <tr>
                     <td height={200}><p className="p-text-export-document"></p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>EXAME FÍSICO</center></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>ESTADO GERAL</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Estado</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>FÁCIES</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Fácie</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>TESTE DE ROMBERG</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Teste</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>ACUIDADE VISUAL</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Acuidade visual</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>CORREÇÃO</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Correção</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>CARDIOVASCULAR</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Cardiovascular</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>RESPIRATÓRIO</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Respiratório</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>ABDOMINAL</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Abdominal</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>COLUNA</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Coluna</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>MMSS</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">MMSS</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>MANOBRAS MMSS</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">MANOBRAS MMSS</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>MMII</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">MMII</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>EXAMES COMPLEMENTARES</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Exames complementares</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>HIPÓTESE DIAGNÓSTICA</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height={200}><p className="p-text-export-document"></p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>CONCLUSÃO</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Conclusão</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>APTIDÕES ESPECIAIS</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Aptidão especial 1</p></td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Aptidão especial 2</p></td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Aptidão especial 3</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>TIPO DE EXAME</center></p>
+                    </td>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>IDENTIFICAÇÃO DO MÉDICO RESPONSÁVEL PELO PCMSO</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={6}>
+                      <p><center>Exame médico admissional/periódico/demissional/ de mudança de risco/ de retorno ao trabalho/ de monitoração pontual (de acordo com a seleção)</center></p>
+                    </td>
+                    <td colSpan={6}>
+                      <p><center>Dr. Artur Nóbrega de Oliveira | CRM-RN 7597 | CPF: 064.642.844-60</center></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td colSpan={6}>
+                      <p><center>Local</center></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td height={200} colSpan={6}>
+                      <p style={{textAlign: 'left'}}><center>Dr. Artur Nóbrega de Oliveira<br/>
+                        MÉDICO DO TRABALHO<br/>
+                        CRM-RN 7597
+                      </center></p>
+                    </td>
+                    <td width={200} height={200} colSpan={6}>
+                      
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -710,7 +987,7 @@ const CreateAnamnese = () => {
               control={control}
               render={({ field: { onChange, value } }) => (
                 <div className="ctn-form-input-create-unit">
-                  <h4>FÁCIES</h4>
+                  <h4>Fácies</h4>
 
                   <FormControlLabel
                     control={
@@ -2043,7 +2320,7 @@ const CreateAnamnese = () => {
               control={control}
               render={({ field: { onChange, value } }) => (
                 <div className="ctn-form-input-create-unit">
-                  <h4>Spine</h4>
+                  <h4>Coluna</h4>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -2872,6 +3149,26 @@ const CreateAnamnese = () => {
                     label="Apto(a) para trabalho em altura (NR-35)"
                   />
                   {errors.specialSkills && <p>{errors.specialSkills.message}</p>}
+                </div>
+              )}
+            />
+
+            <Controller
+              name="location"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.location ? "filled-error" : "standard-basic"}
+                    label="Local"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite o local"
+                    error={!!errors.location}
+                    helperText={errors.location?.message}
+                    {...field}
+                  />
                 </div>
               )}
             />

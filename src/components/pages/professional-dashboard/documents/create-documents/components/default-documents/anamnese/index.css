@@ -1,5 +1,6 @@
 .document-container-to-export {
   text-align: left;
+  display: none;
 }
 
 .td-header-export-document {
@@ -10,4 +11,9 @@
   color: #000;
   font-size: 12px;
   font-weight: 700;
+}
+
+#Tabela_01 td {
+  border: 1px solid black;
+  padding-left: .2em;
 }

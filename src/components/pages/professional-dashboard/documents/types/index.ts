@@ -38,6 +38,7 @@ export const createAnamneseDocumentRequestSchema = z.object({
   chiefComplaint: z.string(),
   clinicalHistory: z.string(),
   pathologicalPersonalAndFamilyHistory: z.string(),
+  location: z.string(),
   physicalExam: z.array(z.string()),
   generalCondition: z.array(z.string()),
   facies: z.array(z.string()),
@@ -81,6 +82,7 @@ export interface CreateAnamneseDocumentRequest {
   chiefComplaint: string;
   clinicalHistory: string;
   pathologicalPersonalAndFamilyHistory: string;
+  location: string;
   physicalExam: string[];
   generalCondition: string[];
   facies: string[];
