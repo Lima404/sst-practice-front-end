@@ -4,8 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateAsoDocumentRequest, createAsoDocumentSchema } from "../../../../types";
 import { applyCpfMask } from "../../../../../../../utils/applyCpfMask";
 import { applyRgMask } from "../../../../../../../utils/applyRgMask";
+import { applyCnpjMask } from "../../../../../../../utils/applyCnpjMask";
+import { applyDateMask } from "../../../../../../../utils/applyDateMask";
 
-const CreateAsoDocument = () => {
+const CreateAsoDocuments = () => {
   const {
     control,
     handleSubmit,
@@ -84,6 +86,7 @@ const CreateAsoDocument = () => {
                     error={!!errors.cnpj}
                     helperText={errors.cnpj?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyCnpjMask(e.target.value))}
                   />
                 </div>
               )}
@@ -167,6 +170,7 @@ const CreateAsoDocument = () => {
                     error={!!errors.dt_birth}
                     helperText={errors.dt_birth?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyDateMask(e.target.value))}
                   />
                 </div>
               )}
@@ -570,4 +574,4 @@ const CreateAsoDocument = () => {
   );
 };
 
-export default CreateAsoDocument;
+export default CreateAsoDocuments;

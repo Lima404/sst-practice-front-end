@@ -1,10 +1,11 @@
 import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreateExamRequest, createExamSchema} from "../../../../types";
+import { CreateExamTypeOneDocumentsRequest, CreateExamTypeOneDocumentsSchema} from "../../../../types";
 import { applyCpfMask } from "../../../../../../../utils/applyCpfMask";
+import { applyDateMask } from "../../../../../../../utils/applyDateMask";
 
-const CreateExam1 = () => {
+const CreateExameTypeOneDocuments = () => {
   const {
     control,
     handleSubmit,
@@ -19,10 +20,10 @@ const CreateExam1 = () => {
       chemical_agents: [],
       text_field: "",
     },
-    resolver: zodResolver(createExamSchema),
+    resolver: zodResolver(CreateExamTypeOneDocumentsSchema),
   });
 
-  const onSubmit: SubmitHandler<CreateExamRequest> = async (data) => {
+  const onSubmit: SubmitHandler<CreateExamTypeOneDocumentsRequest> = async (data) => {
     console.log(data);
   };
 
@@ -69,6 +70,7 @@ const CreateExam1 = () => {
                     error={!!errors.dt_birth}
                     helperText={errors.dt_birth?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyDateMask(e.target.value))}
                   />
                 </div>
               )}
@@ -768,4 +770,4 @@ const CreateExam1 = () => {
   );
 };
 
-export default CreateExam1;
+export default CreateExameTypeOneDocuments;

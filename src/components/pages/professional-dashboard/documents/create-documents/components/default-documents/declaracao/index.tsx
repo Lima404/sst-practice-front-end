@@ -3,6 +3,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateStatementsRequest, createStatementsSchema } from "../../../../types";
 import { applyCpfMask } from "../../../../../../../utils/applyCpfMask";
+import { applyDateMask } from "../../../../../../../utils/applyDateMask";
 
 const CreateStatements = () => {
   const {
@@ -100,6 +101,7 @@ const CreateStatements = () => {
                     error={!!errors.dt_birth}
                     helperText={errors.dt_birth?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyDateMask(e.target.value))}
                   />
                 </div>
               )}

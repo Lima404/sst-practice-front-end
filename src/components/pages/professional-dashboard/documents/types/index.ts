@@ -186,7 +186,7 @@ export const CreateEspecialDocumentsSchema = z.object({
   quantity: z.string(),
 })
 
-export interface CreateExamRequest {
+export interface CreateExamTypeOneDocumentsRequest {
   name: string;
   cpf: string;
   dt_birth: string;
@@ -196,7 +196,7 @@ export interface CreateExamRequest {
   text_field: string;
 }
 
-export const createExamSchema = z.object({
+export const CreateExamTypeOneDocumentsSchema = z.object({
   name: z.string(),
   cpf: z.string(),
   dt_birth: z.string(),
@@ -204,4 +204,20 @@ export const createExamSchema = z.object({
   exams: z.array(z.string()),
   chemical_agents: z.array(z.string()),
   text_field: z.string(),
+})
+
+export interface CreateExamTypeTwoDocumentsRequest {
+  name: string;
+  cpf: string; 
+  dt_birth: string;
+  corporate_reason: string; 
+  exames: string[];
+}
+
+export const CreateExamTypeTwoDocumentsSchema = z.object({
+  name: z.string(),
+  cpf: z.string(), 
+  dt_birth: z.string(),
+  corporate_reason: z.string(), 
+  exames: z.array(z.string()),
 })
