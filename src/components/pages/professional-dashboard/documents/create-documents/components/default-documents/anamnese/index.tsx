@@ -1,10 +1,18 @@
+import "./index.css"
 import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import '../../checkbox/index.css'
 import { CreateAnamneseDocumentRequest, createAnamneseDocumentRequestSchema } from "../../../../types";
 
+import { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
+
+import DocumentHeader from "../../../../../../../../assets/documents-template/documentHeader.png";
+
 const CreateAnamnese = () => {
+  const contentAnamneseDocumentToExport = useRef(null);
+
   const {
     control,
     handleSubmit,
@@ -56,8 +64,13 @@ const CreateAnamnese = () => {
     resolver: zodResolver(createAnamneseDocumentRequestSchema),
   });
 
+  const handlePrint = useReactToPrint({
+    content: () => contentAnamneseDocumentToExport.current,
+  });
+
   const onSubmit: SubmitHandler<CreateAnamneseDocumentRequest> = async (data) => {
     console.log(data);
+    handlePrint();
   };
 
   return (
@@ -65,6 +78,138 @@ const CreateAnamnese = () => {
       <div className="create-admin-admin-dashboard-content">
         <h2 className="create-admin-page-title">Cadastrar Anamnese</h2>
         <div className="create-admin-form">
+
+          <div className="document-container-to-export">
+            <div ref={contentAnamneseDocumentToExport} className="content">
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td colSpan={6}>
+                      <img alt="" height={175} src={DocumentHeader} style={{ display: "block" }} width={900} />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>ANAMNESE OCUPACIONAL</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>EMPREGADOR</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Razão social:</p></td>
+                    <td><p className="p-text-export-document">CNPJ:</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>FUNCIONÁRIO</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Nome:</p></td>
+                    <td><p className="p-text-export-document">CPF:</p></td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">RG:</p></td>
+                    <td><p className="p-text-export-document">Data de Nascimento:</p></td>
+                    <td><p className="p-text-export-document">Matrícula:</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>FATORES DE RISCO</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Físicos:</p></td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Químicos:</p></td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Biológicos:</p></td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Ergonômicos:</p></td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Mecânicos:</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>EXAMES REALIZADOS</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Data:</p></td>
+                    <td><p className="p-text-export-document">Exame:</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>QUEIXA PRINCIPAL</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height={200}><p className="p-text-export-document"></p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>HISTÓRIA CLÍNICA</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height={200}><p className="p-text-export-document"></p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>ANTECEDENTES PESSOAIS E FAMILIARES PATOLÓGICOS</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height={200}><p className="p-text-export-document"></p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <Controller

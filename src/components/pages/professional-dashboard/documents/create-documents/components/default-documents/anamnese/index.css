@@ -1,0 +1,13 @@
+.document-container-to-export {
+  text-align: left;
+}
+
+.td-header-export-document {
+  background-color: #d5dce4;
+}
+
+.p-text-export-document {
+  color: #000;
+  font-size: 12px;
+  font-weight: 700;
+}
