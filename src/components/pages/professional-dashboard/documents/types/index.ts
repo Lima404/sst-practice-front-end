@@ -168,3 +168,56 @@ export const createStatementsSchema = z.object({
   text_field: z.string(),
 })
 
+export interface CreateEspecialDocumentsRequest {
+  name: string;
+  cpf: string; 
+  adress: string;
+  drugs_name: string; 
+  use_mode: string;
+  quantity: string;
+}
+
+export const CreateEspecialDocumentsSchema = z.object({
+  name: z.string(),
+  cpf: z.string(), 
+  adress: z.string(),
+  drugs_name: z.string(), 
+  use_mode: z.string(),
+  quantity: z.string(),
+})
+
+export interface CreateExamTypeOneDocumentsRequest {
+  name: string;
+  cpf: string;
+  dt_birth: string;
+  company: string;
+  exams: string[];
+  chemical_agents: string[];
+  text_field: string;
+}
+
+export const CreateExamTypeOneDocumentsSchema = z.object({
+  name: z.string(),
+  cpf: z.string(),
+  dt_birth: z.string(),
+  company: z.string(),
+  exams: z.array(z.string()),
+  chemical_agents: z.array(z.string()),
+  text_field: z.string(),
+})
+
+export interface CreateExamTypeTwoDocumentsRequest {
+  name: string;
+  cpf: string; 
+  dt_birth: string;
+  corporate_reason: string; 
+  exames: string[];
+}
+
+export const CreateExamTypeTwoDocumentsSchema = z.object({
+  name: z.string(),
+  cpf: z.string(), 
+  dt_birth: z.string(),
+  corporate_reason: z.string(), 
+  exames: z.array(z.string()),
+})

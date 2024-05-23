@@ -2,8 +2,12 @@ import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateAsoDocumentRequest, createAsoDocumentSchema } from "../../../../types";
+import { applyCpfMask } from "../../../../../../../utils/applyCpfMask";
+import { applyRgMask } from "../../../../../../../utils/applyRgMask";
+import { applyCnpjMask } from "../../../../../../../utils/applyCnpjMask";
+import { applyDateMask } from "../../../../../../../utils/applyDateMask";
 
-const CreateAsoDocument = () => {
+const CreateAsoDocuments = () => {
   const {
     control,
     handleSubmit,
@@ -82,6 +86,7 @@ const CreateAsoDocument = () => {
                     error={!!errors.cnpj}
                     helperText={errors.cnpj?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyCnpjMask(e.target.value))}
                   />
                 </div>
               )}
@@ -123,6 +128,7 @@ const CreateAsoDocument = () => {
                     error={!!errors.cpf}
                     helperText={errors.cpf?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyCpfMask(e.target.value))}
                   />
                 </div>
               )}
@@ -143,6 +149,7 @@ const CreateAsoDocument = () => {
                     error={!!errors.rg}
                     helperText={errors.rg?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyRgMask(e.target.value))}
                   />
                 </div>
               )}
@@ -163,6 +170,7 @@ const CreateAsoDocument = () => {
                     error={!!errors.dt_birth}
                     helperText={errors.dt_birth?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyDateMask(e.target.value))}
                   />
                 </div>
               )}
@@ -566,4 +574,4 @@ const CreateAsoDocument = () => {
   );
 };
 
-export default CreateAsoDocument;
+export default CreateAsoDocuments;
