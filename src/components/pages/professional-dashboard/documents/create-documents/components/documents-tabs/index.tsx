@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import CreateAnamnese from '../default-documents/anamnese';
 import CreateAsoDocument from '../default-documents/aso';
 import CreateStatements from '../default-documents/declaracao';
+import CreateEspecialDocument from '../default-documents/receituario-especial';
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -72,7 +73,7 @@ export default function DocumentsTab() {
       </TabPanel>
 
       <TabPanel value={value} index={3}>
-        Conteúdo da Aba Quatro
+        <CreateEspecialDocument />
       </TabPanel>
 
       <TabPanel value={value} index={4}>

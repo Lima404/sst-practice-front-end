@@ -168,3 +168,20 @@ export const createStatementsSchema = z.object({
   text_field: z.string(),
 })
 
+export interface CreateEspecialDocumentsRequest {
+  name: string;
+  cpf: string; 
+  adress: string;
+  drugs_name: string; 
+  use_mode: string;
+  quantity: string;
+}
+
+export const CreateEspecialDocumentsSchema = z.object({
+  name: z.string(),
+  cpf: z.string(), 
+  adress: z.string(),
+  drugs_name: z.string(), 
+  use_mode: z.string(),
+  quantity: z.string(),
+})

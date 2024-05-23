@@ -2,6 +2,8 @@ import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateAsoDocumentRequest, createAsoDocumentSchema } from "../../../../types";
+import { applyCpfMask } from "../../../../../../../utils/applyCpfMask";
+import { applyRgMask } from "../../../../../../../utils/applyRgMask";
 
 const CreateAsoDocument = () => {
   const {
@@ -123,6 +125,7 @@ const CreateAsoDocument = () => {
                     error={!!errors.cpf}
                     helperText={errors.cpf?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyCpfMask(e.target.value))}
                   />
                 </div>
               )}
@@ -143,6 +146,7 @@ const CreateAsoDocument = () => {
                     error={!!errors.rg}
                     helperText={errors.rg?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyRgMask(e.target.value))}
                   />
                 </div>
               )}

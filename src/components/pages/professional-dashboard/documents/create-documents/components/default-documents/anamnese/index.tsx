@@ -3,6 +3,8 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import '../../checkbox/index.css'
 import { CreateAnamneseDocumentRequest, createAnamneseDocumentRequestSchema } from "../../../../types";
+import { applyRgMask } from "../../../../../../../utils/applyRgMask";
+import { applyCpfMask } from "../../../../../../../utils/applyCpfMask";
 
 const CreateAnamnese = () => {
   const {
@@ -164,6 +166,7 @@ const CreateAnamnese = () => {
                     error={!!errors.employeeCpf}
                     helperText={errors.employeeCpf?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyCpfMask(e.target.value))}
                   />
                 </div>
               )}
@@ -184,6 +187,7 @@ const CreateAnamnese = () => {
                     error={!!errors.employeeRg}
                     helperText={errors.employeeRg?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyRgMask(e.target.value))}
                   />
                 </div>
               )}

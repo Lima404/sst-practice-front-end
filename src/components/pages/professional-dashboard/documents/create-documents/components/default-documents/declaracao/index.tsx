@@ -2,6 +2,7 @@ import { Box, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateStatementsRequest, createStatementsSchema } from "../../../../types";
+import { applyCpfMask } from "../../../../../../../utils/applyCpfMask";
 
 const CreateStatements = () => {
   const {
@@ -119,6 +120,7 @@ const CreateStatements = () => {
                     error={!!errors.cpf}
                     helperText={errors.cpf?.message}
                     {...field}
+                    onChange={(e) => field.onChange(applyCpfMask(e.target.value))}
                   />
                 </div>
               )}
