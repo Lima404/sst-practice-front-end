@@ -55,6 +55,7 @@ const CreateAsoDocuments = () => {
 
   const handlePrint = useReactToPrint({
     content: () => contentAsoDocumentToExport.current,
+    documentTitle: formData ? `ASO_DOCUMENT_${formData?.name}` : "ASO_DOCUMENT",
   });
 
   const onSubmit: SubmitHandler<CreateAsoDocumentRequest> = async (data) => {
