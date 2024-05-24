@@ -5,7 +5,14 @@ import { CreateStatementsRequest, createStatementsSchema } from "../../../../typ
 import { applyCpfMask } from "../../../../../../../utils/applyCpfMask";
 import { applyDateMask } from "../../../../../../../utils/applyDateMask";
 
+import { useReactToPrint } from "react-to-print";
+import DocumentHeader from "../../../../../../../../assets/documents-template/documentHeader.png";
+import { useEffect, useRef, useState } from "react";
+
 const CreateStatements = () => {
+  const contentStatementDocumentToExport = useRef(null);
+  const [formData, setFormData] = useState<CreateStatementsRequest | null>(null);
+
   const {
     control,
     handleSubmit,
@@ -21,9 +28,21 @@ const CreateStatements = () => {
     resolver: zodResolver(createStatementsSchema),
   });
 
+  const handlePrint = useReactToPrint({
+    content: () => contentStatementDocumentToExport.current,
+    documentTitle: formData ? `ASO_DOCUMENT_${formData?.name}` : "ASO_DOCUMENT",
+  });
+
   const onSubmit: SubmitHandler<CreateStatementsRequest> = async (data) => {
     console.log(data);
+    setFormData(data);
   };
+
+  useEffect(() => {
+    if (formData) {
+      handlePrint();
+    }
+  }, [formData]);
 
   const titles = [
     "Laudo",
@@ -39,6 +58,75 @@ const CreateStatements = () => {
       <div className="create-unit-company-dashboard-content">
         <h2 className="create-unit-page-title">Cadastrar declaração</h2>
         <div className="create-unit-form">
+
+          <div className="document-container-to-export">
+            <div ref={contentStatementDocumentToExport} className="content">
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td colSpan={6}>
+                      <img alt="" height={175} src={DocumentHeader} style={{ display: "block" }} width={900} />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>{formData?.title}</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Nome: {formData?.name}</p></td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Nome: {formData?.dt_birth}</p></td>
+                    <td><p className="p-text-export-document">Nome: {formData?.cpf}</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td colSpan={6} height={650}>
+                      <p className="p-text-export-document"><center>{formData?.text_field}</center></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td height={200} colSpan={6}>
+                      <p style={{ textAlign: 'left' }}><center>Dr. Artur Nóbrega de Oliveira<br />
+                        MÉDICO DO TRABALHO<br />
+                        CRM-RN 7597
+                      </center></p>
+                    </td>
+                    <td width={200} height={200} colSpan={6}></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td colSpan={6}>
+                      <p><center>Avenida Engenheiro Roberto Freire nº 1962, Box 489, Capim Macio, Natal/RN, CEP 59.082-095.<br/>
+                      Telefone: 84 9 8127 7221 | e-mail: praticasst@outlook.com</center></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+
           <form onSubmit={handleSubmit(onSubmit)}>
 
             <Controller
@@ -143,7 +231,7 @@ const CreateStatements = () => {
                     error={!!errors.text_field}
                     helperText={errors.text_field?.message}
                     {...field}
-                  />  
+                  />
                 </div>
               )}
             />
