@@ -8,7 +8,7 @@ import { applyRgMask } from "../../../../../../../utils/applyRgMask";
 import { applyCnpjMask } from "../../../../../../../utils/applyCnpjMask";
 import { applyDateMask } from "../../../../../../../utils/applyDateMask";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import DocumentHeader from "../../../../../../../../assets/documents-template/documentHeader.png";
 
@@ -35,7 +35,11 @@ const CreateAsoDocuments = () => {
       office: "",
       sector: "",
       // risk factors
-      risk_factors: [],
+      physicalRisks: "",
+      chemicalRisks: "",
+      biologicalRisks: "",
+      ergonomicRisks: "",
+      mechanicalRiks: "",
       // exams
       exam_date: "",
       exam_name: "",
@@ -54,10 +58,15 @@ const CreateAsoDocuments = () => {
   });
 
   const onSubmit: SubmitHandler<CreateAsoDocumentRequest> = async (data) => {
-    console.log(data);
     setFormData(data);
-    handlePrint();
+    console.log(formData);
   };
+
+  useEffect(() => {
+    if (formData) {
+      handlePrint();
+    }
+  }, [formData]);
 
   return (
     <div className="main-create-unit-company-dashboard">
@@ -92,7 +101,7 @@ const CreateAsoDocuments = () => {
                   </tr>
                   <tr>
                     <td><p className="p-text-export-document">Razão social: {formData?.corporate_reason}</p></td>
-                    <td><p className="p-text-export-document">CNPJ:</p></td>
+                    <td><p className="p-text-export-document">CNPJ: {formData?.cnpj}</p></td>
                   </tr>
                 </tbody>
               </table>
@@ -105,8 +114,8 @@ const CreateAsoDocuments = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td><p className="p-text-export-document">Nome:</p></td>
-                    <td><p className="p-text-export-document">CPF:</p></td>
+                    <td><p className="p-text-export-document">Nome: {formData?.name}</p></td>
+                    <td><p className="p-text-export-document">CPF: {formData?.cpf}</p></td>
                   </tr>
                 </tbody>
               </table>
@@ -114,9 +123,9 @@ const CreateAsoDocuments = () => {
               <table align="center" border={0} id="Tabela_01" width={900}>
                 <tbody>
                   <tr>
-                    <td><p className="p-text-export-document">RG:</p></td>
-                    <td><p className="p-text-export-document">Data de Nascimento:</p></td>
-                    <td><p className="p-text-export-document">Matrícula:</p></td>
+                    <td><p className="p-text-export-document">RG: {formData?.rg}</p></td>
+                    <td><p className="p-text-export-document">Data de Nascimento: {formData?.dt_birth}</p></td>
+                    <td><p className="p-text-export-document">Matrícula: {formData?.registration}</p></td>
                   </tr>
                 </tbody>
               </table>
@@ -124,9 +133,9 @@ const CreateAsoDocuments = () => {
               <table align="center" border={0} id="Tabela_01" width={900}>
                 <tbody>
                   <tr>
-                    <td><p className="p-text-export-document">Função:</p></td>
-                    <td><p className="p-text-export-document">Cargo:</p></td>
-                    <td><p className="p-text-export-document">Setor:</p></td>
+                    <td><p className="p-text-export-document">Função: {formData?.employeeFunction}</p></td>
+                    <td><p className="p-text-export-document">Cargo: {formData?.office}</p></td>
+                    <td><p className="p-text-export-document">Setor: {formData?.sector}</p></td>
                   </tr>
                 </tbody>
               </table>
@@ -139,19 +148,19 @@ const CreateAsoDocuments = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td><p className="p-text-export-document">Físicos:</p></td>
+                    <td><p className="p-text-export-document">Físicos: {formData?.physicalRisks}</p></td>
                   </tr>
                   <tr>
-                    <td><p className="p-text-export-document">Químicos:</p></td>
+                    <td><p className="p-text-export-document">Químicos: {formData?.chemicalRisks}</p></td>
                   </tr>
                   <tr>
-                    <td><p className="p-text-export-document">Biológicos:</p></td>
+                    <td><p className="p-text-export-document">Biológicos: {formData?.biologicalRisks}</p></td>
                   </tr>
                   <tr>
-                    <td><p className="p-text-export-document">Ergonômicos:</p></td>
+                    <td><p className="p-text-export-document">Ergonômicos: {formData?.ergonomicRisks}</p></td>
                   </tr>
                   <tr>
-                    <td><p className="p-text-export-document">Mecânicos:</p></td>
+                    <td><p className="p-text-export-document">Mecânicos: {formData?.mechanicalRiks}</p></td>
                   </tr>
                 </tbody>
               </table>
@@ -164,8 +173,8 @@ const CreateAsoDocuments = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td><p className="p-text-export-document">Data:</p></td>
-                    <td><p className="p-text-export-document">Exame:</p></td>
+                    <td><p className="p-text-export-document">Data: {formData?.exam_date}</p></td>
+                    <td><p className="p-text-export-document">Exame: {formData?.exam_name}</p></td>
                   </tr>
                 </tbody>
               </table>
@@ -178,7 +187,7 @@ const CreateAsoDocuments = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td><p className="p-text-export-document">Conclusão</p></td>
+                    <td><p className="p-text-export-document">{formData?.conclusion}</p></td>
                   </tr>
                 </tbody>
               </table>
@@ -190,15 +199,13 @@ const CreateAsoDocuments = () => {
                       <p className="p-text-export-document"><center>APTIDÕES ESPECIAIS</center></p>
                     </td>
                   </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Aptidão especial 1</p></td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Aptidão especial 2</p></td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Aptidão especial 3</p></td>
-                  </tr>
+                  {formData?.special_skills.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
 
@@ -227,7 +234,7 @@ const CreateAsoDocuments = () => {
                 <tbody>
                   <tr>
                     <td colSpan={6}>
-                      <p><center>Local</center></p>
+                      <p>Local: {formData?.location}</p>
                     </td>
                   </tr>
                 </tbody>
@@ -460,104 +467,102 @@ const CreateAsoDocuments = () => {
             />
 
             <Controller
-              name="risk_factors"
+              name="physicalRisks"
               control={control}
-              render={({ field: { onChange, value } }) => (
-                <div className="ctn-form-input-create-unit">
-                  <h4>Fatores de risco</h4>
-                  <div>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name="risk_factors"
-                          value="Físicos"
-                          defaultChecked={false}
-                          onChange={(e) => {
-                            const newValue = e.target.checked
-                              ? [...value, e.target.value]
-                              : value.filter((item) => item !== e.target.value);
-                            onChange(newValue);
-                          }}
-                          color="primary"
-                          {...control}
-                        />
-                      }
-                      label="Físicos"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name="risk_factors"
-                          value="Químicos"
-                          defaultChecked={false}
-                          onChange={(e) => {
-                            const newValue = e.target.checked
-                              ? [...value, e.target.value]
-                              : value.filter((item) => item !== e.target.value);
-                            onChange(newValue);
-                          }}
-                          color="primary"
-                          {...control}
-                        />
-                      }
-                      label="Químicos"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name="risk_factors"
-                          value="Ergonômicos"
-                          defaultChecked={false}
-                          onChange={(e) => {
-                            const newValue = e.target.checked
-                              ? [...value, e.target.value]
-                              : value.filter((item) => item !== e.target.value);
-                            onChange(newValue);
-                          }}
-                          color="primary"
-                          {...control}
-                        />
-                      }
-                      label="Ergonômicos"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name="risk_factors"
-                          value="Biológicos"
-                          defaultChecked={false}
-                          onChange={(e) => {
-                            const newValue = e.target.checked
-                              ? [...value, e.target.value]
-                              : value.filter((item) => item !== e.target.value);
-                            onChange(newValue);
-                          }}
-                          color="primary"
-                          {...control}
-                        />
-                      }
-                      label="Biológicos"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name="risk_factors"
-                          value="Mecânicos"
-                          defaultChecked={false}
-                          onChange={(e) => {
-                            const newValue = e.target.checked
-                              ? [...value, e.target.value]
-                              : value.filter((item) => item !== e.target.value);
-                            onChange(newValue);
-                          }}
-                          color="primary"
-                          {...control}
-                        />
-                      }
-                      label="Mecânicos"
-                    />
-                  </div>
-                  {errors.risk_factors && <p>{errors.risk_factors.message}</p>}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <h4>Fatores de riscos</h4>
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.physicalRisks ? "filled-error" : "standard-basic"}
+                    label="Riscos Físicos"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite os fatores de riscos físicos"
+                    error={!!errors.physicalRisks}
+                    helperText={errors.physicalRisks?.message}
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="chemicalRisks"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.chemicalRisks ? "filled-error" : "standard-basic"}
+                    label="Riscos Químicos"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite os fatores de riscos químicos"
+                    error={!!errors.chemicalRisks}
+                    helperText={errors.chemicalRisks?.message}
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="biologicalRisks"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.biologicalRisks ? "filled-error" : "standard-basic"}
+                    label="Riscos Biológicos"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite os fatores de riscos biológicos"
+                    error={!!errors.biologicalRisks}
+                    helperText={errors.biologicalRisks?.message}
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="ergonomicRisks"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.ergonomicRisks ? "filled-error" : "standard-basic"}
+                    label="Riscos Ergônomicos"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite os fatores de riscos ergônomicos"
+                    error={!!errors.ergonomicRisks}
+                    helperText={errors.ergonomicRisks?.message}
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="mechanicalRiks"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.mechanicalRiks ? "filled-error" : "standard-basic"}
+                    label="Riscos Mecânicos"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite os fatores de riscos mecânicos"
+                    error={!!errors.mechanicalRiks}
+                    helperText={errors.mechanicalRiks?.message}
+                    {...field}
+                  />
                 </div>
               )}
             />
@@ -760,7 +765,7 @@ const CreateAsoDocuments = () => {
                       label="Apto(a) para trabalho em altura (NR-35)"
                     />
                   </div>
-                  {errors.risk_factors && <p>{errors.risk_factors.message}</p>}
+                  {errors.special_skills && <p>{errors.special_skills.message}</p>}
                 </div>
               )}
             />
