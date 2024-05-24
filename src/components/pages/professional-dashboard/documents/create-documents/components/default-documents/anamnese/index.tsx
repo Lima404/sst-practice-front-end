@@ -7,13 +7,14 @@ import { CreateAnamneseDocumentRequest, createAnamneseDocumentRequestSchema } fr
 import { applyRgMask } from "../../../../../../../utils/applyRgMask";
 import { applyCpfMask } from "../../../../../../../utils/applyCpfMask";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 
 import DocumentHeader from "../../../../../../../../assets/documents-template/documentHeader.png";
 
 const CreateAnamnese = () => {
   const contentAnamneseDocumentToExport = useRef(null);
+  const [formData, setFormData] = useState<CreateAnamneseDocumentRequest | null>(null);
 
   const {
     control,
@@ -69,12 +70,18 @@ const CreateAnamnese = () => {
 
   const handlePrint = useReactToPrint({
     content: () => contentAnamneseDocumentToExport.current,
+    documentTitle: formData ? `ASO_DOCUMENT_${formData?.employeeName}` : "ASO_DOCUMENT",
   });
 
   const onSubmit: SubmitHandler<CreateAnamneseDocumentRequest> = async (data) => {
-    console.log(data);
-    handlePrint();
+    setFormData(data);
   };
+
+  useEffect(() => {
+    if (formData) {
+      handlePrint();
+    }
+  }, [formData]);
 
   return (
     <div className="main-create-admin-admin-dashboard">
