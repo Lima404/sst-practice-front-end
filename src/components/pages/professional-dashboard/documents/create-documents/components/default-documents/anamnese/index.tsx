@@ -1,9 +1,12 @@
-import '../index.css';
+import "../index.css";
 import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import '../../checkbox/index.css'
-import { CreateAnamneseDocumentRequest, createAnamneseDocumentRequestSchema } from "../../../../types";
+import "../../checkbox/index.css";
+import {
+  CreateAnamneseDocumentRequest,
+  createAnamneseDocumentRequestSchema,
+} from "../../../../types";
 import { applyRgMask } from "../../../../../../../utils/applyRgMask";
 import { applyCpfMask } from "../../../../../../../utils/applyCpfMask";
 
@@ -11,10 +14,13 @@ import { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 
 import DocumentHeader from "../../../../../../../../assets/documents-template/documentHeader.png";
+import { applyDateMask } from "../../../../../../../utils/applyDateMask";
+import { applyCnpjMask } from "../../../../../../../utils/applyCnpjMask";
 
 const CreateAnamnese = () => {
   const contentAnamneseDocumentToExport = useRef(null);
-  const [formData, setFormData] = useState<CreateAnamneseDocumentRequest | null>(null);
+  const [formData, setFormData] =
+    useState<CreateAnamneseDocumentRequest | null>(null);
 
   const {
     control,
@@ -70,10 +76,14 @@ const CreateAnamnese = () => {
 
   const handlePrint = useReactToPrint({
     content: () => contentAnamneseDocumentToExport.current,
-    documentTitle: formData ? `ASO_DOCUMENT_${formData?.employeeName}` : "ASO_DOCUMENT",
+    documentTitle: formData
+      ? `ASO_DOCUMENT_${formData?.employeeName}`
+      : "ASO_DOCUMENT",
   });
 
-  const onSubmit: SubmitHandler<CreateAnamneseDocumentRequest> = async (data) => {
+  const onSubmit: SubmitHandler<CreateAnamneseDocumentRequest> = async (
+    data
+  ) => {
     setFormData(data);
   };
 
@@ -88,391 +98,729 @@ const CreateAnamnese = () => {
       <div className="create-admin-admin-dashboard-content">
         <h2 className="create-admin-page-title">Cadastrar Anamnese</h2>
         <div className="create-admin-form">
-
           <div className="document-container-to-export">
             <div ref={contentAnamneseDocumentToExport} className="content">
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td colSpan={6}>
+                      <img
+                        alt=""
+                        height={175}
+                        src={DocumentHeader}
+                        style={{ display: "block" }}
+                        width={900}
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>ANAMNESE OCUPACIONAL</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>EMPREGADOR: {formData?.companyName}</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">Razão social: </p>
+                    </td>
+                    <td>
+                      <p className="p-text-export-document">
+                        CNPJ: {formData?.cnpj}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>FUNCIONÁRIO: {formData?.employer}</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        Nome: {formData?.employeeName}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="p-text-export-document">
+                        CPF: {formData?.employeeCpf}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        RG: {formData?.employeeRg}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="p-text-export-document">
+                        Data de Nascimento: {formData?.employeeDateBirth}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="p-text-export-document">
+                        Matrícula: {formData?.employeeRegistration}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="p-text-export-document">
+                        Função: {formData?.employeeFunction}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="p-text-export-document">
+                        Cargo: {formData?.employeeRole}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="p-text-export-document">
+                        Setor: {formData?.employeeSector}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>FATORES DE RISCO</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        Físicos: {formData?.physicalRisks}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        Químicos: {formData?.chemicalRisks}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        Biológicos: {formData?.biologicalRisks}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        Ergonômicos: {formData?.ergonomicRisks}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        Mecânicos: {formData?.mechanicalRiks}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>EXAMES REALIZADOS</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        Data: {formData?.examDate}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="p-text-export-document">
+                        Exame: {formData?.examName}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>QUEIXA PRINCIPAL</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        Queixa principal: {formData?.chiefComplaint}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>HISTÓRIA CLÍNICA</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        História clínica: {formData?.clinicalHistory}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>
+                          ANTECEDENTES PESSOAIS E FAMILIARES PATOLÓGICOS
+                        </center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        Antecedentes pessoais e familiares patológicos:{" "}
+                        {formData?.pathologicalPersonalAndFamilyHistory}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>EXAME FÍSICO</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        Exame físico: {formData?.physicalExam}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>ESTADO GERAL</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">Estado</p>
+                    </td>
+                  </tr>
+                  {formData?.generalCondition.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>FÁCIES</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">Fácie</p>
+                    </td>
+                  </tr>
+                  {formData?.facies.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>MARCHA</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">Marcha</p>
+                    </td>
+                  </tr>
+                  {formData?.gait.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>TESTE DE ROMBERG</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">Teste</p>
+                    </td>
+                  </tr>
+                  {formData?.rombergTest.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>ACUIDADE VISUAL</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">Acuidade visual</p>
+                    </td>
+                  </tr>
+                  {formData?.visualAcuity.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>CORREÇÃO</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">Correção</p>
+                    </td>
+                  </tr>
+                  {formData?.correction.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>CARDIOVASCULAR</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">Cardiovascular</p>
+                    </td>
+                  </tr>
+                  {formData?.cardiovascular.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>RESPIRATÓRIO</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">Respiratório</p>
+                    </td>
+                  </tr>
+                  {formData?.respiratory.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>ABDOMINAL</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">Abdominal</p>
+                    </td>
+                  </tr>
+                  {formData?.abdominal.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>COLUNA</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">Coluna</p>
+                    </td>
+                  </tr>
+                  {formData?.spine.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>MMSS</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">MMSS</p>
+                    </td>
+                  </tr>
+                  {formData?.upperLimbs.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>MANOBRAS MMSS</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">MANOBRAS MMSS</p>
+                    </td>
+                  </tr>
+                  {formData?.maneuversUpperLimbs.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>MMII</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">MMII</p>
+                    </td>
+                  </tr>
+                  {formData?.lowerLimbs.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>EXAMES COMPLEMENTARES</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        Exames complementares
+                      </p>
+                    </td>
+                  </tr>
+                  {formData?.complementaryExams.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>HIPÓTESE DIAGNÓSTICA</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        Hipótese diagnóstica: {formData?.diagnosticHypothesis}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>CONCLUSÃO</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">Conclusão</p>
+                    </td>
+                  </tr>
+                  {formData?.conclusion.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>OBSERVAÇÕES DE CONCLUSÃO</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        Observações de conclusão:{" "}
+                        {formData?.conclusionObservation}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>APTIDÕES ESPECIAIS</center>
+                      </p>
+                    </td>
+                  </tr>
+                  {formData?.specialSkills.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>TIPO DE EXAME</center>
+                      </p>
+                    </td>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>
+                          IDENTIFICAÇÃO DO MÉDICO RESPONSÁVEL PELO PCMSO
+                        </center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={6}>
+                      <p>
+                        <center>
+                          Exame médico admissional/periódico/demissional/ de
+                          mudança de risco/ de retorno ao trabalho/ de
+                          monitoração pontual (de acordo com a seleção)
+                        </center>
+                      </p>
+                    </td>
+                    <td colSpan={6}>
+                      <p>
+                        <center>
+                          Dr. Artur Nóbrega de Oliveira | CRM-RN 7597 | CPF:
+                          064.642.844-60
+                        </center>
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
 
               <table align="center" border={0} id="Tabela_01" width={900}>
                 <tbody>
                   <tr>
                     <td colSpan={6}>
-                      <img alt="" height={175} src={DocumentHeader} style={{ display: "block" }} width={900} />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>ANAMNESE OCUPACIONAL</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>EMPREGADOR</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Razão social:</p></td>
-                    <td><p className="p-text-export-document">CNPJ:</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>FUNCIONÁRIO</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Nome:</p></td>
-                    <td><p className="p-text-export-document">CPF:</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td><p className="p-text-export-document">RG:</p></td>
-                    <td><p className="p-text-export-document">Data de Nascimento:</p></td>
-                    <td><p className="p-text-export-document">Matrícula:</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>FATORES DE RISCO</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Físicos:</p></td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Químicos:</p></td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Biológicos:</p></td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Ergonômicos:</p></td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Mecânicos:</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>EXAMES REALIZADOS</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Data:</p></td>
-                    <td><p className="p-text-export-document">Exame:</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>QUEIXA PRINCIPAL</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td height={200}><p className="p-text-export-document"></p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>HISTÓRIA CLÍNICA</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td height={200}><p className="p-text-export-document"></p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>ANTECEDENTES PESSOAIS E FAMILIARES PATOLÓGICOS</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td height={200}><p className="p-text-export-document"></p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>EXAME FÍSICO</center></p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>ESTADO GERAL</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Estado</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>FÁCIES</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Fácie</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>TESTE DE ROMBERG</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Teste</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>ACUIDADE VISUAL</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Acuidade visual</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>CORREÇÃO</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Correção</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>CARDIOVASCULAR</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Cardiovascular</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>RESPIRATÓRIO</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Respiratório</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>ABDOMINAL</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Abdominal</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>COLUNA</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Coluna</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>MMSS</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">MMSS</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>MANOBRAS MMSS</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">MANOBRAS MMSS</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>MMII</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">MMII</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>EXAMES COMPLEMENTARES</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Exames complementares</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>HIPÓTESE DIAGNÓSTICA</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td height={200}><p className="p-text-export-document"></p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>CONCLUSÃO</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Conclusão</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>APTIDÕES ESPECIAIS</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Aptidão especial 1</p></td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Aptidão especial 2</p></td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Aptidão especial 3</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>TIPO DE EXAME</center></p>
-                    </td>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>IDENTIFICAÇÃO DO MÉDICO RESPONSÁVEL PELO PCMSO</center></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colSpan={6}>
-                      <p><center>Exame médico admissional/periódico/demissional/ de mudança de risco/ de retorno ao trabalho/ de monitoração pontual (de acordo com a seleção)</center></p>
-                    </td>
-                    <td colSpan={6}>
-                      <p><center>Dr. Artur Nóbrega de Oliveira | CRM-RN 7597 | CPF: 064.642.844-60</center></p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td colSpan={6}>
-                      <p><center>Local</center></p>
+                      <p>
+                        <center>Local: {formData?.location}</center>
+                      </p>
                     </td>
                   </tr>
                 </tbody>
@@ -482,18 +830,20 @@ const CreateAnamnese = () => {
                 <tbody>
                   <tr>
                     <td height={200} colSpan={6}>
-                      <p style={{textAlign: 'left'}}><center>Dr. Artur Nóbrega de Oliveira<br/>
-                        MÉDICO DO TRABALHO<br/>
-                        CRM-RN 7597
-                      </center></p>
+                      <p style={{ textAlign: "left" }}>
+                        <center>
+                          Dr. Artur Nóbrega de Oliveira
+                          <br />
+                          MÉDICO DO TRABALHO
+                          <br />
+                          CRM-RN 7597
+                        </center>
+                      </p>
                     </td>
-                    <td width={200} height={200} colSpan={6}>
-                      
-                    </td>
+                    <td width={200} height={200} colSpan={6}></td>
                   </tr>
                 </tbody>
               </table>
-
             </div>
           </div>
 
@@ -554,6 +904,9 @@ const CreateAnamnese = () => {
                     error={!!errors.cnpj}
                     helperText={errors.cnpj?.message}
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyCnpjMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -595,7 +948,9 @@ const CreateAnamnese = () => {
                     error={!!errors.employeeCpf}
                     helperText={errors.employeeCpf?.message}
                     {...field}
-                    onChange={(e) => field.onChange(applyCpfMask(e.target.value))}
+                    onChange={(e) =>
+                      field.onChange(applyCpfMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -616,7 +971,9 @@ const CreateAnamnese = () => {
                     error={!!errors.employeeRg}
                     helperText={errors.employeeRg?.message}
                     {...field}
-                    onChange={(e) => field.onChange(applyRgMask(e.target.value))}
+                    onChange={(e) =>
+                      field.onChange(applyRgMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -629,7 +986,11 @@ const CreateAnamnese = () => {
                 <div className="ctn-form-input-create-admin">
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.employeeDateBirth ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.employeeDateBirth
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
                     label="Data de nascimento"
                     type="text"
                     variant="standard"
@@ -637,6 +998,9 @@ const CreateAnamnese = () => {
                     error={!!errors.employeeDateBirth}
                     helperText={errors.employeeDateBirth?.message}
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyDateMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -649,7 +1013,11 @@ const CreateAnamnese = () => {
                 <div className="ctn-form-input-create-admin">
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.employeeRegistration ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.employeeRegistration
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
                     label="Matrícula"
                     type="text"
                     variant="standard"
@@ -669,7 +1037,11 @@ const CreateAnamnese = () => {
                 <div className="ctn-form-input-create-admin">
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.employeeFunction ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.employeeFunction
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
                     label="Função"
                     type="text"
                     variant="standard"
@@ -709,7 +1081,9 @@ const CreateAnamnese = () => {
                 <div className="ctn-form-input-create-admin">
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.employeeSector ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.employeeSector ? "filled-error" : "standard-basic"
+                    }
                     label="Setor"
                     type="text"
                     variant="standard"
@@ -730,7 +1104,9 @@ const CreateAnamnese = () => {
                   <h4>Fatores de riscos</h4>
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.physicalRisks ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.physicalRisks ? "filled-error" : "standard-basic"
+                    }
                     label="Riscos Físicos"
                     type="text"
                     variant="standard"
@@ -750,7 +1126,9 @@ const CreateAnamnese = () => {
                 <div className="ctn-form-input-create-admin">
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.chemicalRisks ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.chemicalRisks ? "filled-error" : "standard-basic"
+                    }
                     label="Riscos Químicos"
                     type="text"
                     variant="standard"
@@ -770,7 +1148,9 @@ const CreateAnamnese = () => {
                 <div className="ctn-form-input-create-admin">
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.biologicalRisks ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.biologicalRisks ? "filled-error" : "standard-basic"
+                    }
                     label="Riscos Biológicos"
                     type="text"
                     variant="standard"
@@ -790,7 +1170,9 @@ const CreateAnamnese = () => {
                 <div className="ctn-form-input-create-admin">
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.ergonomicRisks ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.ergonomicRisks ? "filled-error" : "standard-basic"
+                    }
                     label="Riscos Ergônomicos"
                     type="text"
                     variant="standard"
@@ -810,7 +1192,9 @@ const CreateAnamnese = () => {
                 <div className="ctn-form-input-create-admin">
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.mechanicalRiks ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.mechanicalRiks ? "filled-error" : "standard-basic"
+                    }
                     label="Riscos Mecânicos"
                     type="text"
                     variant="standard"
@@ -871,7 +1255,9 @@ const CreateAnamnese = () => {
                 <div className="ctn-form-input-create-admin">
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.chiefComplaint ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.chiefComplaint ? "filled-error" : "standard-basic"
+                    }
                     label="Queixa principal"
                     type="text"
                     variant="standard"
@@ -891,7 +1277,9 @@ const CreateAnamnese = () => {
                 <div className="ctn-form-input-create-admin">
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.clinicalHistory ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.clinicalHistory ? "filled-error" : "standard-basic"
+                    }
                     label="Histórico familiar"
                     type="text"
                     variant="standard"
@@ -920,7 +1308,9 @@ const CreateAnamnese = () => {
                         onChange={(e) => {
                           const newValue = e.target.checked
                             ? [...value, e.target.value]
-                            : value.filter((item: string) => item !== e.target.value);
+                            : value.filter(
+                                (item: string) => item !== e.target.value
+                              );
                           onChange(newValue);
                         }}
                         color="primary"
@@ -984,7 +1374,9 @@ const CreateAnamnese = () => {
                     label="Comprometido"
                   />
 
-                  {errors.generalCondition && <p>{errors.generalCondition.message}</p>}
+                  {errors.generalCondition && (
+                    <p>{errors.generalCondition.message}</p>
+                  )}
                 </div>
               )}
             />
@@ -1005,7 +1397,9 @@ const CreateAnamnese = () => {
                         onChange={(e) => {
                           const newValue = e.target.checked
                             ? [...value, e.target.value]
-                            : value.filter((item: string) => item !== e.target.value);
+                            : value.filter(
+                                (item: string) => item !== e.target.value
+                              );
                           onChange(newValue);
                         }}
                         color="primary"
@@ -1324,7 +1718,9 @@ const CreateAnamnese = () => {
                         onChange={(e) => {
                           const newValue = e.target.checked
                             ? [...value, e.target.value]
-                            : value.filter((item: string) => item !== e.target.value);
+                            : value.filter(
+                                (item: string) => item !== e.target.value
+                              );
                           onChange(newValue);
                         }}
                         color="primary"
@@ -2151,7 +2547,9 @@ const CreateAnamnese = () => {
                     }
                     label="alterado"
                   />
-                  {errors.cardiovascular && <p>{errors.cardiovascular.message}</p>}
+                  {errors.cardiovascular && (
+                    <p>{errors.cardiovascular.message}</p>
+                  )}
                 </div>
               )}
             />
@@ -2692,7 +3090,9 @@ const CreateAnamnese = () => {
                     }
                     label="positivo bilateralmente"
                   />
-                  {errors.maneuversUpperLimbs && <p>{errors.maneuversUpperLimbs.message}</p>}
+                  {errors.maneuversUpperLimbs && (
+                    <p>{errors.maneuversUpperLimbs.message}</p>
+                  )}
                 </div>
               )}
             />
@@ -2948,7 +3348,9 @@ const CreateAnamnese = () => {
                     }
                     label="Não realizou exames complementares"
                   />
-                  {errors.complementaryExams && <p>{errors.complementaryExams.message}</p>}
+                  {errors.complementaryExams && (
+                    <p>{errors.complementaryExams.message}</p>
+                  )}
                 </div>
               )}
             />
@@ -2961,7 +3363,11 @@ const CreateAnamnese = () => {
                   <h4>Hipótese diagnóstica</h4>
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.diagnosticHypothesis ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.diagnosticHypothesis
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
                     label="Hipótese diagnóstica"
                     type="text"
                     variant="standard"
@@ -3029,7 +3435,11 @@ const CreateAnamnese = () => {
                   <h4>Observação de conclusão</h4>
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.conclusionObservation ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.conclusionObservation
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
                     label="Observação de conclusão"
                     type="text"
                     variant="standard"
@@ -3155,7 +3565,9 @@ const CreateAnamnese = () => {
                     }
                     label="Apto(a) para trabalho em altura (NR-35)"
                   />
-                  {errors.specialSkills && <p>{errors.specialSkills.message}</p>}
+                  {errors.specialSkills && (
+                    <p>{errors.specialSkills.message}</p>
+                  )}
                 </div>
               )}
             />

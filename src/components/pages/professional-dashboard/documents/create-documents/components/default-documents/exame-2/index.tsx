@@ -2,8 +2,8 @@ import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { applyCpfMask } from "../../../../../../../utils/applyCpfMask";
-import { CreateExamTypeTwoDocumentsRequest, CreateExamTypeTwoDocumentsSchema } from "../../../../types";
 import { applyDateMask } from "../../../../../../../utils/applyDateMask";
+import { CreateExamTypeTwoDocumentsRequest, CreateExamTypeTwoDocumentsSchema } from "../../../../types";
 
 const CreateExameTypeTwoDocuments = () => {
   const {
