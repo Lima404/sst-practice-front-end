@@ -1,4 +1,4 @@
-import "./index.css"
+import '../index.css';
 import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

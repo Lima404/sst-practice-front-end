@@ -125,6 +125,7 @@ export interface CreateAsoDocumentRequest {
   // conclusion
   conclusion: string;
   observation: string;
+  location: string;
   // special skills
   special_skills: string[];
 }
@@ -150,6 +151,7 @@ export const createAsoDocumentSchema = z.object({
   // conclusion
   conclusion: z.string(),
   observation: z.string(),
+  location: z.string(),
   // special skills
   special_skills: z.array(z.string()),
 })

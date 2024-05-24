@@ -1,3 +1,4 @@
+import '../index.css';
 import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,7 +8,14 @@ import { applyRgMask } from "../../../../../../../utils/applyRgMask";
 import { applyCnpjMask } from "../../../../../../../utils/applyCnpjMask";
 import { applyDateMask } from "../../../../../../../utils/applyDateMask";
 
+import { useRef, useState } from "react";
+import { useReactToPrint } from "react-to-print";
+import DocumentHeader from "../../../../../../../../assets/documents-template/documentHeader.png";
+
 const CreateAsoDocuments = () => {
+  const contentAsoDocumentToExport = useRef(null);
+  const [formData, setFormData] = useState<CreateAsoDocumentRequest | null>(null);
+
   const {
     control,
     handleSubmit,
@@ -34,14 +42,21 @@ const CreateAsoDocuments = () => {
       // conclusion
       conclusion: "",
       observation: "",
+      location: "",
       // special skills
       special_skills: [],
     },
     resolver: zodResolver(createAsoDocumentSchema),
   });
 
+  const handlePrint = useReactToPrint({
+    content: () => contentAsoDocumentToExport.current,
+  });
+
   const onSubmit: SubmitHandler<CreateAsoDocumentRequest> = async (data) => {
     console.log(data);
+    setFormData(data);
+    handlePrint();
   };
 
   return (
@@ -49,6 +64,194 @@ const CreateAsoDocuments = () => {
       <div className="create-unit-company-dashboard-content">
         <h2 className="create-unit-page-title">Cadastrar ASO</h2>
         <div className="create-unit-form">
+
+          <div className="document-container-to-export">
+            <div ref={contentAsoDocumentToExport} className="content">
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td colSpan={6}>
+                      <img alt="" height={175} src={DocumentHeader} style={{ display: "block" }} width={900} />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>ATESTADO DE SAÚDE OCUPACIONAL</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>EMPREGADOR</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Razão social: {formData?.corporate_reason}</p></td>
+                    <td><p className="p-text-export-document">CNPJ:</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>FUNCIONÁRIO</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Nome:</p></td>
+                    <td><p className="p-text-export-document">CPF:</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td><p className="p-text-export-document">RG:</p></td>
+                    <td><p className="p-text-export-document">Data de Nascimento:</p></td>
+                    <td><p className="p-text-export-document">Matrícula:</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td><p className="p-text-export-document">Função:</p></td>
+                    <td><p className="p-text-export-document">Cargo:</p></td>
+                    <td><p className="p-text-export-document">Setor:</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>FATORES DE RISCO</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Físicos:</p></td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Químicos:</p></td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Biológicos:</p></td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Ergonômicos:</p></td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Mecânicos:</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>EXAMES REALIZADOS</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Data:</p></td>
+                    <td><p className="p-text-export-document">Exame:</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>CONCLUSÃO</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Conclusão</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>APTIDÕES ESPECIAIS</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Aptidão especial 1</p></td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Aptidão especial 2</p></td>
+                  </tr>
+                  <tr>
+                    <td><p className="p-text-export-document">Aptidão especial 3</p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>TIPO DE EXAME</center></p>
+                    </td>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>IDENTIFICAÇÃO DO MÉDICO RESPONSÁVEL PELO PCMSO</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={6}>
+                      <p><center>Exame médico admissional/periódico/demissional/ de mudança de risco/ de retorno ao trabalho/ de monitoração pontual (de acordo com a seleção)</center></p>
+                    </td>
+                    <td colSpan={6}>
+                      <p><center>Dr. Artur Nóbrega de Oliveira | CRM-RN 7597 | CPF: 064.642.844-60</center></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td colSpan={6}>
+                      <p><center>Local</center></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td height={200} colSpan={6}>
+                      <p style={{ textAlign: 'left' }}><center>Dr. Artur Nóbrega de Oliveira<br />
+                        MÉDICO DO TRABALHO<br />
+                        CRM-RN 7597
+                      </center></p>
+                    </td>
+                    <td width={200} height={200} colSpan={6}>
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+
           <form onSubmit={handleSubmit(onSubmit)}>
             <Controller
               name="corporate_reason"
@@ -558,6 +761,27 @@ const CreateAsoDocuments = () => {
                     />
                   </div>
                   {errors.risk_factors && <p>{errors.risk_factors.message}</p>}
+                </div>
+              )}
+            />
+
+            <Controller
+              name="location"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h3>Local</h3>
+                  <TextField
+                    className="form-input-create-unit"
+                    id={errors.location ? "filled-error" : "standard-basic"}
+                    label="Local"
+                    type="text"
+                    variant="standard"
+                    placeholder="Local"
+                    error={!!errors.location}
+                    helperText={errors.location?.message}
+                    {...field}
+                  />
                 </div>
               )}
             />
