@@ -1,11 +1,21 @@
 import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreateExamTypeOneDocumentsRequest, CreateExamTypeOneDocumentsSchema} from "../../../../types";
+import {
+  CreateExamTypeOneDocumentsRequest,
+  CreateExamTypeOneDocumentsSchema,
+} from "../../../../types";
 import { applyCpfMask } from "../../../../../../../utils/applyCpfMask";
 import { applyDateMask } from "../../../../../../../utils/applyDateMask";
+import { useEffect, useRef, useState } from "react";
+import { useReactToPrint } from "react-to-print";
+import DocumentHeader from "../../../../../../../../assets/documents-template/documentHeader.png";
 
-const CreateExameTypeOneDocuments = () => {
+const CreateExamTypeOneDocuments = () => {
+  const contentExameTypeOneDocumentToExport = useRef(null);
+  const [formData, setFormData] =
+    useState<CreateExamTypeOneDocumentsRequest | null>(null);
+
   const {
     control,
     handleSubmit,
@@ -23,17 +33,149 @@ const CreateExameTypeOneDocuments = () => {
     resolver: zodResolver(CreateExamTypeOneDocumentsSchema),
   });
 
-  const onSubmit: SubmitHandler<CreateExamTypeOneDocumentsRequest> = async (data) => {
+  const handlePrint = useReactToPrint({
+    content: () => contentExameTypeOneDocumentToExport.current,
+    documentTitle: formData
+      ? `EXAME_TYPE_ONE_${formData?.name}`
+      : "EXAME_TYPE_ONE_",
+  });
+
+  const onSubmit: SubmitHandler<CreateExamTypeOneDocumentsRequest> = async (
+    data
+  ) => {
     console.log(data);
+    setFormData(data);
   };
+
+  useEffect(() => {
+    if (formData) {
+      handlePrint();
+    }
+  }, [formData]);
 
   return (
     <div className="main-create-unit-company-dashboard">
       <div className="create-unit-company-dashboard-content">
         <h2 className="create-unit-page-title">Solicitação de exame tipo 1</h2>
         <div className="create-unit-form">
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="document-container-to-export">
+            <div ref={contentExameTypeOneDocumentToExport} className="content">
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td colSpan={6}>
+                      <img
+                        alt=""
+                        height={175}
+                        src={DocumentHeader}
+                        style={{ display: "block" }}
+                        width={900}
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
 
+              <table align="center" border={0} id="Tabela_01" width="900">
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={7}>
+                      <p className="p-text-export-document">
+                        <center>FUNCIONÁRIO</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={6}>
+                      <p className="p-text-export-document">
+                        Nome: {formData?.name}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={6}>
+                      <p className="p-text-export-document">
+                        CPF: {formData?.cpf}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={6}>
+                      <p className="p-text-export-document">
+                        Data de nascimento: {formData?.dt_birth}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={6}>
+                      <p className="p-text-export-document">
+                        Empresa: {formData?.company}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>EXAMES</center>
+                      </p>
+                    </td>
+                  </tr>
+                  {formData?.exams.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>Agentes químicos</center>
+                      </p>
+                    </td>
+                  </tr>
+                  {formData?.chemical_agents.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width="900">
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>OUTROS EXAMES</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={6}>
+                      <p className="p-text-export-document">
+                        Empresa: {formData?.text_field}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <form onSubmit={handleSubmit(onSubmit)}>
             <Controller
               name="name"
               control={control}
@@ -70,7 +212,9 @@ const CreateExameTypeOneDocuments = () => {
                     error={!!errors.dt_birth}
                     helperText={errors.dt_birth?.message}
                     {...field}
-                    onChange={(e) => field.onChange(applyDateMask(e.target.value))}
+                    onChange={(e) =>
+                      field.onChange(applyDateMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -91,7 +235,9 @@ const CreateExameTypeOneDocuments = () => {
                     error={!!errors.cpf}
                     helperText={errors.cpf?.message}
                     {...field}
-                    onChange={(e) => field.onChange(applyCpfMask(e.target.value))}
+                    onChange={(e) =>
+                      field.onChange(applyCpfMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -732,7 +878,9 @@ const CreateExameTypeOneDocuments = () => {
                       label="Atividade da acetilcolinesterase eritrocitária"
                     />
                   </div>
-                  {errors.chemical_agents && <p>{errors.chemical_agents.message}</p>}
+                  {errors.chemical_agents && (
+                    <p>{errors.chemical_agents.message}</p>
+                  )}
                 </div>
               )}
             />
@@ -770,4 +918,4 @@ const CreateExameTypeOneDocuments = () => {
   );
 };
 
-export default CreateExameTypeOneDocuments;
+export default CreateExamTypeOneDocuments;

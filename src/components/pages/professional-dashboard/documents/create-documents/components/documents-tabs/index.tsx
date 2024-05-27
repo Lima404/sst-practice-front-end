@@ -1,14 +1,14 @@
-import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import CreateAnamnese from '../default-documents/anamnese';
-import CreateStatements from '../default-documents/declaracao';
-import CreateExameTypeTwoDocuments from '../default-documents/exame-2';
-import CreateEspecialDocuments from '../default-documents/receituario-especial';
-import CreateAsoDocuments from '../default-documents/aso';
-import CreateExameTypeOneDocuments from '../default-documents/exame-1';
+import * as React from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import CreateAnamnese from "../default-documents/anamnese";
+import CreateStatements from "../default-documents/declaracao";
+import CreateEspecialDocuments from "../default-documents/receituario-especial";
+import CreateAsoDocuments from "../default-documents/aso";
+import CreateExamTypeOneDocuments from "../default-documents/exame-1";
+import CreateExamTypeTwoDocuments from "../default-documents/exame-2";
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -33,7 +33,7 @@ function TabPanel(props: any) {
 function a11yProps(index: number) {
   return {
     id: `scrollable-force-tab-${index}`,
-    'aria-controls': `scrollable-force-tabpanel-${index}`,
+    "aria-controls": `scrollable-force-tabpanel-${index}`,
   };
 }
 
@@ -45,7 +45,7 @@ export default function DocumentsTab() {
   };
 
   return (
-    <Box sx={{ maxWidth: { sm: 800 , backgroundColor: "#f3f3f3"}}}>
+    <Box sx={{ maxWidth: { sm: 800, backgroundColor: "#f3f3f3" } }}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -79,11 +79,11 @@ export default function DocumentsTab() {
       </TabPanel>
 
       <TabPanel value={value} index={4}>
-        <CreateExameTypeOneDocuments />
+        <CreateExamTypeOneDocuments />
       </TabPanel>
 
       <TabPanel value={value} index={5}>
-        <CreateExameTypeTwoDocuments />
+        <CreateExamTypeTwoDocuments />
       </TabPanel>
     </Box>
   );

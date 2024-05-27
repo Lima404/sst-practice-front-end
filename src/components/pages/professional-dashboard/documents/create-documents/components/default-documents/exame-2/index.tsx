@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import DocumentHeader from "../../../../../../../../assets/documents-template/documentHeader.png";
 
-const CreateExameTypeTwoDocuments = () => {
+const CreateExamTypeTwoDocuments = () => {
   const contentExameTypeTwoDocumentToExport = useRef(null);
   const [formData, setFormData] = useState<CreateExamTypeTwoDocumentsRequest | null>(null);
 
@@ -314,4 +314,4 @@ const CreateExameTypeTwoDocuments = () => {
   );
 };
 
-export default CreateExameTypeTwoDocuments;
+export default CreateExamTypeTwoDocuments;
