@@ -4,8 +4,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { applyCpfMask } from "../../../../../../../utils/applyCpfMask";
 import { applyDateMask } from "../../../../../../../utils/applyDateMask";
 import { CreateExamTypeTwoDocumentsRequest, CreateExamTypeTwoDocumentsSchema } from "../../../../types";
+import { useEffect, useRef, useState } from "react";
+import { useReactToPrint } from "react-to-print";
+import DocumentHeader from "../../../../../../../../assets/documents-template/documentHeader.png";
 
 const CreateExameTypeTwoDocuments = () => {
+  const contentExameTypeTwoDocumentToExport = useRef(null);
+  const [formData, setFormData] = useState<CreateExamTypeTwoDocumentsRequest | null>(null);
+
   const {
     control,
     handleSubmit,
@@ -21,15 +27,93 @@ const CreateExameTypeTwoDocuments = () => {
     resolver: zodResolver(CreateExamTypeTwoDocumentsSchema),
   });
 
+  const handlePrint = useReactToPrint({
+    content: () => contentExameTypeTwoDocumentToExport.current,
+    documentTitle: formData ? `EXAME_TYPE_TWO_${formData?.name}` : "EXAME_TYPE_TWO_",
+  });
+
   const onSubmit: SubmitHandler<CreateExamTypeTwoDocumentsRequest> = async (data) => {
     console.log(data);
+    setFormData(data);
   };
 
+  useEffect(() => {
+    if (formData) {
+      handlePrint();
+    }
+  }, [formData]);
+
   return (
-    <div className="main-create-unit-company-dashboard">
-      <div className="create-unit-company-dashboard-content">
-        <h2 className="create-unit-page-title">Exame tipo 2</h2>
-        <div className="create-unit-form">
+    <div className="main-create-admin-admin-dashboard">
+      <div className="create-admin-admin-dashboard-content">
+        <h2 className="create-admin-page-title">Cadastrar Receituário Especial</h2>
+        <div className="create-admin-form">
+
+          <div className="document-container-to-export">
+            <div ref={contentExameTypeTwoDocumentToExport} className="content">
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td colSpan={6}>
+                      <img alt="" height={175} src={DocumentHeader} style={{ display: "block" }} width={900} />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width="900">
+                <tbody>
+                <tr>
+                  <td className="td-header-export-document" colSpan={7}>
+                    <p className="p-text-export-document"><center>FUNCIONÁRIO</center></p>
+                  </td>
+                </tr>
+                  <tr>
+                    <td colSpan={6}>
+                      <p className="p-text-export-document">Nome: {formData?.name}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={6}>
+                      <p className="p-text-export-document">CPF: {formData?.cpf}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={6}>
+                      <p className="p-text-export-document">Data de nascimento: {formData?.dt_birth}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={6}>
+                      <p className="p-text-export-document">Empresa: {formData?.corporate_reason}</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>EXAMES</center>
+                      </p>
+                    </td>
+                  </tr>
+                  {formData?.exames.map((skill, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p className="p-text-export-document">{skill}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+
           <form onSubmit={handleSubmit(onSubmit)}>
 
             <Controller
