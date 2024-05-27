@@ -10,20 +10,18 @@ import DocumentHeader from "../../../../../../../../assets/documents-template/do
 const CreateEspecialDocuments = () => {
   const contentEspecialDocumentToExport = useRef(null);
   const [formData, setFormData] = useState<CreateEspecialDocumentsRequest | null>(null);
-  const [medications, setMedications] = useState([0]); 
+  const [medications, setMedications] = useState([{ drugs_name: '', quantity: '', use_mode: '' }]);
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<CreateEspecialDocumentsRequest>({
     defaultValues: {
       name: "",
-      cpf: "", 
+      cpf: "",
       adress: "",
-      drugs_name: "",
-      use_mode: "",
-      quantity: "",
+      medications: [{ drugs_name: "", use_mode: "", quantity: "" }],
     },
     resolver: zodResolver(CreateEspecialDocumentsSchema),
   });
@@ -45,7 +43,7 @@ const CreateEspecialDocuments = () => {
   }, [formData]);
 
   const addMedication = () => {
-    setMedications((prev) => [...prev, prev.length]);
+    setMedications([...medications, { drugs_name: '', quantity: '', use_mode: '' }]);
   };
 
   return (
@@ -69,11 +67,11 @@ const CreateEspecialDocuments = () => {
 
               <table align="center" border={0} id="Tabela_01" width="900">
                 <tbody>
-                <tr>
-                  <td className="td-header-export-document" colSpan={7}>
-                    <p className="p-text-export-document"><center>RECEITUÁRIO ESPECIAL</center></p>
-                  </td>
-                </tr>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={7}>
+                      <p className="p-text-export-document"><center>RECEITUÁRIO ESPECIAL</center></p>
+                    </td>
+                  </tr>
                   <tr>
                     <td className="td-header-export-document" colSpan={6}>
                       <p className="p-text-export-document">
@@ -147,44 +145,20 @@ const CreateEspecialDocuments = () => {
                 </tbody>
               </table>
 
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                    <tr>
+              {formData?.medications?.map((medication, index) => (
+                  <table key={index} align="center" border={0} id="Tabela_01" width={900}>
+                    <tbody>
+                      <tr>
                         <td className="td-header-export-document" colSpan={6}>
-                            <p className="p-text-export-document"><center>NOME DO MEDICAMENTO</center></p>
+                          <p className="p-text-export-document"><center>MEDICAMENTO {index+1}</center></p>
                         </td>
-                    </tr>
-                    <tr>
-                        <td height={250}><p className="p-text-export-document">{formData?.drugs_name}</p></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                    <tr>
-                        <td className="td-header-export-document" colSpan={6}>
-                            <p className="p-text-export-document"><center>QUANTIDADE</center></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td height={250}><p className="p-text-export-document">{formData?.quantity}</p></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                    <tr>
-                        <td className="td-header-export-document" colSpan={6}>
-                            <p className="p-text-export-document"><center>MODO DE USO</center></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td height={250}><p className="p-text-export-document">{formData?.use_mode}</p></td>
-                    </tr>
-                </tbody>
-            </table>
+                      </tr>
+                      <tr><p className="p-text-export-document">Nome do medicamento: {medication.drugs_name}</p></tr>
+                      <tr><p className="p-text-export-document">Quantidade: {medication.quantity}</p></tr>
+                      <tr><p className="p-text-export-document">Modo de uso: {medication.use_mode}</p></tr>
+                    </tbody>
+                  </table>
+              ))}
 
               <table align="center" border={0} id="Tabela_01" width={900}>
                 <tbody>
@@ -259,13 +233,13 @@ const CreateEspecialDocuments = () => {
                 <tbody>
                   <tr>
                     <td height={200} colSpan={6}>
-                      <p style={{textAlign: 'left'}}><center>Dr. Artur Nóbrega de Oliveira<br/>
-                        MÉDICO DO TRABALHO<br/>
+                      <p style={{ textAlign: 'left' }}><center>Dr. Artur Nóbrega de Oliveira<br />
+                        MÉDICO DO TRABALHO<br />
                         CRM-RN 7597
                       </center></p>
                     </td>
                     <td width={200} height={200} colSpan={6}>
-                      
+
                     </td>
                   </tr>
                 </tbody>
@@ -340,60 +314,58 @@ const CreateEspecialDocuments = () => {
             {medications.map((_, index) => (
               <div key={index}>
                 <Controller
-                  name="drugs_name"
+                  name={`medications.${index}.drugs_name` as const}
                   control={control}
                   render={({ field }) => (
                     <div className="ctn-form-input-create-unit">
                       <h4>Medicamento</h4>
                       <TextField
                         className="form-input-create-unit"
-                        id={errors.drugs_name ? "filled-error" : "standard-basic"}
+                        id={errors.medications?.[index]?.drugs_name ? "filled-error" : "standard-basic"}
                         label="Medicamento"
                         type="text"
                         variant="standard"
                         placeholder="Digite o nome do medicamento"
-                        error={!!errors.drugs_name}
-                        helperText={errors.drugs_name?.message}
+                        error={!!errors.medications?.[index]?.drugs_name}
+                        helperText={errors.medications?.[index]?.drugs_name?.message}
                         {...field}
                       />
                     </div>
                   )}
                 />
-
                 <Controller
-                  name="quantity"
+                  name={`medications.${index}.quantity` as const}
                   control={control}
                   render={({ field }) => (
                     <div className="ctn-form-input-create-unit">
                       <TextField
                         className="form-input-create-unit"
-                        id={errors.quantity ? "filled-error" : "standard-basic"}
+                        id={errors.medications?.[index]?.quantity ? "filled-error" : "standard-basic"}
                         label="Quantidade"
                         type="text"
                         variant="standard"
                         placeholder="Digite a quantidade do medicamento"
-                        error={!!errors.quantity}
-                        helperText={errors.quantity?.message}
+                        error={!!errors.medications?.[index]?.quantity}
+                        helperText={errors.medications?.[index]?.quantity?.message}
                         {...field}
                       />
                     </div>
                   )}
                 />
-
                 <Controller
-                  name="use_mode"
+                  name={`medications.${index}.use_mode` as const}
                   control={control}
                   render={({ field }) => (
                     <div className="ctn-form-input-create-unit">
                       <TextField
                         className="form-input-create-unit"
-                        id={errors.use_mode ? "filled-error" : "standard-basic"}
+                        id={errors.medications?.[index]?.use_mode ? "filled-error" : "standard-basic"}
                         label="Modo de uso"
                         type="text"
                         variant="standard"
                         placeholder="Digite o modo de uso do medicamento"
-                        error={!!errors.use_mode}
-                        helperText={errors.use_mode?.message}
+                        error={!!errors.medications?.[index]?.use_mode}
+                        helperText={errors.medications?.[index]?.use_mode?.message}
                         {...field}
                       />
                     </div>

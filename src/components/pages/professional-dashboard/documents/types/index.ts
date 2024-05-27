@@ -180,23 +180,31 @@ export const createStatementsSchema = z.object({
   text_field: z.string(),
 })
 
-export interface CreateEspecialDocumentsRequest {
-  name: string;
-  cpf: string;
-  adress: string;
+export interface Medication {
   drugs_name: string;
   use_mode: string;
   quantity: string;
 }
 
+export interface CreateEspecialDocumentsRequest {
+  name: string;
+  cpf: string;
+  adress: string;
+  medications: Medication[];
+}
+
+const MedicationSchema = z.object({
+  drugs_name: z.string(),
+  use_mode: z.string(),
+  quantity: z.string(),
+});
+
 export const CreateEspecialDocumentsSchema = z.object({
   name: z.string(),
   cpf: z.string(),
   adress: z.string(),
-  drugs_name: z.string(),
-  use_mode: z.string(),
-  quantity: z.string(),
-})
+  medications: z.array(MedicationSchema),
+});
 
 export interface CreateExamTypeOneDocumentsRequest {
   name: string;
