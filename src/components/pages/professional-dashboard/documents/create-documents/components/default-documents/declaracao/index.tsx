@@ -30,7 +30,7 @@ const CreateStatements = () => {
 
   const handlePrint = useReactToPrint({
     content: () => contentStatementDocumentToExport.current,
-    documentTitle: formData ? `ASO_DOCUMENT_${formData?.name}` : "ASO_DOCUMENT",
+    documentTitle: formData ? `${formData?.title}_${formData?.name}` : "DECLARACAO_",
   });
 
   const onSubmit: SubmitHandler<CreateStatementsRequest> = async (data) => {

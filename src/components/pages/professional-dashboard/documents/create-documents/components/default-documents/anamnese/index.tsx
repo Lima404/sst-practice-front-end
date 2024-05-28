@@ -262,13 +262,13 @@ const CreateAnamnese = () => {
                   <tbody>
                     <tr>
                       <td className="td-header-export-document" colSpan={6}>
-                        <p className="p-text-export-document"><center>EXAME {index+1}</center></p>
+                        <p className="p-text-export-document"><center>EXAME {index + 1}</center></p>
                       </td>
                     </tr>
                     <tr><p className="p-text-export-document">Data do exame: {exam.exam_date}</p></tr>
                     <tr><p className="p-text-export-document">Nome do exame: {exam.exam_name}</p></tr>
                     <tr><p className="p-text-export-document">Queixa principal: {exam.chief_complaint}</p></tr>
-                    <tr><p className="p-text-export-document">História clínica: {exam.clinical_history}</p></tr> 
+                    <tr><p className="p-text-export-document">História clínica: {exam.clinical_history}</p></tr>
                   </tbody>
                 </table>
               ))}
@@ -1249,15 +1249,15 @@ const CreateAnamnese = () => {
                       />
                     </div>
                   )}
-                />     
-            </div>
-          ))}
+                />
+              </div>
+            ))}
 
             <div className="create-unit-btn-submit">
-                <button type="button" onClick={addExams} className="create-unit-btn-submit">
-                  Adicionar Exame
-                </button>
-              </div>
+              <button type="button" onClick={addExams} className="create-unit-btn-submit">
+                Adicionar Exame
+              </button>
+            </div>
 
             <Controller
               name="generalCondition"
@@ -1276,8 +1276,8 @@ const CreateAnamnese = () => {
                           const newValue = e.target.checked
                             ? [...value, e.target.value]
                             : value.filter(
-                                (item: string) => item !== e.target.value
-                              );
+                              (item: string) => item !== e.target.value
+                            );
                           onChange(newValue);
                         }}
                         color="primary"
@@ -1365,8 +1365,8 @@ const CreateAnamnese = () => {
                           const newValue = e.target.checked
                             ? [...value, e.target.value]
                             : value.filter(
-                                (item: string) => item !== e.target.value
-                              );
+                              (item: string) => item !== e.target.value
+                            );
                           onChange(newValue);
                         }}
                         color="primary"
@@ -1686,8 +1686,8 @@ const CreateAnamnese = () => {
                           const newValue = e.target.checked
                             ? [...value, e.target.value]
                             : value.filter(
-                                (item: string) => item !== e.target.value
-                              );
+                              (item: string) => item !== e.target.value
+                            );
                           onChange(newValue);
                         }}
                         color="primary"
