@@ -12,6 +12,10 @@ import { useEffect, useState } from "react";
 import { CustomModal } from "../../../../customModal/CustomModal";
 import Loader from "../../../../loader/Loader";
 import { editCompany, getCompanyById } from "../api";
+import { applyCepMask } from "../../../../utils/applyCepMask";
+import { applyCnpjMask } from "../../../../utils/applyCnpjMask";
+import { applyPhoneMask } from "../../../../utils/applyPhoneMask";
+import { applyDateMask } from "../../../../utils/applyDateMask";
 
 export const EditCompanyModal = ({
   modalOpen,
@@ -156,6 +160,7 @@ export const EditCompanyModal = ({
                     placeholder="Digite o e-mail"
                     error={!!errors.email}
                     helperText={errors.email?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -178,7 +183,11 @@ export const EditCompanyModal = ({
                     placeholder="CNPJ"
                     error={!!errors.cnpj}
                     helperText={errors.cnpj?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyCnpjMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -200,6 +209,7 @@ export const EditCompanyModal = ({
                     placeholder="Razão social"
                     error={!!errors.cnpj}
                     helperText={errors.cnpj?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -222,6 +232,7 @@ export const EditCompanyModal = ({
                     placeholder="Nome fantasia"
                     error={!!errors.fantasy_name}
                     helperText={errors.fantasy_name?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -237,13 +248,16 @@ export const EditCompanyModal = ({
                 <div className="ctn-form-input-create-company">
                   <TextField
                     className="form-input-create-company"
-                    id={errors.identification ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.identification ? "filled-error" : "standard-basic"
+                    }
                     label="Identificação"
                     type="text"
                     variant="standard"
                     placeholder="Identificação"
                     error={!!errors.identification}
                     helperText={errors.identification?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -266,7 +280,11 @@ export const EditCompanyModal = ({
                     placeholder="CEP"
                     error={!!errors.cep}
                     helperText={errors.cep?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyCepMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -288,6 +306,7 @@ export const EditCompanyModal = ({
                     placeholder="Endereço"
                     error={!!errors.address}
                     helperText={errors.address?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -310,6 +329,7 @@ export const EditCompanyModal = ({
                     placeholder="Bairro"
                     error={!!errors.neighborhood}
                     helperText={errors.neighborhood?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -332,7 +352,11 @@ export const EditCompanyModal = ({
                     placeholder="Telefone"
                     error={!!errors.phone}
                     helperText={errors.phone?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyPhoneMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -347,14 +371,22 @@ export const EditCompanyModal = ({
                 <div className="ctn-form-input-create-company">
                   <TextField
                     className="form-input-create-company"
-                    id={errors.dt_start_esocial ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.dt_start_esocial
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
                     label="Data de início e-social"
                     type="text"
                     variant="standard"
                     placeholder="Data de início e-social"
                     error={!!errors.dt_start_esocial}
                     helperText={errors.dt_start_esocial?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyDateMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -365,61 +397,3 @@ export const EditCompanyModal = ({
     </CustomModal>
   );
 };
-
-/* <Modal open={modalOpen} onClose={handleCloseModal}>
-      <ModalContainer>
-        {loading ? (
-          <p>Carregando...</p>
-        ) : error ? (
-          <p>{error}</p>
-        ) : (
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Controller
-              name="name"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-admin">
-                  <TextField
-                    className="form-input-create-admin"
-                    id={errors.name ? "filled-error" : "standard-basic"}
-                    label="Nome"
-                    type="text"
-                    variant="standard"
-                    placeholder="Digite o nome"
-                    error={!!errors.name}
-                    helperText={errors.name?.message}
-                    {...field}
-                  />
-                </div>
-              )}
-            />
-
-            <Controller
-              name="email"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-admin">
-                  <TextField
-                    className="form-input-create-admin"
-                    id={errors.email ? "filled-error" : "standard-basic"}
-                    label="Email"
-                    type="text"
-                    variant="standard"
-                    placeholder="Digite o email"
-                    error={!!errors.email}
-                    helperText={errors.email?.message}
-                    {...field}
-                  />
-                </div>
-              )}
-            />
-
-            <div className="create-admin-btn-submit">
-              <button className="create-admin-btn-submit" type="submit">
-                Cadastrar
-              </button>
-            </div>
-          </form>
-        )}
-      </ModalContainer>
-    </Modal> */

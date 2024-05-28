@@ -1,9 +1,5 @@
 import { Grid } from "@mui/material";
-import {
-  EditUnitModalProps,
-  EditUnitRequest,
-  editUnitSchema,
-} from "../types";
+import { EditUnitModalProps, EditUnitRequest, editUnitSchema } from "../types";
 import { TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,6 +8,10 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { CustomModal } from "../../../../customModal/CustomModal";
 import Loader from "../../../../loader/Loader";
+import { applyCnpjMask } from "../../../../utils/applyCnpjMask";
+import { applyCepMask } from "../../../../utils/applyCepMask";
+import { applyPhoneMask } from "../../../../utils/applyPhoneMask";
+import { applyCpfMask } from "../../../../utils/applyCpfMask";
 
 export const EditUnitModal = ({
   modalOpen,
@@ -38,7 +38,6 @@ export const EditUnitModal = ({
     cpf_legal_representative: "",
     cipa_type: "",
     num_employees_cipa: 0,
-
   });
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -189,13 +188,16 @@ export const EditUnitModal = ({
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.identification ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.identification ? "filled-error" : "standard-basic"
+                    }
                     label="Identificação"
                     type="text"
                     variant="standard"
                     placeholder="Identificação"
                     error={!!errors.identification}
                     helperText={errors.identification?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -218,7 +220,11 @@ export const EditUnitModal = ({
                     placeholder="CNPJ"
                     error={!!errors.cnpj}
                     helperText={errors.cnpj?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyCnpjMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -240,7 +246,11 @@ export const EditUnitModal = ({
                     placeholder="CNPJ"
                     error={!!errors.cnpj}
                     helperText={errors.cnpj?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyCnpjMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -262,6 +272,7 @@ export const EditUnitModal = ({
                     placeholder="CNEA"
                     error={!!errors.cnea}
                     helperText={errors.cnea?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -284,6 +295,7 @@ export const EditUnitModal = ({
                     placeholder="Atividade"
                     error={!!errors.activity}
                     helperText={errors.activity?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -299,13 +311,16 @@ export const EditUnitModal = ({
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.degree_of_risk ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.degree_of_risk ? "filled-error" : "standard-basic"
+                    }
                     label="Grau de risco"
                     type="text"
                     variant="standard"
                     placeholder="Grau de risco"
                     error={!!errors.degree_of_risk}
                     helperText={errors.degree_of_risk?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -328,6 +343,7 @@ export const EditUnitModal = ({
                     placeholder="ASO"
                     error={!!errors.aso}
                     helperText={errors.aso?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -350,7 +366,11 @@ export const EditUnitModal = ({
                     placeholder="CEP"
                     error={!!errors.cep}
                     helperText={errors.cep?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyCepMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -372,6 +392,7 @@ export const EditUnitModal = ({
                     placeholder="Endereço"
                     error={!!errors.address}
                     helperText={errors.address?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -394,6 +415,7 @@ export const EditUnitModal = ({
                     placeholder="Bairro"
                     error={!!errors.neighborhood}
                     helperText={errors.neighborhood?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -416,6 +438,7 @@ export const EditUnitModal = ({
                     placeholder="Cidade"
                     error={!!errors.city}
                     helperText={errors.city?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -438,6 +461,7 @@ export const EditUnitModal = ({
                     placeholder="Estado"
                     error={!!errors.state}
                     helperText={errors.state?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -460,6 +484,7 @@ export const EditUnitModal = ({
                     placeholder="E-mail"
                     error={!!errors.email}
                     helperText={errors.email?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -482,7 +507,11 @@ export const EditUnitModal = ({
                     placeholder="Telefone"
                     error={!!errors.phone}
                     helperText={errors.phone?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyPhoneMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -497,13 +526,18 @@ export const EditUnitModal = ({
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.legal_representative ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.legal_representative
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
                     label="Representante legal"
                     type="text"
                     variant="standard"
                     placeholder="Representante legal"
                     error={!!errors.legal_representative}
                     helperText={errors.legal_representative?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -519,14 +553,22 @@ export const EditUnitModal = ({
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.cpf_legal_representative ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.cpf_legal_representative
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
                     label="CPF do representante legal"
                     type="text"
                     variant="standard"
                     placeholder="CPF do representante legal"
                     error={!!errors.cpf_legal_representative}
                     helperText={errors.cpf_legal_representative?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyCpfMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -548,6 +590,7 @@ export const EditUnitModal = ({
                     placeholder="Tipo de CIPA"
                     error={!!errors.cipa_type}
                     helperText={errors.cipa_type?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -563,80 +606,26 @@ export const EditUnitModal = ({
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.num_employees_cipa ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.num_employees_cipa
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
                     label="Número de funcionários na CIPA"
                     type="number"
                     variant="standard"
                     placeholder="Número de funcionários na CIPA"
                     error={!!errors.num_employees_cipa}
                     helperText={errors.num_employees_cipa?.message}
+                    required
                     {...field}
                   />
                 </div>
               )}
             />
           </Grid>
-
         </>
       )}
     </CustomModal>
   );
 };
-
-/* <Modal open={modalOpen} onClose={handleCloseModal}>
-      <ModalContainer>
-        {loading ? (
-          <p>Carregando...</p>
-        ) : error ? (
-          <p>{error}</p>
-        ) : (
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Controller
-              name="name"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-admin">
-                  <TextField
-                    className="form-input-create-admin"
-                    id={errors.name ? "filled-error" : "standard-basic"}
-                    label="Nome"
-                    type="text"
-                    variant="standard"
-                    placeholder="Digite o nome"
-                    error={!!errors.name}
-                    helperText={errors.name?.message}
-                    {...field}
-                  />
-                </div>
-              )}
-            />
-
-            <Controller
-              name="email"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-admin">
-                  <TextField
-                    className="form-input-create-admin"
-                    id={errors.email ? "filled-error" : "standard-basic"}
-                    label="Email"
-                    type="text"
-                    variant="standard"
-                    placeholder="Digite o email"
-                    error={!!errors.email}
-                    helperText={errors.email?.message}
-                    {...field}
-                  />
-                </div>
-              )}
-            />
-
-            <div className="create-admin-btn-submit">
-              <button className="create-admin-btn-submit" type="submit">
-                Cadastrar
-              </button>
-            </div>
-          </form>
-        )}
-      </ModalContainer>
-    </Modal> */

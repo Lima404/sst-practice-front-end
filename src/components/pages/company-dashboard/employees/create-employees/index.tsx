@@ -8,6 +8,10 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../../../../data/contexts/AuthContext";
+import { applyCpfMask } from "../../../../utils/applyCpfMask";
+import { applyRgMask } from "../../../../utils/applyRgMask";
+import { applyDateMask } from "../../../../utils/applyDateMask";
+import { applyPhoneMask } from "../../../../utils/applyPhoneMask";
 
 const CreateEmployees = () => {
   const navigate = useNavigate();
@@ -66,6 +70,7 @@ const CreateEmployees = () => {
                     placeholder="Nome"
                     error={!!errors.name}
                     helperText={errors.name?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -86,7 +91,11 @@ const CreateEmployees = () => {
                     placeholder="CPF"
                     error={!!errors.cpf}
                     helperText={errors.cpf?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyCpfMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -106,6 +115,7 @@ const CreateEmployees = () => {
                     placeholder="NIS"
                     error={!!errors.nis}
                     helperText={errors.nis?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -126,7 +136,11 @@ const CreateEmployees = () => {
                     placeholder="RG"
                     error={!!errors.rg}
                     helperText={errors.rg?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyRgMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -146,6 +160,7 @@ const CreateEmployees = () => {
                     placeholder="BR PDH"
                     error={!!errors.br_pdh}
                     helperText={errors.br_pdh?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -166,6 +181,7 @@ const CreateEmployees = () => {
                     placeholder="Sexo"
                     error={!!errors.sex}
                     helperText={errors.sex?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -186,7 +202,11 @@ const CreateEmployees = () => {
                     placeholder="Data de aniversário"
                     error={!!errors.dt_birth}
                     helperText={errors.dt_birth?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyDateMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -226,7 +246,11 @@ const CreateEmployees = () => {
                     placeholder="Celular"
                     error={!!errors.phone_number}
                     helperText={errors.phone_number?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyPhoneMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -246,6 +270,7 @@ const CreateEmployees = () => {
                     placeholder="Tipo sanguíneo"
                     error={!!errors.blood_type}
                     helperText={errors.blood_type?.message}
+                    required
                     {...field}
                   />
                 </div>

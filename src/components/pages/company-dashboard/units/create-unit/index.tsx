@@ -8,6 +8,9 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../../../../data/contexts/AuthContext";
+import { applyCnpjMask } from "../../../../utils/applyCnpjMask";
+import { applyCepMask } from "../../../../utils/applyCepMask";
+import { applyPhoneMask } from "../../../../utils/applyPhoneMask";
 
 const CreateUnit = () => {
   const navigate = useNavigate();
@@ -75,6 +78,7 @@ const CreateUnit = () => {
                     placeholder="Identificação"
                     error={!!errors.identification}
                     helperText={errors.identification?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -95,7 +99,11 @@ const CreateUnit = () => {
                     placeholder="CNPJ"
                     error={!!errors.cnpj}
                     helperText={errors.cnpj?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyCnpjMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -115,6 +123,7 @@ const CreateUnit = () => {
                     placeholder="CNEA"
                     error={!!errors.cnea}
                     helperText={errors.cnea?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -135,6 +144,7 @@ const CreateUnit = () => {
                     placeholder="Atividade"
                     error={!!errors.activity}
                     helperText={errors.activity?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -157,6 +167,7 @@ const CreateUnit = () => {
                     placeholder="Grau de risco"
                     error={!!errors.degree_of_risk}
                     helperText={errors.degree_of_risk?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -177,6 +188,7 @@ const CreateUnit = () => {
                     placeholder="ASO"
                     error={!!errors.aso}
                     helperText={errors.aso?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -197,7 +209,11 @@ const CreateUnit = () => {
                     placeholder="CEP"
                     error={!!errors.cep}
                     helperText={errors.cep?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyCepMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -217,6 +233,7 @@ const CreateUnit = () => {
                     placeholder="Endereço"
                     error={!!errors.address}
                     helperText={errors.address?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -237,6 +254,7 @@ const CreateUnit = () => {
                     placeholder="Bairro"
                     error={!!errors.neighborhood}
                     helperText={errors.neighborhood?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -257,6 +275,7 @@ const CreateUnit = () => {
                     placeholder="Cidade"
                     error={!!errors.city}
                     helperText={errors.city?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -277,6 +296,7 @@ const CreateUnit = () => {
                     placeholder="Estado"
                     error={!!errors.state}
                     helperText={errors.state?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -297,6 +317,7 @@ const CreateUnit = () => {
                     placeholder="E-mail"
                     error={!!errors.email}
                     helperText={errors.email?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -317,7 +338,11 @@ const CreateUnit = () => {
                     placeholder="Telefone"
                     error={!!errors.phone}
                     helperText={errors.phone?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyPhoneMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -341,6 +366,7 @@ const CreateUnit = () => {
                     placeholder="Representante legal"
                     error={!!errors.legal_representative}
                     helperText={errors.legal_representative?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -365,6 +391,7 @@ const CreateUnit = () => {
                     placeholder="CPF do representante legal"
                     error={!!errors.cpf_legal_representative}
                     helperText={errors.cpf_legal_representative?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -385,6 +412,7 @@ const CreateUnit = () => {
                     placeholder="Tipo de CIPA"
                     error={!!errors.cipa_type}
                     helperText={errors.cipa_type?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -409,6 +437,7 @@ const CreateUnit = () => {
                     placeholder="Número de funcionários na CIPA"
                     error={!!errors.num_employees_cipa}
                     helperText={errors.num_employees_cipa?.message}
+                    required
                     {...field}
                   />
                 </div>

@@ -12,6 +12,8 @@ import { useEffect, useState } from "react";
 import { CustomModal } from "../../../../customModal/CustomModal";
 import Loader from "../../../../loader/Loader";
 import { editProfessional, getProfessionalById } from "../api";
+import { applyCpfMask } from "../../../../utils/applyCpfMask";
+import { applyRgMask } from "../../../../utils/applyRgMask";
 
 export const EditProfessionalModal = ({
   modalOpen,
@@ -20,21 +22,22 @@ export const EditProfessionalModal = ({
   userId,
   onUpdateSuccess,
 }: EditProfessionalModalProps) => {
-  const [professionalData, setProfessionalData] = useState<EditProfessionalRequest>({
-    name: "",
-    email: "",
-    cpf: "",
-    nis: "",
-    rg: "",
-    cbo: "",
-    formation: "",
-    organ: "",
-    acronym: "",
-    ccr: "",
-    uf: "",
-    title: "",
-    professionalFunction: "",
-  });
+  const [professionalData, setProfessionalData] =
+    useState<EditProfessionalRequest>({
+      name: "",
+      email: "",
+      cpf: "",
+      nis: "",
+      rg: "",
+      cbo: "",
+      formation: "",
+      organ: "",
+      acronym: "",
+      ccr: "",
+      uf: "",
+      title: "",
+      professionalFunction: "",
+    });
   const [loading, setLoading] = useState<boolean>(true);
 
   const {
@@ -124,7 +127,6 @@ export const EditProfessionalModal = ({
     }
   };
 
-
   const handleCloseModal = () => {
     handleClose();
     setProfessionalData({
@@ -171,6 +173,7 @@ export const EditProfessionalModal = ({
                     placeholder="Nome do profissional"
                     error={!!errors.name}
                     helperText={errors.name?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -193,6 +196,7 @@ export const EditProfessionalModal = ({
                     placeholder="E-mail"
                     error={!!errors.email}
                     helperText={errors.email?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -215,7 +219,11 @@ export const EditProfessionalModal = ({
                     placeholder="CPF"
                     error={!!errors.cpf}
                     helperText={errors.cpf?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyCpfMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -237,6 +245,7 @@ export const EditProfessionalModal = ({
                     placeholder="NIS"
                     error={!!errors.nis}
                     helperText={errors.nis?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -259,7 +268,11 @@ export const EditProfessionalModal = ({
                     placeholder="RG"
                     error={!!errors.rg}
                     helperText={errors.rg?.message}
+                    required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyRgMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -281,6 +294,7 @@ export const EditProfessionalModal = ({
                     placeholder="CBO"
                     error={!!errors.cbo}
                     helperText={errors.cbo?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -303,6 +317,7 @@ export const EditProfessionalModal = ({
                     placeholder="Formação"
                     error={!!errors.formation}
                     helperText={errors.formation?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -325,6 +340,7 @@ export const EditProfessionalModal = ({
                     placeholder="Órgão"
                     error={!!errors.organ}
                     helperText={errors.organ?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -347,6 +363,7 @@ export const EditProfessionalModal = ({
                     placeholder="Órgão"
                     error={!!errors.organ}
                     helperText={errors.organ?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -369,6 +386,7 @@ export const EditProfessionalModal = ({
                     placeholder="Sigla"
                     error={!!errors.acronym}
                     helperText={errors.acronym?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -391,6 +409,7 @@ export const EditProfessionalModal = ({
                     placeholder="UF"
                     error={!!errors.uf}
                     helperText={errors.uf?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -413,6 +432,7 @@ export const EditProfessionalModal = ({
                     placeholder="Título"
                     error={!!errors.title}
                     helperText={errors.title?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -428,13 +448,18 @@ export const EditProfessionalModal = ({
                 <div className="ctn-form-input-create-professional">
                   <TextField
                     className="form-input-create-professional"
-                    id={errors.professionalFunction ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.professionalFunction
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
                     label="Função"
                     type="text"
                     variant="standard"
                     placeholder="Função"
                     error={!!errors.professionalFunction}
                     helperText={errors.professionalFunction?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -446,61 +471,3 @@ export const EditProfessionalModal = ({
     </CustomModal>
   );
 };
-
-/* <Modal open={modalOpen} onClose={handleCloseModal}>
-      <ModalContainer>
-        {loading ? (
-          <p>Carregando...</p>
-        ) : error ? (
-          <p>{error}</p>
-        ) : (
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Controller
-              name="name"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-admin">
-                  <TextField
-                    className="form-input-create-admin"
-                    id={errors.name ? "filled-error" : "standard-basic"}
-                    label="Nome"
-                    type="text"
-                    variant="standard"
-                    placeholder="Digite o nome"
-                    error={!!errors.name}
-                    helperText={errors.name?.message}
-                    {...field}
-                  />
-                </div>
-              )}
-            />
-
-            <Controller
-              name="email"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-admin">
-                  <TextField
-                    className="form-input-create-admin"
-                    id={errors.email ? "filled-error" : "standard-basic"}
-                    label="Email"
-                    type="text"
-                    variant="standard"
-                    placeholder="Digite o email"
-                    error={!!errors.email}
-                    helperText={errors.email?.message}
-                    {...field}
-                  />
-                </div>
-              )}
-            />
-
-            <div className="create-admin-btn-submit">
-              <button className="create-admin-btn-submit" type="submit">
-                Cadastrar
-              </button>
-            </div>
-          </form>
-        )}
-      </ModalContainer>
-    </Modal> */
