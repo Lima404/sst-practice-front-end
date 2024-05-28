@@ -16,9 +16,16 @@ export const createUploadDocumentRequestSchema = z.object({
   professionalId: z.string(),
 });
 
+const ExamsSchema = z.object({
+  exam_name: z.string(),
+  exam_date: z.string(),
+  chief_complaint: z.string(),
+  clinical_history: z.string(),
+})
+
 export const createAnamneseDocumentRequestSchema = z.object({
-  employer: z.string(),
   companyName: z.string(),
+  corporateReason: z.string(),
   cnpj: z.string(),
   employeeName: z.string(),
   employeeCpf: z.string(),
@@ -33,10 +40,7 @@ export const createAnamneseDocumentRequestSchema = z.object({
   biologicalRisks: z.string(),
   ergonomicRisks: z.string(),
   mechanicalRiks: z.string(),
-  examDate: z.string(),
-  examName: z.string(),
-  chiefComplaint: z.string(),
-  clinicalHistory: z.string(),
+  exams: z.array(ExamsSchema),
   pathologicalPersonalAndFamilyHistory: z.string(),
   location: z.string(),
   physicalExam: z.array(z.string()),
@@ -60,9 +64,16 @@ export const createAnamneseDocumentRequestSchema = z.object({
   specialSkills: z.array(z.string())
 })
 
+export interface Exams {
+  exam_name: string;
+  exam_date: string;
+  chief_complaint: string;
+  clinical_history: string;
+}
+
 export interface CreateAnamneseDocumentRequest {
-  employer: string;
   companyName: string;
+  corporateReason: string;
   cnpj: string;
   employeeName: string;
   employeeCpf: string;
@@ -77,10 +88,7 @@ export interface CreateAnamneseDocumentRequest {
   biologicalRisks: string;
   ergonomicRisks: string;
   mechanicalRiks: string;
-  examDate: string;
-  examName: string;
-  chiefComplaint: string;
-  clinicalHistory: string;
+  exams: Exams[];
   pathologicalPersonalAndFamilyHistory: string;
   location: string;
   physicalExam: string[];
@@ -231,7 +239,7 @@ export interface CreateExamTypeTwoDocumentsRequest {
   cpf: string;
   dt_birth: string;
   corporate_reason: string;
-  exames: string[];
+  exams: string[];
 }
 
 export const CreateExamTypeTwoDocumentsSchema = z.object({
@@ -239,5 +247,5 @@ export const CreateExamTypeTwoDocumentsSchema = z.object({
   cpf: z.string(),
   dt_birth: z.string(),
   corporate_reason: z.string(),
-  exames: z.array(z.string()),
+  exams: z.array(z.string()),
 })

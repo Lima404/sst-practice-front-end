@@ -9,7 +9,7 @@ import { useReactToPrint } from "react-to-print";
 import DocumentHeader from "../../../../../../../../assets/documents-template/documentHeader.png";
 
 const CreateExamTypeTwoDocuments = () => {
-  const contentExameTypeTwoDocumentToExport = useRef(null);
+  const contentExamTypeTwoDocumentToExport = useRef(null);
   const [formData, setFormData] = useState<CreateExamTypeTwoDocumentsRequest | null>(null);
 
   const {
@@ -22,14 +22,14 @@ const CreateExamTypeTwoDocuments = () => {
       cpf: "", 
       dt_birth: "",
       corporate_reason: "", 
-      exames: [],
+      exams: [],
     },
     resolver: zodResolver(CreateExamTypeTwoDocumentsSchema),
   });
 
   const handlePrint = useReactToPrint({
-    content: () => contentExameTypeTwoDocumentToExport.current,
-    documentTitle: formData ? `EXAME_TYPE_TWO_${formData?.name}` : "EXAME_TYPE_TWO_",
+    content: () => contentExamTypeTwoDocumentToExport.current,
+    documentTitle: formData ? `EXAM_TYPE_TWO_${formData?.name}` : "EXAM_TYPE_TWO_",
   });
 
   const onSubmit: SubmitHandler<CreateExamTypeTwoDocumentsRequest> = async (data) => {
@@ -50,7 +50,7 @@ const CreateExamTypeTwoDocuments = () => {
         <div className="create-admin-form">
 
           <div className="document-container-to-export">
-            <div ref={contentExameTypeTwoDocumentToExport} className="content">
+            <div ref={contentExamTypeTwoDocumentToExport} className="content">
 
               <table align="center" border={0} id="Tabela_01" width={900}>
                 <tbody>
@@ -101,7 +101,7 @@ const CreateExamTypeTwoDocuments = () => {
                       </p>
                     </td>
                   </tr>
-                  {formData?.exames.map((skill, index) => (
+                  {formData?.exams.map((skill, index) => (
                     <tr key={index}>
                       <td>
                         <p className="p-text-export-document">{skill}</p>
@@ -200,7 +200,7 @@ const CreateExamTypeTwoDocuments = () => {
             />
 
             <Controller
-              name="exames"
+              name="exams"
               control={control}
               render={({ field: { onChange, value } }) => (
                 <div className="ctn-form-input-create-unit">
@@ -209,7 +209,7 @@ const CreateExamTypeTwoDocuments = () => {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          name="exames"
+                          name="exams"
                           value="Audiometria tonal (ocupacional)"
                           defaultChecked={false}
                           onChange={(e) => {
@@ -227,7 +227,7 @@ const CreateExamTypeTwoDocuments = () => {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          name="exames"
+                          name="exams"
                           value="Espirometria (prova de função pulmonar – ocupacional)"
                           defaultChecked={false}
                           onChange={(e) => {
@@ -245,7 +245,7 @@ const CreateExamTypeTwoDocuments = () => {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          name="exames"
+                          name="exams"
                           value="Radiografia de tórax (2 incidências – padrão OIT)"
                           defaultChecked={false}
                           onChange={(e) => {
@@ -263,7 +263,7 @@ const CreateExamTypeTwoDocuments = () => {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          name="exames"
+                          name="exams"
                           value="Eletrocardiograma (ECG)"
                           defaultChecked={false}
                           onChange={(e) => {
@@ -281,7 +281,7 @@ const CreateExamTypeTwoDocuments = () => {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          name="exames"
+                          name="exams"
                           value="Eletroencefalograma (EEG)"
                           defaultChecked={false}
                           onChange={(e) => {
@@ -297,7 +297,7 @@ const CreateExamTypeTwoDocuments = () => {
                       label="Eletroencefalograma (EEG)"
                     />
                   </div>
-                  {errors.exames && <p>{errors.exames.message}</p>}
+                  {errors.exams && <p>{errors.exams.message}</p>}
                 </div>
               )}
             />

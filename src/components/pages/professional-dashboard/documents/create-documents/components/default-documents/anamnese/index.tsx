@@ -19,6 +19,9 @@ import { applyCnpjMask } from "../../../../../../../utils/applyCnpjMask";
 
 const CreateAnamnese = () => {
   const contentAnamneseDocumentToExport = useRef(null);
+  const [exams, setExams] = useState([
+    { exam_name: '', exam_date: '', chief_complaint: '', clinical_history: '' }
+  ]);
   const [formData, setFormData] =
     useState<CreateAnamneseDocumentRequest | null>(null);
 
@@ -26,10 +29,10 @@ const CreateAnamnese = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<CreateAnamneseDocumentRequest>({
     defaultValues: {
-      employer: "",
       companyName: "",
+      corporateReason: "",
       cnpj: "",
       employeeName: "",
       employeeCpf: "",
@@ -44,10 +47,6 @@ const CreateAnamnese = () => {
       biologicalRisks: "",
       ergonomicRisks: "",
       mechanicalRiks: "",
-      examDate: "",
-      examName: "",
-      chiefComplaint: "",
-      clinicalHistory: "",
       pathologicalPersonalAndFamilyHistory: "",
       conclusionObservation: "",
       location: "",
@@ -70,6 +69,7 @@ const CreateAnamnese = () => {
       conclusion: [],
       diagnosticHypothesis: "",
       specialSkills: [],
+      exams: [{ exam_name: "", exam_date: "", chief_complaint: "", clinical_history: "" }]
     },
     resolver: zodResolver(createAnamneseDocumentRequestSchema),
   });
@@ -77,9 +77,13 @@ const CreateAnamnese = () => {
   const handlePrint = useReactToPrint({
     content: () => contentAnamneseDocumentToExport.current,
     documentTitle: formData
-      ? `ASO_DOCUMENT_${formData?.employeeName}`
-      : "ASO_DOCUMENT",
+      ? `ANAMNESE_DOCUMENT_${formData?.employeeName}`
+      : "ANAMNESE_DOCUMENT",
   });
+
+  const addExams = () => {
+    setExams([...exams, { exam_name: '', exam_date: '', chief_complaint: '', clinical_history: '' }]);
+  };
 
   const onSubmit: SubmitHandler<CreateAnamneseDocumentRequest> = async (
     data
@@ -134,7 +138,7 @@ const CreateAnamnese = () => {
                   </tr>
                   <tr>
                     <td>
-                      <p className="p-text-export-document">Razão social: </p>
+                      <p className="p-text-export-document">Razão social: {formData?.corporateReason}</p>
                     </td>
                     <td>
                       <p className="p-text-export-document">
@@ -150,7 +154,7 @@ const CreateAnamnese = () => {
                   <tr>
                     <td className="td-header-export-document" colSpan={6}>
                       <p className="p-text-export-document">
-                        <center>FUNCIONÁRIO: {formData?.employer}</center>
+                        <center>FUNCIONÁRIO</center>
                       </p>
                     </td>
                   </tr>
@@ -253,67 +257,21 @@ const CreateAnamnese = () => {
                 </tbody>
               </table>
 
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document">
-                        <center>EXAMES REALIZADOS</center>
-                      </p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p className="p-text-export-document">
-                        Data: {formData?.examDate}
-                      </p>
-                    </td>
-                    <td>
-                      <p className="p-text-export-document">
-                        Exame: {formData?.examName}
-                      </p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document">
-                        <center>QUEIXA PRINCIPAL</center>
-                      </p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p className="p-text-export-document">
-                        Queixa principal: {formData?.chiefComplaint}
-                      </p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document">
-                        <center>HISTÓRIA CLÍNICA</center>
-                      </p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p className="p-text-export-document">
-                        História clínica: {formData?.clinicalHistory}
-                      </p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              {formData?.exams?.map((exam, index) => (
+                <table key={index} align="center" border={0} id="Tabela_01" width={900}>
+                  <tbody>
+                    <tr>
+                      <td className="td-header-export-document" colSpan={6}>
+                        <p className="p-text-export-document"><center>EXAME {index+1}</center></p>
+                      </td>
+                    </tr>
+                    <tr><p className="p-text-export-document">Data do exame: {exam.exam_date}</p></tr>
+                    <tr><p className="p-text-export-document">Nome do exame: {exam.exam_name}</p></tr>
+                    <tr><p className="p-text-export-document">Queixa principal: {exam.chief_complaint}</p></tr>
+                    <tr><p className="p-text-export-document">História clínica: {exam.clinical_history}</p></tr> 
+                  </tbody>
+                </table>
+              ))}
 
               <table align="center" border={0} id="Tabela_01" width={900}>
                 <tbody>
@@ -849,20 +807,20 @@ const CreateAnamnese = () => {
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <Controller
-              name="employer"
+              name="companyName"
               control={control}
               render={({ field }) => (
                 <div className="ctn-form-input-create-admin">
                   <h4>Empregador</h4>
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.employer ? "filled-error" : "standard-basic"}
+                    id={errors.companyName ? "filled-error" : "standard-basic"}
                     label="Empregador"
                     type="text"
                     variant="standard"
                     placeholder="Digite o nome do empregador"
-                    error={!!errors.employer}
-                    helperText={errors.employer?.message}
+                    error={!!errors.companyName}
+                    helperText={errors.companyName?.message}
                     {...field}
                   />
                 </div>
@@ -870,19 +828,19 @@ const CreateAnamnese = () => {
             />
 
             <Controller
-              name="companyName"
+              name="corporateReason"
               control={control}
               render={({ field }) => (
                 <div className="ctn-form-input-create-admin">
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.companyName ? "filled-error" : "standard-basic"}
+                    id={errors.corporateReason ? "filled-error" : "standard-basic"}
                     label="Razão social"
                     type="text"
                     variant="standard"
                     placeholder="Digite o nome da empresa"
-                    error={!!errors.companyName}
-                    helperText={errors.companyName?.message}
+                    error={!!errors.corporateReason}
+                    helperText={errors.corporateReason?.message}
                     {...field}
                   />
                 </div>
@@ -1207,90 +1165,99 @@ const CreateAnamnese = () => {
               )}
             />
 
-            <Controller
-              name="examDate"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-admin">
-                  <h4>Exames realizados</h4>
-                  <TextField
-                    className="form-input-create-admin"
-                    id={errors.examDate ? "filled-error" : "standard-basic"}
-                    label="Data de exame"
-                    type="text"
-                    variant="standard"
-                    placeholder="Digite a data do exame realizado"
-                    error={!!errors.examDate}
-                    helperText={errors.examDate?.message}
-                    {...field}
-                  />
-                </div>
-              )}
-            />
+            {exams.map((_, index) => (
+              <div key={index}>
+                <Controller
+                  name={`exams.${index}.exam_date` as const}
+                  control={control}
+                  render={({ field }) => (
+                    <div className="ctn-form-input-create-unit">
+                      <h4>Exames</h4>
+                      <TextField
+                        className="form-input-create-unit"
+                        id={errors.exams?.[index]?.exam_date ? "filled-error" : "standard-basic"}
+                        label="Data do exame"
+                        type="text"
+                        variant="standard"
+                        placeholder="Digite a data do exame"
+                        error={!!errors.exams?.[index]?.exam_date}
+                        helperText={errors.exams?.[index]?.exam_date?.message}
+                        {...field}
+                        onChange={(e) =>
+                          field.onChange(applyDateMask(e.target.value))
+                        }
+                      />
+                    </div>
+                  )}
+                />
 
-            <Controller
-              name="examName"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-admin">
-                  <TextField
-                    className="form-input-create-admin"
-                    id={errors.examName ? "filled-error" : "standard-basic"}
-                    label="Nome do exame"
-                    type="text"
-                    variant="standard"
-                    placeholder="Digite o nome do exame realizado"
-                    error={!!errors.examName}
-                    helperText={errors.examName?.message}
-                    {...field}
-                  />
-                </div>
-              )}
-            />
+                <Controller
+                  name={`exams.${index}.exam_name` as const}
+                  control={control}
+                  render={({ field }) => (
+                    <div className="ctn-form-input-create-unit">
+                      <TextField
+                        className="form-input-create-unit"
+                        id={errors.exams?.[index]?.exam_name ? "filled-error" : "standard-basic"}
+                        label="Nome do exame"
+                        type="text"
+                        variant="standard"
+                        placeholder="Digite o nome do exame"
+                        error={!!errors.exams?.[index]?.exam_name}
+                        helperText={errors.exams?.[index]?.exam_name?.message}
+                        {...field}
+                      />
+                    </div>
+                  )}
+                />
 
-            <Controller
-              name="chiefComplaint"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-admin">
-                  <TextField
-                    className="form-input-create-admin"
-                    id={
-                      errors.chiefComplaint ? "filled-error" : "standard-basic"
-                    }
-                    label="Queixa principal"
-                    type="text"
-                    variant="standard"
-                    placeholder="Digite a queixa principal"
-                    error={!!errors.chiefComplaint}
-                    helperText={errors.chiefComplaint?.message}
-                    {...field}
-                  />
-                </div>
-              )}
-            />
+                <Controller
+                  name={`exams.${index}.chief_complaint` as const}
+                  control={control}
+                  render={({ field }) => (
+                    <div className="ctn-form-input-create-unit">
+                      <TextField
+                        className="form-input-create-unit"
+                        id={errors.exams?.[index]?.chief_complaint ? "filled-error" : "standard-basic"}
+                        label="Queixa principal"
+                        type="text"
+                        variant="standard"
+                        placeholder="Digite a queixa principal"
+                        error={!!errors.exams?.[index]?.chief_complaint}
+                        helperText={errors.exams?.[index]?.chief_complaint?.message}
+                        {...field}
+                      />
+                    </div>
+                  )}
+                />
 
-            <Controller
-              name="clinicalHistory"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-admin">
-                  <TextField
-                    className="form-input-create-admin"
-                    id={
-                      errors.clinicalHistory ? "filled-error" : "standard-basic"
-                    }
-                    label="Histórico familiar"
-                    type="text"
-                    variant="standard"
-                    placeholder="Digite o histórico familiar"
-                    error={!!errors.clinicalHistory}
-                    helperText={errors.clinicalHistory?.message}
-                    {...field}
-                  />
-                </div>
-              )}
-            />
+                <Controller
+                  name={`exams.${index}.clinical_history` as const}
+                  control={control}
+                  render={({ field }) => (
+                    <div className="ctn-form-input-create-unit">
+                      <TextField
+                        className="form-input-create-unit"
+                        id={errors.exams?.[index]?.clinical_history ? "filled-error" : "standard-basic"}
+                        label="Histórico clínico"
+                        type="text"
+                        variant="standard"
+                        placeholder="Digite o histórico clínico"
+                        error={!!errors.exams?.[index]?.clinical_history}
+                        helperText={errors.exams?.[index]?.clinical_history?.message}
+                        {...field}
+                      />
+                    </div>
+                  )}
+                />     
+            </div>
+          ))}
+
+            <div className="create-unit-btn-submit">
+                <button type="button" onClick={addExams} className="create-unit-btn-submit">
+                  Adicionar Exame
+                </button>
+              </div>
 
             <Controller
               name="generalCondition"
