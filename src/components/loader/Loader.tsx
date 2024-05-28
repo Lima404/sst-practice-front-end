@@ -8,11 +8,11 @@ export default function Loader() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        width: "100%",
         height: "100%",
+        width: "100%",
       }}
     >
-      <CircularProgress />
+      <CircularProgress size={15} style={{ color: "white" }}/>
     </Box>
   );
 }

@@ -1,0 +1,134 @@
+.main-create-admin-admin-dashboard {
+  width: 100%;
+  height: 100%;
+  background-color: var(--cinza-claro);
+  display: flex;
+  color: black;
+  gap: 5em;
+}
+
+.sidebar {
+  width: 50%;
+}
+
+.menu-hamburger-dashboard-admin {
+  display: none;
+}
+
+.create-admin-admin-dashboard-content {
+  margin-top: 2em;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.create-admin-page-title {
+  color: var(--azul-piscina);
+}
+
+.create-admin-form {
+  width: 100%;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+}
+
+.create-admin-form form {
+  width: 50%;
+}
+
+.form-input-create-admin {
+  width: 100%;
+}
+
+.ctn-form-input-create-admin {
+  width: 100%;
+  margin-top: 0.4em;
+}
+
+.create-admin-btn-submit {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.create-admin-btn-submit button {
+  padding: 1em;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--azul-piscina);
+  color: var(--cinza-claro);
+  font-size: 16px;
+  width: 100%;
+}
+
+@media screen and (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
+
+  .menu-hamburger-dashboard-admin {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .main-create-admin-admin-dashboard {
+    gap: 0;
+  }
+
+  .create-admin-form {
+    align-items: center;
+  }
+
+  .create-admin-admin-dashboard-content {
+    align-items: center;
+  }
+}
+
+.file-upload-wrapper {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.file-upload-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 100px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.custom-file-upload {
+  display: inline-block;
+  background-color: var(--azul-piscina);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.file-name {
+  margin-left: 16px;
+  color: var(--azul-piscina);
+  align-self: center;
+}
+
+.file-upload-container {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.error-text {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 8px;
+}
+

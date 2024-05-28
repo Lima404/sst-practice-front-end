@@ -11,11 +11,13 @@ import { useContext, useEffect, useState } from "react";
 
 import { CiTrash } from "react-icons/ci";
 import { BsPencilSquare } from "react-icons/bs";
+import { IoDocumentOutline } from "react-icons/io5";
 import { deleteEmployees, fetchEmployeesData } from "../../api";
 import { toast } from "react-toastify";
 import { Button } from "@mui/material";
 import { AuthContext } from "../../../../../../data/contexts/AuthContext";
 import { EditEmployeeModal } from "../../components/EditEmployeesModal";
+import { useNavigate } from "react-router-dom";
 
 export interface EmployeesProps {
   id: string,
@@ -25,7 +27,7 @@ export interface EmployeesProps {
   rg: string,
   br_pdh: string,
   sex: string,
-  dt_birth: number,
+  dt_birth: string,
   phone: string,
   phone_number: string,
   blood_type: string,
@@ -35,20 +37,21 @@ export default function EmployeeTable() {
   const [employees, setEmployees] = useState<EmployeesProps[]>([]);
   const [currentEmployeesId, setCurrentEmployeesId] = useState<string>("");
   const { userTypeId } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const fetchAllEmployees = async () => {
     try {
       if (userTypeId !== null) {
         const companyId = userTypeId;
         fetchEmployeesData(companyId).then((response) => {
-          if (response.employees.length === 0 ){
+          if (response.employees.length === 0) {
             toast.error("Não foram encontrados registros!");
           }
           toast.success(`${response.employees.length} registros encontrados`);
           setEmployees(response.employees);
         });
       } else {
-          console.log("não foi possível encontrar colaboradores para essa empresa");
+        console.log("não foi possível encontrar colaboradores para essa empresa");
       }
     } catch (error) {
       console.log("Erro na requisição", error);
@@ -78,61 +81,68 @@ export default function EmployeeTable() {
     fetchAllEmployees();
   }, []);
 
+  const handleViewDocuments = (employeeId: string) => {
+    navigate(`/employee/documents/${employeeId}`);
+  };
+
 
   return (
-      <div className="container-units-table">
-        <TableContainer component={Paper}>
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="left">Nome</TableCell>
-                <TableCell align="left">CPF</TableCell>
-                <TableCell align="left">NIS</TableCell>
-                <TableCell align="left">RG</TableCell>
+    <div className="container-units-table">
+      <TableContainer component={Paper}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="left">Nome</TableCell>
+              <TableCell align="left">CPF</TableCell>
+              <TableCell align="left">NIS</TableCell>
+              <TableCell align="left">RG</TableCell>
 
-                <TableCell align="left">br_pdh</TableCell>
+              <TableCell align="left">br_pdh</TableCell>
 
-                <TableCell align="left">Sexo</TableCell>
-                <TableCell align="left">Data de aniversario</TableCell>
-                <TableCell align="left">Telefone</TableCell>
-                <TableCell align="left">Celular</TableCell>
-                <TableCell align="left">Tipo Sanguineo</TableCell>
-                <TableCell align="left">Ações</TableCell>
+              <TableCell align="left">Sexo</TableCell>
+              <TableCell align="left">Data de aniversario</TableCell>
+              <TableCell align="left">Telefone</TableCell>
+              <TableCell align="left">Celular</TableCell>
+              <TableCell align="left">Tipo Sanguineo</TableCell>
+              <TableCell align="left">Ações</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {employees?.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell align="left">{row.name}</TableCell>
+                <TableCell align="left">{row.cpf}</TableCell>
+                <TableCell align="left">{row.nis}</TableCell>
+                <TableCell align="left">{row.rg}</TableCell>
+                <TableCell align="left">{row.br_pdh}</TableCell>
+                <TableCell align="left">{row.sex}</TableCell>
+                <TableCell align="left">{row.dt_birth}</TableCell>
+                <TableCell align="left">{row.phone}</TableCell>
+                <TableCell align="left">{row.phone_number}</TableCell>
+                <TableCell align="left">{row.blood_type}</TableCell>
+                <TableCell align="left">
+                  <Button className="actions-btn" onClick={() => handleSetIds(row.id)}>
+                    <BsPencilSquare className="update-btn" size={20} />
+                  </Button>
+                  <Button className="actions-btn" onClick={() => handleDeleteEmployees(row.id)}>
+                    <CiTrash className="delete-btn" size={20} />
+                  </Button>
+                  <Button className="actions-btn" onClick={() => handleViewDocuments(row.id)}>
+                    <IoDocumentOutline size={20}/>
+                  </Button>
+                </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {employees?.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell align="left">{row.name}</TableCell>
-                  <TableCell align="left">{row.cpf}</TableCell>
-                  <TableCell align="left">{row.nis}</TableCell>
-                  <TableCell align="left">{row.rg}</TableCell>
-                  <TableCell align="left">{row.br_pdh}</TableCell>
-                  <TableCell align="left">{row.sex}</TableCell>
-                  <TableCell align="left">{row.dt_birth}</TableCell>
-                  <TableCell align="left">{row.phone}</TableCell>
-                  <TableCell align="left">{row.phone_number}</TableCell>
-                  <TableCell align="left">{row.blood_type}</TableCell>
-                  <TableCell align="left">
-                    <Button className="actions-btn" onClick={() => handleSetIds(row.id)}>
-                      <BsPencilSquare className="update-btn" size={20} />
-                    </Button>
-                    <Button className="actions-btn" onClick={() => handleDeleteEmployees(row.id)}>
-                      <CiTrash className="delete-btn" size={20} />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-  
-        <EditEmployeeModal
-          modalOpen={currentEmployeesId !== ""}
-          handleClose={() => setCurrentEmployeesId("")}
-          employeeId={currentEmployeesId}
-          onUpdateSuccess={handleUpdateSuccess}
-        />
-      </div>
-    );
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <EditEmployeeModal
+        modalOpen={currentEmployeesId !== ""}
+        handleClose={() => setCurrentEmployeesId("")}
+        employeeId={currentEmployeesId}
+        onUpdateSuccess={handleUpdateSuccess}
+      />
+    </div>
+  );
 }

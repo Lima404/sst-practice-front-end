@@ -66,7 +66,7 @@ const Login = () => {
       <div className="card--login">
         <div className="left--side">
           <div className="data--input">
-            <img src={Logo} alt="" />
+            <img src={Logo} alt="" width={320} height={250} />
             <form onSubmit={handleSubmit(onSubmit)} className="form--login">
               <div className="email--input">
                 <ThemeProvider theme={theme}>
@@ -112,9 +112,10 @@ const Login = () => {
                 <a className="forget--pass" href="#">
                   Esqueci minha senha
                 </a>
-                {isLoading ? (
-                  <Loader />
-                ) : <button type="submit" className="but-enter">Entrar</button>}
+                <button type="submit" className="but-enter" disabled={isLoading}>
+                  {isLoading ? <Loader /> : "Entrar"}
+                </button>
+
               </div>
             </form>
             <div className="Back">

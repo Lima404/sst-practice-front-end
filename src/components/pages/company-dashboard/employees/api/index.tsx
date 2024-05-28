@@ -25,3 +25,13 @@ export const deleteEmployees = async (id: string) => {
   const response = await api.put(`/employee/delete/${id}`);
   return response.data;
 }
+
+export const fetchAllDocumentsByEmployeeIdData = async (employeeId: string) => {
+  const response = await api.get(`/documents/${employeeId}`);
+  return response.data;
+}
+
+export const getDocumentById = async (id: string) => {
+  const response = await api.get(`/document/${id}`);
+  return response.data;
+}

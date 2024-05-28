@@ -6,7 +6,6 @@ import { CreateUnitRequest, createUnitSchema } from "../types";
 import { createUnit } from "../api/";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import CompanySideBar from "../../../../company-components/sidebar";
 import { useContext } from "react";
 import { AuthContext } from "../../../../../data/contexts/AuthContext";
 
@@ -56,8 +55,6 @@ const CreateUnit = () => {
 
   return (
     <div className="main-create-unit-company-dashboard">
-      <CompanySideBar />
-
       <div className="create-unit-company-dashboard-content">
         <h2 className="create-unit-page-title">Cadastrar Unidade</h2>
         <div className="create-unit-form">
@@ -69,7 +66,9 @@ const CreateUnit = () => {
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.identification ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.identification ? "filled-error" : "standard-basic"
+                    }
                     label="Identificação"
                     type="text"
                     variant="standard"
@@ -149,7 +148,9 @@ const CreateUnit = () => {
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.degree_of_risk ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.degree_of_risk ? "filled-error" : "standard-basic"
+                    }
                     label="Grau de risco"
                     type="text"
                     variant="standard"
@@ -329,7 +330,11 @@ const CreateUnit = () => {
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.legal_representative ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.legal_representative
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
                     label="Representante legal"
                     type="text"
                     variant="standard"
@@ -349,7 +354,11 @@ const CreateUnit = () => {
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.cpf_legal_representative ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.cpf_legal_representative
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
                     label="CPF do representante legal"
                     type="text"
                     variant="standard"
@@ -389,7 +398,11 @@ const CreateUnit = () => {
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.num_employees_cipa ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.num_employees_cipa
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
                     label="Número de funcionários na CIPA"
                     type="number"
                     variant="standard"

@@ -1,78 +1,88 @@
-.title--page{
-    padding: 2em 0em 2em 0em;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2em;
-    background: linear-gradient(86deg, #FFF 30.08%, rgba(255, 255, 255, 0.80) 47.11%, rgba(255, 255, 255, 0.60) 69.54%, rgba(255, 255, 255, 0.45) 83.97%, rgba(255, 255, 255, 0.24) 99.69%, rgba(255, 255, 255, 0.00) 100%), #106B87;
+.title--page {
+  padding: 2em 0em 2em 0em;
+  padding-top: 200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2em;
+  background: linear-gradient(
+      86deg,
+      #fff 30.08%,
+      rgba(255, 255, 255, 0.8) 47.11%,
+      rgba(255, 255, 255, 0.6) 69.54%,
+      rgba(255, 255, 255, 0.45) 83.97%,
+      rgba(255, 255, 255, 0.24) 99.69%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    #106b87;
 }
 
-p{
-    color: black;
+p {
+  color: black;
 }
 
-strong{
-    color: var(--color4, #157A8C);
-    font-family: Montserrat;
-    font-size: 56px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: normal;
+strong {
+  color: var(--color4, #157a8c);
+  font-family: Montserrat;
+  font-size: 56px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
 }
 
-.Title{
-    color: #000;
-    font-family: Montserrat;
-    font-size: 56px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    margin: 0;
-    padding-left: 2em;
+.Title {
+  color: #000;
+  font-family: Montserrat;
+  font-size: 56px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin: 0;
+  padding-left: 2em;
 }
 
-.Sub{
-    display: flex;
-    align-items: flex-end !important;
-    color: #333;
-    text-align: justify;
-    font-family: Montserrat;
-    font-size: 23px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin: 0;
-    padding-right: 4em;
+.Sub {
+  display: flex;
+  align-items: flex-end !important;
+  color: #333;
+  text-align: justify;
+  font-family: Montserrat;
+  font-size: 23px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  padding-right: 4em;
 }
 
-strong{
-    color: var(--azul-piscina);
+strong {
+  color: var(--azul-piscina);
 }
 
 @media screen and (max-width: 1200px) {
-    .Title {
-        font-size: 32px;
-    }
+  .Title {
+    font-size: 32px;
+  }
 
-    strong {
-        font-size: 32px;
-    }
+  strong {
+    font-size: 32px;
+  }
 }
 
 @media screen and (max-width: 768px) {
-    .title--page {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
+  .title--page {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 
-    .Title {
-        padding: 0em 1em 0em 1em;
-    }
+  .Title {
+    padding: 0em 1em 0em 1em;
+  }
 
-    .Sub {
-        padding: 0em 1em 0em 1em;
-    }
+  .Sub {
+    padding: 0em 1em 0em 1em;
+  }
 }

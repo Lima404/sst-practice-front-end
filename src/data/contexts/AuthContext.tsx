@@ -22,6 +22,7 @@ type AuthContextData = {
   isAuthenticated: boolean;
   signOut: () => void;
   userTypeId: string | null;
+  userType: string | null;
 };
 
 type AuthProviderProps = {
@@ -32,6 +33,7 @@ export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
+  const [userType, setUserType] = useState<string | null>(null);
   const [userTypeId, setUserTypeId] = useState<string | null>(null);
   const navigate = useNavigate();
   const isAuthenticated = !!user;
@@ -41,7 +43,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
       setUser(foundUser);
-      navigate("/app");
+      navigate("/dashboard");
     } else {
       setUser(null);
       navigate("/");
@@ -71,18 +73,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       await getUserProfile(userToken);
 
-      switch (response.data.type) {
-        case "admin":
-          navigate("/admin");
-          break;
-        case "company":
-          navigate("/company");
-          break;
-        case "professional":
-          navigate("/professional");
-          break;
-        default:
-          navigate("/");
+      if (response.data.type) {
+        navigate("/dashboard");
+      } else {
+        navigate("/");
       }
     } catch (err) {
       toast.error("Credenciais inválidas");
@@ -93,21 +87,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   async function getUserProfile(token: string) {
     try {
-      const response = await api.get('/profile', {
+      const response = await api.get("/profile", {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
-
-      const userProfile = response.data;
 
       const userType = response.data.user.type;
       const userTypeData = response.data.switchedUser[userType];
       const userTypeId = userTypeData ? userTypeData.id : null;
 
       setUserTypeId(userTypeId);
+      setUserType(userType);
     } catch (error) {
-      console.error('Erro ao obter o perfil do usuário:', error);
+      console.error("Erro ao obter o perfil do usuário:", error);
       throw error;
     }
   }
@@ -121,7 +114,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <AuthContext.Provider value={{ signIn, getUserProfile, isAuthenticated, user, signOut, userTypeId }}>
+    <AuthContext.Provider
+      value={{
+        signIn,
+        getUserProfile,
+        isAuthenticated,
+        user,
+        signOut,
+        userTypeId,
+        userType,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

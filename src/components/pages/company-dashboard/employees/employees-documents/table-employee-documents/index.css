@@ -1,0 +1,23 @@
+.container-units-table {
+  overflow-x: auto;
+  border-radius: 4px;
+  padding: 1em;
+}
+
+.update-btn {
+  color: var(--azul-piscina);
+}
+
+.delete-btn {
+  color: var(--vermelho-vinho);
+}
+
+.actions-btn {
+  padding: .2em !important;
+  margin: 0 !important;
+  min-width: 32px !important;
+}
+
+.h3-employee-name {
+  color: var(--azul-piscina);
+}

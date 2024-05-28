@@ -4,8 +4,8 @@ import AboutUs from "../../home/aboutUs";
 import OurServices from "../../home/ourServices";
 import Soluctions from "../../home/soluctions";
 import Flyer from "../../home/flyer";
-import Contact from "../../home/contact";
 import Footer from "../../layout/Footer";
+import Contact from "../../home/Contact";
 
 function Home() {
   return (

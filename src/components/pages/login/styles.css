@@ -72,8 +72,14 @@
   color: var(--cinza-escuro);
 }
 
+.forget--pass:hover {
+  color: var(--azul-piscina)
+}
+
+
 .but-enter {
-  padding: 10px 5px;
+  width: 65px;
+  height: 39px;
   background-color: var(--azul-marinho);
   color: white;
   border-radius: 2;
@@ -86,6 +92,10 @@
   align-items: center;
   color: var(--cinza-escuro);
   margin-top: 60px;
+}
+
+.back-to-menu:hover {
+  color: var(--azul-piscina)
 }
 
 .title--login {
