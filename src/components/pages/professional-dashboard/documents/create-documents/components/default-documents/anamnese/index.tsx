@@ -20,7 +20,7 @@ import { applyCnpjMask } from "../../../../../../../utils/applyCnpjMask";
 const CreateAnamnese = () => {
   const contentAnamneseDocumentToExport = useRef(null);
   const [exams, setExams] = useState([
-    { exam_name: '', exam_date: '', chief_complaint: '', clinical_history: '' }
+    { exam_name: "", exam_date: "", chief_complaint: "", clinical_history: "" },
   ]);
   const [formData, setFormData] =
     useState<CreateAnamneseDocumentRequest | null>(null);
@@ -69,7 +69,14 @@ const CreateAnamnese = () => {
       conclusion: [],
       diagnosticHypothesis: "",
       specialSkills: [],
-      exams: [{ exam_name: "", exam_date: "", chief_complaint: "", clinical_history: "" }]
+      exams: [
+        {
+          exam_name: "",
+          exam_date: "",
+          chief_complaint: "",
+          clinical_history: "",
+        },
+      ],
     },
     resolver: zodResolver(createAnamneseDocumentRequestSchema),
   });
@@ -82,7 +89,15 @@ const CreateAnamnese = () => {
   });
 
   const addExams = () => {
-    setExams([...exams, { exam_name: '', exam_date: '', chief_complaint: '', clinical_history: '' }]);
+    setExams([
+      ...exams,
+      {
+        exam_name: "",
+        exam_date: "",
+        chief_complaint: "",
+        clinical_history: "",
+      },
+    ]);
   };
 
   const onSubmit: SubmitHandler<CreateAnamneseDocumentRequest> = async (
@@ -138,7 +153,9 @@ const CreateAnamnese = () => {
                   </tr>
                   <tr>
                     <td>
-                      <p className="p-text-export-document">Razão social: {formData?.corporateReason}</p>
+                      <p className="p-text-export-document">
+                        Razão social: {formData?.corporateReason}
+                      </p>
                     </td>
                     <td>
                       <p className="p-text-export-document">
@@ -258,17 +275,41 @@ const CreateAnamnese = () => {
               </table>
 
               {formData?.exams?.map((exam, index) => (
-                <table key={index} align="center" border={0} id="Tabela_01" width={900}>
+                <table
+                  key={index}
+                  align="center"
+                  border={0}
+                  id="Tabela_01"
+                  width={900}
+                >
                   <tbody>
                     <tr>
                       <td className="td-header-export-document" colSpan={6}>
-                        <p className="p-text-export-document"><center>EXAME {index + 1}</center></p>
+                        <p className="p-text-export-document">
+                          <center>EXAME {index + 1}</center>
+                        </p>
                       </td>
                     </tr>
-                    <tr><p className="p-text-export-document">Data do exame: {exam.exam_date}</p></tr>
-                    <tr><p className="p-text-export-document">Nome do exame: {exam.exam_name}</p></tr>
-                    <tr><p className="p-text-export-document">Queixa principal: {exam.chief_complaint}</p></tr>
-                    <tr><p className="p-text-export-document">História clínica: {exam.clinical_history}</p></tr>
+                    <tr>
+                      <p className="p-text-export-document">
+                        Data do exame: {exam.exam_date}
+                      </p>
+                    </tr>
+                    <tr>
+                      <p className="p-text-export-document">
+                        Nome do exame: {exam.exam_name}
+                      </p>
+                    </tr>
+                    <tr>
+                      <p className="p-text-export-document">
+                        Queixa principal: {exam.chief_complaint}
+                      </p>
+                    </tr>
+                    <tr>
+                      <p className="p-text-export-document">
+                        História clínica: {exam.clinical_history}
+                      </p>
+                    </tr>
                   </tbody>
                 </table>
               ))}
@@ -821,6 +862,7 @@ const CreateAnamnese = () => {
                     placeholder="Digite o nome do empregador"
                     error={!!errors.companyName}
                     helperText={errors.companyName?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -834,13 +876,16 @@ const CreateAnamnese = () => {
                 <div className="ctn-form-input-create-admin">
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.corporateReason ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.corporateReason ? "filled-error" : "standard-basic"
+                    }
                     label="Razão social"
                     type="text"
                     variant="standard"
                     placeholder="Digite o nome da empresa"
                     error={!!errors.corporateReason}
                     helperText={errors.corporateReason?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -861,6 +906,7 @@ const CreateAnamnese = () => {
                     placeholder="Digite o CNPJ da empresa"
                     error={!!errors.cnpj}
                     helperText={errors.cnpj?.message}
+                    required
                     {...field}
                     onChange={(e) =>
                       field.onChange(applyCnpjMask(e.target.value))
@@ -885,6 +931,7 @@ const CreateAnamnese = () => {
                     placeholder="Digite o nome do empregado"
                     error={!!errors.employeeName}
                     helperText={errors.employeeName?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -905,6 +952,7 @@ const CreateAnamnese = () => {
                     placeholder="Digite o CPF do empregado"
                     error={!!errors.employeeCpf}
                     helperText={errors.employeeCpf?.message}
+                    required
                     {...field}
                     onChange={(e) =>
                       field.onChange(applyCpfMask(e.target.value))
@@ -928,6 +976,7 @@ const CreateAnamnese = () => {
                     placeholder="Digite o RG do empregado"
                     error={!!errors.employeeRg}
                     helperText={errors.employeeRg?.message}
+                    required
                     {...field}
                     onChange={(e) =>
                       field.onChange(applyRgMask(e.target.value))
@@ -955,6 +1004,7 @@ const CreateAnamnese = () => {
                     placeholder="Digite a data de nascimento do empregado"
                     error={!!errors.employeeDateBirth}
                     helperText={errors.employeeDateBirth?.message}
+                    required
                     {...field}
                     onChange={(e) =>
                       field.onChange(applyDateMask(e.target.value))
@@ -982,6 +1032,7 @@ const CreateAnamnese = () => {
                     placeholder="Digite a matrícula do empregado"
                     error={!!errors.employeeRegistration}
                     helperText={errors.employeeRegistration?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -1006,6 +1057,7 @@ const CreateAnamnese = () => {
                     placeholder="Digite a função do empregado"
                     error={!!errors.employeeFunction}
                     helperText={errors.employeeFunction?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -1026,6 +1078,7 @@ const CreateAnamnese = () => {
                     placeholder="Digite o cargo do empregado"
                     error={!!errors.employeeRole}
                     helperText={errors.employeeRole?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -1048,6 +1101,7 @@ const CreateAnamnese = () => {
                     placeholder="Digite o setor do empregado"
                     error={!!errors.employeeSector}
                     helperText={errors.employeeSector?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -1175,7 +1229,11 @@ const CreateAnamnese = () => {
                       <h4>Exames</h4>
                       <TextField
                         className="form-input-create-unit"
-                        id={errors.exams?.[index]?.exam_date ? "filled-error" : "standard-basic"}
+                        id={
+                          errors.exams?.[index]?.exam_date
+                            ? "filled-error"
+                            : "standard-basic"
+                        }
                         label="Data do exame"
                         type="text"
                         variant="standard"
@@ -1198,7 +1256,11 @@ const CreateAnamnese = () => {
                     <div className="ctn-form-input-create-unit">
                       <TextField
                         className="form-input-create-unit"
-                        id={errors.exams?.[index]?.exam_name ? "filled-error" : "standard-basic"}
+                        id={
+                          errors.exams?.[index]?.exam_name
+                            ? "filled-error"
+                            : "standard-basic"
+                        }
                         label="Nome do exame"
                         type="text"
                         variant="standard"
@@ -1218,13 +1280,19 @@ const CreateAnamnese = () => {
                     <div className="ctn-form-input-create-unit">
                       <TextField
                         className="form-input-create-unit"
-                        id={errors.exams?.[index]?.chief_complaint ? "filled-error" : "standard-basic"}
+                        id={
+                          errors.exams?.[index]?.chief_complaint
+                            ? "filled-error"
+                            : "standard-basic"
+                        }
                         label="Queixa principal"
                         type="text"
                         variant="standard"
                         placeholder="Digite a queixa principal"
                         error={!!errors.exams?.[index]?.chief_complaint}
-                        helperText={errors.exams?.[index]?.chief_complaint?.message}
+                        helperText={
+                          errors.exams?.[index]?.chief_complaint?.message
+                        }
                         {...field}
                       />
                     </div>
@@ -1238,13 +1306,19 @@ const CreateAnamnese = () => {
                     <div className="ctn-form-input-create-unit">
                       <TextField
                         className="form-input-create-unit"
-                        id={errors.exams?.[index]?.clinical_history ? "filled-error" : "standard-basic"}
+                        id={
+                          errors.exams?.[index]?.clinical_history
+                            ? "filled-error"
+                            : "standard-basic"
+                        }
                         label="Histórico clínico"
                         type="text"
                         variant="standard"
                         placeholder="Digite o histórico clínico"
                         error={!!errors.exams?.[index]?.clinical_history}
-                        helperText={errors.exams?.[index]?.clinical_history?.message}
+                        helperText={
+                          errors.exams?.[index]?.clinical_history?.message
+                        }
                         {...field}
                       />
                     </div>
@@ -1254,7 +1328,11 @@ const CreateAnamnese = () => {
             ))}
 
             <div className="create-unit-btn-submit">
-              <button type="button" onClick={addExams} className="create-unit-btn-submit">
+              <button
+                type="button"
+                onClick={addExams}
+                className="create-unit-btn-submit"
+              >
                 Adicionar Exame
               </button>
             </div>
@@ -1276,8 +1354,8 @@ const CreateAnamnese = () => {
                           const newValue = e.target.checked
                             ? [...value, e.target.value]
                             : value.filter(
-                              (item: string) => item !== e.target.value
-                            );
+                                (item: string) => item !== e.target.value
+                              );
                           onChange(newValue);
                         }}
                         color="primary"
@@ -1365,8 +1443,8 @@ const CreateAnamnese = () => {
                           const newValue = e.target.checked
                             ? [...value, e.target.value]
                             : value.filter(
-                              (item: string) => item !== e.target.value
-                            );
+                                (item: string) => item !== e.target.value
+                              );
                           onChange(newValue);
                         }}
                         color="primary"
@@ -1686,8 +1764,8 @@ const CreateAnamnese = () => {
                           const newValue = e.target.checked
                             ? [...value, e.target.value]
                             : value.filter(
-                              (item: string) => item !== e.target.value
-                            );
+                                (item: string) => item !== e.target.value
+                              );
                           onChange(newValue);
                         }}
                         color="primary"

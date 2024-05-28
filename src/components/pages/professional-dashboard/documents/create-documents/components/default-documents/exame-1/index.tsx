@@ -191,6 +191,7 @@ const CreateExamTypeOneDocuments = () => {
                     placeholder="Nome"
                     error={!!errors.name}
                     helperText={errors.name?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -211,6 +212,7 @@ const CreateExamTypeOneDocuments = () => {
                     placeholder="Data de nascimento"
                     error={!!errors.dt_birth}
                     helperText={errors.dt_birth?.message}
+                    required
                     {...field}
                     onChange={(e) =>
                       field.onChange(applyDateMask(e.target.value))
@@ -234,6 +236,7 @@ const CreateExamTypeOneDocuments = () => {
                     placeholder="CPF"
                     error={!!errors.cpf}
                     helperText={errors.cpf?.message}
+                    required
                     {...field}
                     onChange={(e) =>
                       field.onChange(applyCpfMask(e.target.value))
@@ -257,6 +260,7 @@ const CreateExamTypeOneDocuments = () => {
                     placeholder="Empresa"
                     error={!!errors.company}
                     helperText={errors.company?.message}
+                    required
                     {...field}
                   />
                 </div>
