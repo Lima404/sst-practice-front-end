@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 
 import { IoCloudDownloadOutline } from "react-icons/io5";
 import { Button } from "@mui/material";
-import { fetchAllDocumentsByEmployeeIdData, getDocumentById } from "../../api";
+import { fetchAllDocumentsByEmployeeIdData, getDocumentById, getEmployeesById } from "../../api";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -23,7 +23,19 @@ export interface DocumentsProps {
 
 export default function EmployeeDocumentsTable() {
   const [documents, setDocuments] = useState<DocumentsProps[]>([]);
+  const [employeeName, setEmployeeName] = useState("");
   const { employeeId } = useParams();
+
+  const fetchEmployeeById = async () => {
+    try {
+      if (employeeId) {
+        const response = await getEmployeesById(employeeId);
+        setEmployeeName(response.employee.name);
+      }
+    } catch (error) {
+      console.log("Não foi possível encontrar o colaborador")
+    }
+  }
 
   const fetchAllDocumentsByEmployeeId = async () => {
     try {
@@ -41,6 +53,7 @@ export default function EmployeeDocumentsTable() {
 
   useEffect(() => {
     fetchAllDocumentsByEmployeeId();
+    fetchEmployeeById();
   }, []);
 
   const handleDownloadDocument = async (documentId: string) => {
@@ -61,33 +74,37 @@ export default function EmployeeDocumentsTable() {
     }
   }
 
-
   return (
     <div className="container-units-table">
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="left">Nome do documento</TableCell>
-              <TableCell align="left">Tipo de arquivo</TableCell>
-              <TableCell align="left">Ações</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {documents?.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell align="left">{row.name}</TableCell>
-                <TableCell align="left">{row.contentType}</TableCell>
-                <TableCell align="left">
-                  <Button className="actions-btn" onClick={() => handleDownloadDocument(row.id)}>
-                    <IoCloudDownloadOutline className="update-btn" size={20} />
-                  </Button>
-                </TableCell>
+      <h3 className="h3-employee-name">Nome do colaborador: {employeeName}</h3>
+      {documents.length === 0 ? (
+        <h3>Nenhum documento encontrado para esse colaborador</h3>
+      ) : (
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="left">Nome do documento</TableCell>
+                <TableCell align="left">Tipo de arquivo</TableCell>
+                <TableCell align="left">Ações</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {documents.map((row) => (
+                <TableRow key={row.id}>
+                  <TableCell align="left">{row.name}</TableCell>
+                  <TableCell align="left">{row.contentType}</TableCell>
+                  <TableCell align="left">
+                    <Button className="actions-btn" onClick={() => handleDownloadDocument(row.id)}>
+                      <IoCloudDownloadOutline className="update-btn" size={20} />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
     </div>
   );
 }
