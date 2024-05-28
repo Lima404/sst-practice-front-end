@@ -1,5 +1,4 @@
 import "./index.css";
-import LogoSidebar from "../../../assets/sidebar/sstLogoSidebar.svg";
 import { useContext, useState } from "react";
 
 import {

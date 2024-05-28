@@ -164,6 +164,45 @@ const CreateEspecialDocuments = () => {
                 <tbody>
                   <tr>
                     <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>IDENTIFICAÇÃO DO COMPRADOR</center></p>
+                    </td>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document"><center>IDENTIFICAÇÃO DO FORNECEDOR</center></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={6}>
+                      <p className="p-text-export-document">Nome: </p>
+                    </td>
+                    <td colSpan={6}>
+                      <p className="p-text-export-document">Data: </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={6}>
+                      <p className="p-text-export-document">RG: </p>
+                    </td>
+                    <td colSpan={6}>
+                      <p className="p-text-export-document">ASSINATURA DO FARMACÊUTICO: </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={7}>
+                      <p className="p-text-export-document">Telefone: </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={7}>
+                      <p className="p-text-export-document">Cidade e UF: </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
                       <p className="p-text-export-document"><center>TIPO DE EXAME</center></p>
                     </td>
                     <td className="td-header-export-document" colSpan={6}>
