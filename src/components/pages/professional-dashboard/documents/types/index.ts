@@ -198,6 +198,12 @@ export interface CreateEspecialDocumentsRequest {
   name: string;
   cpf: string;
   adress: string;
+  buyer_name: string;
+  buyer_rg: string;
+  buyer_phone: string;
+  buyer_address: string;
+  date: string;
+  pharmacist_signature: string;
   medications: Medication[];
 }
 
@@ -211,6 +217,12 @@ export const CreateEspecialDocumentsSchema = z.object({
   name: z.string(),
   cpf: z.string(),
   adress: z.string(),
+  buyer_name: z.string(),
+  buyer_rg: z.string(),
+  buyer_phone: z.string(),
+  buyer_address: z.string(),
+  date: z.string(),
+  pharmacist_signature: z.string(),
   medications: z.array(MedicationSchema),
 });
 
