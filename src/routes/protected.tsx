@@ -12,20 +12,52 @@ import CreateUnit from "../components/pages/company-dashboard/units/create-unit"
 import Units from "../components/pages/company-dashboard/units/fetch-all-units";
 import CreateEmployees from "../components/pages/company-dashboard/employees/create-employees";
 import Employees from "../components/pages/company-dashboard/employees/fetch-all-employees";
-import { Dashboard } from "../components/pages/dashboard";
+import Dashboard from "../components/pages/dashboard";
 import HamburgerMenu from "../components/admin-dashboard/hamburger-menu";
 import SideBar from "../components/sidebar";
 import UploadDocuments from "../components/pages/professional-dashboard/documents/upload-documents";
 import { CreateDocuments } from "../components/pages/professional-dashboard/documents/create-documents";
 import EmployeeDocuments from "../components/pages/company-dashboard/employees/employees-documents";
+import { useEffect, useState } from "react";
+import { api } from "../data/services/api";
+import { AxiosResponse } from "axios";
+
+interface ProfileProps {
+  switchedUser: {
+    admin: {
+      name: string;
+    };
+  };
+  user: {
+    type: string;
+  };
+}
 
 const App = () => {
+  const [profile, setProfile] = useState<ProfileProps | null>(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response: AxiosResponse<ProfileProps> = await api.get("/profile");
+        setProfile(response.data);
+      } catch (error) {
+        console.error("Failed to fetch profile:", error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
   return (
     <div className="main-admin-dashboard">
       <SideBar />
       <HamburgerMenu />
 
       <div className="admin-dashboard-content">
+        <div className="content-header">
+          <p>{profile && profile.switchedUser.admin.name}</p>
+        </div>
         <Outlet />
       </div>
     </div>
@@ -92,7 +124,7 @@ export const protectedRoutes = [
       {
         path: "employee/documents/:employeeId",
         element: <EmployeeDocuments />,
-      },      
+      },
       {
         path: "professional",
         element: <ProfessionalDashboard />,
@@ -102,9 +134,9 @@ export const protectedRoutes = [
         element: <UploadDocuments />,
       },
       {
-         path: "documents/create",
-         element: <CreateDocuments/>,
-       },
+        path: "documents/create",
+        element: <CreateDocuments />,
+      },
       {
         path: "*",
         element: <Navigate to="." />,

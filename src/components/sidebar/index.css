@@ -1,7 +1,7 @@
 .sidebar {
   height: 100%;
   background-color: var(--azul-piscina);
-  border-radius: 0px 15px 15px 0px;
+  /* border-radius: 0px 15px 15px 0px; */
   background: var(--azul-piscina);
   box-shadow: 5px 0px 10px 0px rgba(0, 0, 0, 0.40);
   text-align: center;

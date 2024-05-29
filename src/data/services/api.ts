@@ -6,7 +6,6 @@ let cookies = parseCookies();
 
 export const api = axios.create({
   baseURL: "https://sst-practice.onrender.com",
-
   headers: {
     Authorization: `Bearer ${cookies["sstAuth.token"]}`,
   },
@@ -16,12 +15,12 @@ api.interceptors.response.use(
   (response) => {
     return response;
   },
-  function (error) {
-    if (error.response !== null) {
+  (error) => {
+    if (error.response) {
       if (error.response.status === 401) {
         destroyCookie(null, "sstAuth.token");
         toast.error("Você não está autenticado!");
-        window.location.href = "/";
+        window.location.href = "/login";
         return;
       }
     }

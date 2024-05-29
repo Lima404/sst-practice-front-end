@@ -3,7 +3,6 @@
   height: 100%;
   background-color: var(--cinza-claro);
   display: flex;
-  gap: 4em;
   color: black;
 }
 
@@ -12,10 +11,15 @@
 }
 
 .admin-dashboard-content {
-  margin-top: 2em;
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+}
+
+.content-header {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  background-color: #fff;
+  z-index: 5;
 }
 
 .admin-table {
