@@ -271,14 +271,18 @@ const CreateAsoDocuments = () => {
                       </td>
                     </tr>
                     <tr>
-                      <p className="p-text-export-document">
-                        Data do exame: {exam.exam_date}
-                      </p>
+                      <td>
+                        <p className="p-text-export-document">
+                          Data do exame: {exam.exam_date}
+                        </p>
+                      </td>
                     </tr>
                     <tr>
-                      <p className="p-text-export-document">
-                        Nome do exame: {exam.exam_name}
-                      </p>
+                      <td>
+                        <p className="p-text-export-document">
+                          Nome do exame: {exam.exam_name}
+                        </p>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -297,6 +301,25 @@ const CreateAsoDocuments = () => {
                     <td>
                       <p className="p-text-export-document">
                         {formData?.conclusion}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>OBSERVAÇÃO</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        {formData?.observation}
                       </p>
                     </td>
                   </tr>

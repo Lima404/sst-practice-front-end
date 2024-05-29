@@ -29,13 +29,11 @@ const CreateEspecialDocuments = () => {
       special_control_date: "",
       first_via_pharmacy: "",
       second_via_patient: "",
-      signature: "",
       buyer_name: "",
       buyer_rg: "",
       buyer_phone: "",
       buyer_address: "",
       date: "",
-      pharmacist_signature: "",
       medications: [{ drugs_name: "", use_mode: "", quantity: "" }],
     },
     resolver: zodResolver(CreateEspecialDocumentsSchema),
@@ -145,8 +143,8 @@ const CreateEspecialDocuments = () => {
                     <td colSpan={6}>
                       <p className="p-text-export-document">Telefone: (84) 98127-7271</p>
                     </td>
-                    <td colSpan={6}>
-                      <p className="p-text-export-document">ASSINATURA: {formData?.signature}</p>
+                    <td height={150} colSpan={6}>
+                      <p className="p-text-export-document">ASSINATURA:</p>
                     </td>
                   </tr>
                   <tr>
@@ -235,9 +233,9 @@ const CreateEspecialDocuments = () => {
                     <td colSpan={6}>
                       <p className="p-text-export-document">RG: {formData?.buyer_rg}</p>
                     </td>
-                    <td colSpan={6}>
+                    <td height={150} colSpan={6}>
                       <p className="p-text-export-document">
-                        Assinatura do farmacêutico: {formData?.pharmacist_signature}
+                        Assinatura do farmacêutico: 
                       </p>
                     </td>
                   </tr>
@@ -366,26 +364,7 @@ const CreateEspecialDocuments = () => {
               )}
             />
 
-            <Controller
-              name="signature"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-unit">
-                  <TextField
-                    className="form-input-create-unit"
-                    id={errors.signature ? "filled-error" : "standard-basic"}
-                    label="Assinatura"
-                    type="text"
-                    variant="standard"
-                    placeholder="Digite a assinatura"
-                    error={!!errors.signature}
-                    helperText={errors.signature?.message}
-                    required
-                    {...field}
-                  />
-                </div>
-              )}
-            />
+            
 
             <Controller
               name="name"
@@ -629,27 +608,6 @@ const CreateEspecialDocuments = () => {
                     required
                     {...field}
                     onChange={(e) => field.onChange(applyDateMask(e.target.value))}
-                  />
-                </div>
-              )}
-            />
-
-            <Controller
-              name="pharmacist_signature"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-unit">
-                  <TextField
-                    className="form-input-create-unit"
-                    id={errors.pharmacist_signature ? "filled-error" : "standard-basic"}
-                    label="Assinatura"
-                    type="text"
-                    variant="standard"
-                    placeholder="Digite a assinatura do farmacêutico"
-                    error={!!errors.pharmacist_signature}
-                    helperText={errors.pharmacist_signature?.message}
-                    required
-                    {...field}
                   />
                 </div>
               )}

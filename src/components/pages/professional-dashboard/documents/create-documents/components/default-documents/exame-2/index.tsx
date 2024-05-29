@@ -10,6 +10,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import DocumentHeader from "../../../../../../../../assets/documents-template/documentHeader.png";
+import FooterExams from "../../../../../../../../assets/documents-template/footer_exams_document.png";
 
 const CreateExamTypeTwoDocuments = () => {
   const contentExamTypeTwoDocumentToExport = useRef(null);
@@ -132,6 +133,24 @@ const CreateExamTypeTwoDocuments = () => {
                       </td>
                     </tr>
                   ))}
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td colSpan={6}>
+                      <center>
+                        <img
+                          alt=""
+                          height={175}
+                          src={FooterExams}
+                          style={{ display: "block" }}
+                          width={800}
+                        />
+                      </center>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>

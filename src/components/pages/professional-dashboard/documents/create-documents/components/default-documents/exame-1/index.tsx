@@ -10,6 +10,7 @@ import { applyDateMask } from "../../../../../../../utils/applyDateMask";
 import { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import DocumentHeader from "../../../../../../../../assets/documents-template/documentHeader.png";
+import FooterExams from "../../../../../../../../assets/documents-template/footer_exams_document.png";
 
 const CreateExamTypeOneDocuments = () => {
   const contentExameTypeOneDocumentToExport = useRef(null);
@@ -168,6 +169,24 @@ const CreateExamTypeOneDocuments = () => {
                       <p className="p-text-export-document">
                         Empresa: {formData?.text_field}
                       </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td colSpan={6}>
+                      <center>
+                        <img
+                          alt=""
+                          height={175}
+                          src={FooterExams}
+                          style={{ display: "block" }}
+                          width={800}
+                        />
+                      </center>
                     </td>
                   </tr>
                 </tbody>
