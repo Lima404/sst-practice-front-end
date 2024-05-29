@@ -284,31 +284,39 @@ const CreateAnamnese = () => {
                 >
                   <tbody>
                     <tr>
-                      <td className="td-header-export-document" colSpan={6}>
+                      <td className="td-header-export-document">
                         <p className="p-text-export-document">
                           <center>EXAME {index + 1}</center>
                         </p>
                       </td>
                     </tr>
                     <tr>
-                      <p className="p-text-export-document">
-                        Data do exame: {exam.exam_date}
-                      </p>
+                      <td>
+                        <p className="p-text-export-document">
+                          Data do exame: {exam.exam_date}
+                        </p>
+                      </td>
                     </tr>
                     <tr>
-                      <p className="p-text-export-document">
-                        Nome do exame: {exam.exam_name}
-                      </p>
+                      <td>
+                        <p className="p-text-export-document">
+                          Nome do exame: {exam.exam_name}
+                        </p>
+                      </td>
                     </tr>
                     <tr>
-                      <p className="p-text-export-document">
-                        Queixa principal: {exam.chief_complaint}
-                      </p>
+                      <td>
+                        <p className="p-text-export-document">
+                          Queixa principal: {exam.chief_complaint}
+                        </p>
+                      </td>
                     </tr>
                     <tr>
-                      <p className="p-text-export-document">
-                        História clínica: {exam.clinical_history}
-                      </p>
+                      <td>
+                        <p className="p-text-export-document">
+                          História clínica: {exam.clinical_history}
+                        </p>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -317,7 +325,7 @@ const CreateAnamnese = () => {
               <table align="center" border={0} id="Tabela_01" width={900}>
                 <tbody>
                   <tr>
-                    <td className="td-header-export-document" colSpan={6}>
+                    <td className="td-header-export-document">
                       <p className="p-text-export-document">
                         <center>
                           ANTECEDENTES PESSOAIS E FAMILIARES PATOLÓGICOS
@@ -328,7 +336,6 @@ const CreateAnamnese = () => {
                   <tr>
                     <td>
                       <p className="p-text-export-document">
-                        Antecedentes pessoais e familiares patológicos:{" "}
                         {formData?.pathologicalPersonalAndFamilyHistory}
                       </p>
                     </td>
@@ -342,13 +349,6 @@ const CreateAnamnese = () => {
                     <td className="td-header-export-document" colSpan={6}>
                       <p className="p-text-export-document">
                         <center>EXAME FÍSICO</center>
-                      </p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p className="p-text-export-document">
-                        Exame físico: {formData?.physicalExam}
                       </p>
                     </td>
                   </tr>
@@ -1338,6 +1338,28 @@ const CreateAnamnese = () => {
             </div>
 
             <Controller
+              name="pathologicalPersonalAndFamilyHistory"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={
+                      errors.pathologicalPersonalAndFamilyHistory ? "filled-error" : "standard-basic"
+                    }
+                    label="Antecedentes pessoais e familiares patológicos"
+                    type="text"
+                    variant="standard"
+                    placeholder="Antecedentes pessoais e familiares patológicos"
+                    error={!!errors.pathologicalPersonalAndFamilyHistory}
+                    helperText={errors.pathologicalPersonalAndFamilyHistory?.message}
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
               name="generalCondition"
               control={control}
               render={({ field: { onChange, value } }) => (
@@ -1354,8 +1376,8 @@ const CreateAnamnese = () => {
                           const newValue = e.target.checked
                             ? [...value, e.target.value]
                             : value.filter(
-                                (item: string) => item !== e.target.value
-                              );
+                              (item: string) => item !== e.target.value
+                            );
                           onChange(newValue);
                         }}
                         color="primary"
@@ -1443,8 +1465,8 @@ const CreateAnamnese = () => {
                           const newValue = e.target.checked
                             ? [...value, e.target.value]
                             : value.filter(
-                                (item: string) => item !== e.target.value
-                              );
+                              (item: string) => item !== e.target.value
+                            );
                           onChange(newValue);
                         }}
                         color="primary"
@@ -1764,8 +1786,8 @@ const CreateAnamnese = () => {
                           const newValue = e.target.checked
                             ? [...value, e.target.value]
                             : value.filter(
-                                (item: string) => item !== e.target.value
-                              );
+                              (item: string) => item !== e.target.value
+                            );
                           onChange(newValue);
                         }}
                         color="primary"
