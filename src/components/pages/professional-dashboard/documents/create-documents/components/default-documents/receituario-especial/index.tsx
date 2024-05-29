@@ -26,6 +26,10 @@ const CreateEspecialDocuments = () => {
       name: "",
       cpf: "",
       adress: "",
+      special_control_date: "",
+      first_via_pharmacy: "",
+      second_via_patient: "",
+      signature: "",
       buyer_name: "",
       buyer_rg: "",
       buyer_phone: "",
@@ -116,7 +120,7 @@ const CreateEspecialDocuments = () => {
                       <p className="p-text-export-document">Nome: ARTUR NOBREGA DE OLIVEIRA</p>
                     </td>
                     <td colSpan={6}>
-                      <p className="p-text-export-document">Data: </p>
+                      <p className="p-text-export-document">Data: {formData?.special_control_date}</p>
                     </td>
                   </tr>
                   <tr>
@@ -124,7 +128,7 @@ const CreateEspecialDocuments = () => {
                       <p className="p-text-export-document">CRM: 7597 RN</p>
                     </td>
                     <td colSpan={6}>
-                      <p className="p-text-export-document">1a. via farmácia</p>
+                      <p className="p-text-export-document">1a. via farmácia: {formData?.first_via_pharmacy}</p>
                     </td>
                   </tr>
                   <tr>
@@ -134,7 +138,7 @@ const CreateEspecialDocuments = () => {
                       </p>
                     </td>
                     <td colSpan={6}>
-                      <p className="p-text-export-document">2a. via paciente</p>
+                      <p className="p-text-export-document">2a. via paciente: {formData?.second_via_patient}</p>
                     </td>
                   </tr>
                   <tr>
@@ -142,7 +146,7 @@ const CreateEspecialDocuments = () => {
                       <p className="p-text-export-document">Telefone: (84) 98127-7271</p>
                     </td>
                     <td colSpan={6}>
-                      <p className="p-text-export-document">ASSINATURA: </p>
+                      <p className="p-text-export-document">ASSINATURA: {formData?.signature}</p>
                     </td>
                   </tr>
                   <tr>
@@ -295,6 +299,94 @@ const CreateEspecialDocuments = () => {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
+          <Controller
+              name="special_control_date"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <h4>Informações do receituário controle especial</h4>
+                  <TextField
+                    className="form-input-create-unit"
+                    id={errors.special_control_date ? "filled-error" : "standard-basic"}
+                    label="Data"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite a data do receituário"
+                    error={!!errors.special_control_date}
+                    helperText={errors.special_control_date?.message}
+                    required
+                    {...field}
+                    onChange={(e) => field.onChange(applyDateMask(e.target.value))}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="first_via_pharmacy"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    className="form-input-create-unit"
+                    id={errors.first_via_pharmacy ? "filled-error" : "standard-basic"}
+                    label="1° via da farmácia"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite a data da primeira via"
+                    error={!!errors.first_via_pharmacy}
+                    helperText={errors.first_via_pharmacy?.message}
+                    required
+                    {...field}
+                    onChange={(e) => field.onChange(applyDateMask(e.target.value))}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="second_via_patient"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    className="form-input-create-unit"
+                    id={errors.second_via_patient ? "filled-error" : "standard-basic"}
+                    label="2° via do paciente"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite a data da segunda via"
+                    error={!!errors.second_via_patient}
+                    helperText={errors.second_via_patient?.message}
+                    required
+                    {...field}
+                    onChange={(e) => field.onChange(applyDateMask(e.target.value))}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="signature"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    className="form-input-create-unit"
+                    id={errors.signature ? "filled-error" : "standard-basic"}
+                    label="Assinatura"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite a assinatura"
+                    error={!!errors.signature}
+                    helperText={errors.signature?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
             <Controller
               name="name"
               control={control}
