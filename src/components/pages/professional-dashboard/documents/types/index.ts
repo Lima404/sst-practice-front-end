@@ -112,11 +112,14 @@ export interface CreateAnamneseDocumentRequest {
   specialSkills: string[];
 }
 
+export interface ExamsAso {
+  exam_name: string;
+  exam_date: string;
+}
+
 export interface CreateAsoDocumentRequest {
-  // company
   corporate_reason: string;
   cnpj: string;
-  //employee
   name: string;
   cpf: string;
   rg: string;
@@ -125,28 +128,26 @@ export interface CreateAsoDocumentRequest {
   employeeFunction: string;
   office: string;
   sector: string
-  // risk factors
   physicalRisks: string;
   chemicalRisks: string;
   biologicalRisks: string;
   ergonomicRisks: string;
   mechanicalRiks: string;
-  // exams
-  exam_date: string;
-  exam_name: string;
-  // conclusion
+  exams: ExamsAso[];
   conclusion: string;
   observation: string;
   location: string;
-  // special skills
   special_skills: string[];
 }
 
+const ExamsAsoSchema = z.object({
+  exam_name: z.string(),
+  exam_date: z.string(),
+})
+
 export const createAsoDocumentSchema = z.object({
-  // company
   corporate_reason: z.string(),
   cnpj: z.string(),
-  //employee
   name: z.string(),
   cpf: z.string(),
   rg: z.string(),
@@ -155,20 +156,15 @@ export const createAsoDocumentSchema = z.object({
   employeeFunction: z.string(),
   office: z.string(),
   sector: z.string(),
-  // risk factors
   physicalRisks: z.string(),
   chemicalRisks: z.string(),
   biologicalRisks: z.string(),
   ergonomicRisks: z.string(),
   mechanicalRiks: z.string(),
-  // exams
-  exam_date: z.string(),
-  exam_name: z.string(),
-  // conclusion
+  exams: z.array(ExamsAsoSchema),
   conclusion: z.string(),
   observation: z.string(),
   location: z.string(),
-  // special skills
   special_skills: z.array(z.string()),
 })
 

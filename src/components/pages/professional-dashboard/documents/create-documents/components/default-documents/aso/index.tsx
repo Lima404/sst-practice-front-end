@@ -17,6 +17,9 @@ import DocumentHeader from "../../../../../../../../assets/documents-template/do
 
 const CreateAsoDocuments = () => {
   const contentAsoDocumentToExport = useRef(null);
+  const [exams, setExams] = useState([
+    { exam_name: "", exam_date: "" },
+  ]);
   const [formData, setFormData] = useState<CreateAsoDocumentRequest | null>(
     null
   );
@@ -27,10 +30,8 @@ const CreateAsoDocuments = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      // company
       corporate_reason: "",
       cnpj: "",
-      //employee
       name: "",
       cpf: "",
       rg: "",
@@ -39,21 +40,21 @@ const CreateAsoDocuments = () => {
       employeeFunction: "",
       office: "",
       sector: "",
-      // risk factors
       physicalRisks: "",
       chemicalRisks: "",
       biologicalRisks: "",
       ergonomicRisks: "",
       mechanicalRiks: "",
-      // exams
-      exam_date: "",
-      exam_name: "",
-      // conclusion
       conclusion: "",
       observation: "",
       location: "",
-      // special skills
       special_skills: [],
+      exams: [
+        {
+          exam_name: "",
+          exam_date: "",
+        },
+      ],
     },
     resolver: zodResolver(createAsoDocumentSchema),
   });
@@ -62,6 +63,16 @@ const CreateAsoDocuments = () => {
     content: () => contentAsoDocumentToExport.current,
     documentTitle: formData ? `ASO_DOCUMENT_${formData?.name}` : "ASO_DOCUMENT",
   });
+
+  const addExams = () => {
+    setExams([
+      ...exams,
+      {
+        exam_name: "",
+        exam_date: "",
+      },
+    ]);
+  };
 
   const onSubmit: SubmitHandler<CreateAsoDocumentRequest> = async (data) => {
     setFormData(data);
@@ -243,29 +254,35 @@ const CreateAsoDocuments = () => {
                 </tbody>
               </table>
 
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
+              {formData?.exams?.map((exam, index) => (
+                <table
+                  key={index}
+                  align="center"
+                  border={0}
+                  id="Tabela_01"
+                  width={900}
+                >
+                  <tbody>
+                    <tr>
+                      <td className="td-header-export-document" colSpan={6}>
+                        <p className="p-text-export-document">
+                          <center>EXAME {index + 1}</center>
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
                       <p className="p-text-export-document">
-                        <center>EXAMES REALIZADOS</center>
+                        Data do exame: {exam.exam_date}
                       </p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
+                    </tr>
+                    <tr>
                       <p className="p-text-export-document">
-                        Data: {formData?.exam_date}
+                        Nome do exame: {exam.exam_name}
                       </p>
-                    </td>
-                    <td>
-                      <p className="p-text-export-document">
-                        Exame: {formData?.exam_name}
-                      </p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                    </tr>
+                  </tbody>
+                </table>
+              ))}
 
               <table align="center" border={0} id="Tabela_01" width={900}>
                 <tbody>
@@ -718,46 +735,71 @@ const CreateAsoDocuments = () => {
               )}
             />
 
-            <Controller
-              name="exam_date"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-unit">
-                  <h4>Exames</h4>
-                  <TextField
-                    className="form-input-create-unit"
-                    id={errors.exam_date ? "filled-error" : "standard-basic"}
-                    label="Data de exame"
-                    type="text"
-                    variant="standard"
-                    placeholder="Data de exame"
-                    error={!!errors.exam_date}
-                    helperText={errors.exam_date?.message}
-                    {...field}
-                  />
-                </div>
-              )}
-            />
+            {exams.map((_, index) => (
+              <div key={index}>
+                <Controller
+                  name={`exams.${index}.exam_date` as const}
+                  control={control}
+                  render={({ field }) => (
+                    <div className="ctn-form-input-create-unit">
+                      <h4>Exames</h4>
+                      <TextField
+                        className="form-input-create-unit"
+                        id={
+                          errors.exams?.[index]?.exam_date
+                            ? "filled-error"
+                            : "standard-basic"
+                        }
+                        label="Data do exame"
+                        type="text"
+                        variant="standard"
+                        placeholder="Digite a data do exame"
+                        error={!!errors.exams?.[index]?.exam_date}
+                        helperText={errors.exams?.[index]?.exam_date?.message}
+                        {...field}
+                        onChange={(e) =>
+                          field.onChange(applyDateMask(e.target.value))
+                        }
+                      />
+                    </div>
+                  )}
+                />
 
-            <Controller
-              name="exam_name"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-unit">
-                  <TextField
-                    className="form-input-create-unit"
-                    id={errors.exam_name ? "filled-error" : "standard-basic"}
-                    label="Nome do exame"
-                    type="text"
-                    variant="standard"
-                    placeholder="Nome do exame"
-                    error={!!errors.exam_name}
-                    helperText={errors.exam_name?.message}
-                    {...field}
-                  />
-                </div>
-              )}
-            />
+                <Controller
+                  name={`exams.${index}.exam_name` as const}
+                  control={control}
+                  render={({ field }) => (
+                    <div className="ctn-form-input-create-unit">
+                      <TextField
+                        className="form-input-create-unit"
+                        id={
+                          errors.exams?.[index]?.exam_name
+                            ? "filled-error"
+                            : "standard-basic"
+                        }
+                        label="Nome do exame"
+                        type="text"
+                        variant="standard"
+                        placeholder="Digite o nome do exame"
+                        error={!!errors.exams?.[index]?.exam_name}
+                        helperText={errors.exams?.[index]?.exam_name?.message}
+                        {...field}
+                      />
+                    </div>
+                  )}
+                />
+              </div>
+            ))}
+
+            <div className="create-unit-btn-submit">
+              <button
+                type="button"
+                onClick={addExams}
+                className="create-unit-btn-submit"
+              >
+                Adicionar Exame
+              </button>
+            </div>
 
             <Controller
               name="conclusion"
