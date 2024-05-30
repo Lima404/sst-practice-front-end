@@ -56,7 +56,7 @@ const App = () => {
 
       <div className="admin-dashboard-content">
         <div className="content-header">
-          <p>{profile && profile.switchedUser.admin.name}</p>
+          <p>{/* profile && profile.switchedUser.admin.name **/}Nome do usuário</p>
         </div>
         <Outlet />
       </div>
