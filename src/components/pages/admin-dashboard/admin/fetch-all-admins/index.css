@@ -12,8 +12,8 @@
 
 .admins-admin-dashboard-content {
   margin-top: 2em;
+  padding: 0em 2em 0em 2em;
   width: 100%;
-  display: flex;
   /* justify-content: center; */
 }
 

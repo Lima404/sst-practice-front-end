@@ -4,11 +4,6 @@
   background-color: var(--cinza-claro);
   display: flex;
   color: black;
-  gap: 5em;
-}
-
-.sidebar {
-  width: 50%;
 }
 
 .menu-hamburger-dashboard-admin {
@@ -16,7 +11,7 @@
 }
 
 .create-admin-admin-dashboard-content {
-  margin-top: 2em;
+  padding-left: 4em;
   width: 100%;
   display: flex;
   flex-direction: column;

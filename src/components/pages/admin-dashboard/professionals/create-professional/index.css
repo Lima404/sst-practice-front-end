@@ -4,7 +4,6 @@
   background-color: var(--cinza-claro);
   display: flex;
   color: black;
-  gap: 5em;
 }
 
 .sidebar {
@@ -17,6 +16,7 @@
 
 .create-professional-admin-dashboard-content {
   margin-top: 2em;
+  margin-left: 4em;
   width: 100%;
   display: flex;
   flex-direction: column;
