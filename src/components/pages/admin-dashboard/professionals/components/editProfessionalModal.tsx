@@ -106,19 +106,19 @@ export const EditProfessionalModal = ({
     try {
       const response = await getProfessionalById(professionalId);
       setProfessionalData({
-        name: response.professionals.name,
-        email: response.professionals.email,
-        cpf: response.professionals.cpf,
-        nis: response.professionals.nis,
-        rg: response.professionals.rg,
-        cbo: response.professionals.cbo,
-        formation: response.professionals.formation,
-        organ: response.professionals.organ,
-        acronym: response.professionals.acronym,
-        ccr: response.professionals.ccr,
-        uf: response.professionals.uf,
-        title: response.professionals.title,
-        professionalFunction: response.professionals.professionalFunction,
+        name: response.professional.name,
+        email: response.professional.user.email,
+        cpf: response.professional.cpf,
+        nis: response.professional.nis,
+        rg: response.professional.rg,
+        cbo: response.professional.cbo,
+        formation: response.professional.formation,
+        organ: response.professional.organ,
+        acronym: response.professional.acronym,
+        ccr: response.professional.ccr,
+        uf: response.professional.uf,
+        title: response.professional.title,
+        professionalFunction: response.professional.function,
       });
     } catch (error) {
       console.error("Erro ao buscar informações do profissional:", error);
