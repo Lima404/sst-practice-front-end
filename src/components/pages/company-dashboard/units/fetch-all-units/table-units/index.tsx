@@ -22,7 +22,7 @@ export interface UnitProps {
   identification: string;
   cnpj: string;
   cep: string;
-  adress: string;
+  address: string;
   neighborhood: string;
   city: string;
   state: string;
@@ -103,7 +103,7 @@ export default function UnitsTable() {
                 </TableCell>
                 <TableCell align="left">{row.cnpj}</TableCell>
                 <TableCell align="left">{row.cep}</TableCell>
-                <TableCell align="left">{row.adress}</TableCell>
+                <TableCell align="left">{row.address}</TableCell>
                 <TableCell align="left">{row.neighborhood}</TableCell>
                 <TableCell align="left">{row.city}</TableCell>
                 <TableCell align="left">{row.state}</TableCell>
