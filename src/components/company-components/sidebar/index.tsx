@@ -8,6 +8,7 @@ import {
 } from "react-icons/io";
 import { GoSignOut } from "react-icons/go";
 import { FaRegBuilding } from "react-icons/fa";
+import { RxDashboard } from "react-icons/rx";
 import { FaUserDoctor } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../data/contexts/AuthContext";
@@ -33,6 +34,16 @@ const CompanySideBar = () => {
   return (
     <div className="sidebar-buttons">
       <div className="document-select">
+        <button
+          className="button-select"
+          onClick={() => navigate("/dashboard")}
+        >
+          <div className="button-select-intern">
+            <div className="left-button-position">
+              <RxDashboard /> Dashboard
+            </div>
+          </div>
+        </button>
         <button className="button-select" onClick={toggleCompanies}>
           <div className="button-select-intern">
             <div className="left-button-position">

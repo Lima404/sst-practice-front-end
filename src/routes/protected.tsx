@@ -13,18 +13,29 @@ import Units from "../components/pages/company-dashboard/units/fetch-all-units";
 import CreateEmployees from "../components/pages/company-dashboard/employees/create-employees";
 import Employees from "../components/pages/company-dashboard/employees/fetch-all-employees";
 import Dashboard from "../components/pages/dashboard";
-import HamburgerMenu from "../components/admin-dashboard/hamburger-menu";
+import { FaUserCircle } from "react-icons/fa";
 import SideBar from "../components/sidebar";
 import UploadDocuments from "../components/pages/professional-dashboard/documents/upload-documents";
 import { CreateDocuments } from "../components/pages/professional-dashboard/documents/create-documents";
 import EmployeeDocuments from "../components/pages/company-dashboard/employees/employees-documents";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { api } from "../data/services/api";
 import { AxiosResponse } from "axios";
+import { Button, Menu, MenuItem } from "@mui/material";
+import { GoSignOut } from "react-icons/go";
+import { IoIosSettings } from "react-icons/io";
+import { AuthContext } from "../data/contexts/AuthContext";
+import HamburguerSideBar from "../components/hamburguerSideBar";
 
 interface ProfileProps {
   switchedUser: {
     admin: {
+      name: string;
+    };
+    company: {
+      corporate_reason: string;
+    };
+    professional: {
       name: string;
     };
   };
@@ -35,6 +46,33 @@ interface ProfileProps {
 
 const App = () => {
   const [profile, setProfile] = useState<ProfileProps | null>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const { signOut } = useContext(AuthContext);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleSignOut = () => {
+    signOut();
+  };
+
+  const renderUserName = () => {
+    switch (profile?.user.type) {
+      case "admin":
+        return profile.switchedUser.admin.name;
+      case "company":
+        return profile.switchedUser.company.corporate_reason;
+      case "professional":
+        return profile.switchedUser.professional.name;
+      default:
+        return "";
+    }
+  };
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -52,11 +90,40 @@ const App = () => {
   return (
     <div className="main-admin-dashboard">
       <SideBar />
-      <HamburgerMenu />
+      <HamburguerSideBar />
 
       <div className="admin-dashboard-content">
         <div className="content-header">
-          <p>{/* profile && profile.switchedUser.admin.name **/}Nome do usuário</p>
+          <p>{renderUserName()}</p>
+          <div>
+            <Button
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+            >
+              <FaUserCircle size={30} color="#157a8c" />
+            </Button>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem className="itemMenu">
+                <IoIosSettings />
+                Configurações
+              </MenuItem>
+              <MenuItem className="itemMenu" onClick={handleSignOut}>
+                <GoSignOut />
+                Sair
+              </MenuItem>
+            </Menu>
+          </div>
         </div>
         <Outlet />
       </div>
