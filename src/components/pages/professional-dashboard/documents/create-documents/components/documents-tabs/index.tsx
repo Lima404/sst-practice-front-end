@@ -45,7 +45,7 @@ export default function DocumentsTab() {
   };
 
   return (
-    <Box sx={{ maxWidth: { sm: 800, backgroundColor: "#f3f3f3" } }}>
+    <Box sx={{ maxWidth: { sm: 800, backgroundColor: "var(--cinza-claro)" } }}>
       <Tabs
         value={value}
         onChange={handleChange}
