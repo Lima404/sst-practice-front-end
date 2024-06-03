@@ -24,9 +24,11 @@ const ExamsSchema = z.object({
 })
 
 export const createAnamneseDocumentRequestSchema = z.object({
+  companyId: z.string(),
   companyName: z.string(),
   corporateReason: z.string(),
   cnpj: z.string(),
+  employeeId: z.string(),
   employeeName: z.string(),
   employeeCpf: z.string(),
   employeeRg: z.string(),
@@ -72,9 +74,11 @@ export interface Exams {
 }
 
 export interface CreateAnamneseDocumentRequest {
+  companyId: string;
   companyName: string;
   corporateReason: string;
   cnpj: string;
+  employeeId: string;
   employeeName: string;
   employeeCpf: string;
   employeeRg: string;
@@ -118,8 +122,11 @@ export interface ExamsAso {
 }
 
 export interface CreateAsoDocumentRequest {
+  companyId: string;
+  companyName: string;
   corporate_reason: string;
   cnpj: string;
+  employeeId: string;
   name: string;
   cpf: string;
   rg: string;
@@ -146,8 +153,11 @@ const ExamsAsoSchema = z.object({
 })
 
 export const createAsoDocumentSchema = z.object({
+  companyId: z.string(),
+  companyName: z.string(),
   corporate_reason: z.string(),
   cnpj: z.string(),
+  employeeId: z.string(),
   name: z.string(),
   cpf: z.string(),
   rg: z.string(),

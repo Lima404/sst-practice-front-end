@@ -1,13 +1,5 @@
 import "../index.css";
-import {
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
+import { Box, Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import "../../checkbox/index.css";
@@ -24,10 +16,14 @@ import { useReactToPrint } from "react-to-print";
 import DocumentHeader from "../../../../../../../../assets/documents-template/documentHeader.png";
 import { applyDateMask } from "../../../../../../../utils/applyDateMask";
 import { applyCnpjMask } from "../../../../../../../utils/applyCnpjMask";
+import { fetchCompanyById, fetchCompanyData, fetchEmployeeById, fetchEmployeeData } from "../../../../../api";
 
 const CreateAnamnese = () => {
+  const [companies, setCompanies] = useState([]);
+  const [employees, setEmployees] = useState([]);
+  const [isCompanySelected, setIsCompanySelected] = useState(false);
+
   const contentAnamneseDocumentToExport = useRef(null);
-  const [userType, setUserType] = useState("employer");
   const [exams, setExams] = useState([
     { exam_name: "", exam_date: "", chief_complaint: "", clinical_history: "" },
   ]);
@@ -37,13 +33,15 @@ const CreateAnamnese = () => {
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
-    reset,
   } = useForm<CreateAnamneseDocumentRequest>({
     defaultValues: {
+      companyId: "",
       companyName: "",
       corporateReason: "",
       cnpj: "",
+      employeeId: "",
       employeeName: "",
       employeeCpf: "",
       employeeRg: "",
@@ -91,6 +89,16 @@ const CreateAnamnese = () => {
     resolver: zodResolver(createAnamneseDocumentRequestSchema),
   });
 
+  type Employee = {
+    id: string;
+    name: string;
+  }
+
+  type Company = {
+    id: string;
+    fantasy_name: string;
+  }
+
   const handlePrint = useReactToPrint({
     content: () => contentAnamneseDocumentToExport.current,
     documentTitle: formData
@@ -110,12 +118,6 @@ const CreateAnamnese = () => {
     ]);
   };
 
-  const handleUserTypeChange = (event: any) => {
-    const newType = event.target.value;
-    setUserType(newType);
-    reset();
-  };
-
   const onSubmit: SubmitHandler<CreateAnamneseDocumentRequest> = async (
     data
   ) => {
@@ -127,6 +129,46 @@ const CreateAnamnese = () => {
       handlePrint();
     }
   }, [formData]);
+
+  useEffect(() => {
+    const fetchCompaniesData = async () => {
+      try {
+        const companiesData = await fetchCompanyData();
+        setCompanies(companiesData.companies);
+      } catch (error) {
+        console.error("Erro ao buscar dados da empresa:", error);
+      }
+    };
+    fetchCompaniesData();
+  }, []);
+
+  const handlefetchEmployeesAndFindCompanyById = async (companyId: string) => {
+    try {
+      const employeesData = await fetchEmployeeData(companyId);
+      setEmployees(employeesData.employees);
+      setIsCompanySelected(true);
+
+      const companyDataById = await fetchCompanyById(companyId);
+      setValue("companyName", companyDataById.company.fantasy_name);
+      setValue("corporateReason", companyDataById.company.corporate_reason);
+      setValue("cnpj", companyDataById.company.cnpj);
+      console.log(companyDataById.company.fantasy_name)
+    } catch (error) {
+      console.log("Erro ao buscar funcionários e empresa selecionada: ", error)
+    }
+  }
+
+  const handleFindEmployeeById = async (employeeId: string) => {
+    try {
+      const employeeDataById = await fetchEmployeeById(employeeId);
+      setValue("employeeName", employeeDataById.employee.name);
+      setValue("employeeCpf", employeeDataById.employee.cpf);
+      setValue("employeeRg", employeeDataById.employee.rg);
+      setValue("employeeDateBirth", employeeDataById.employee.dt_birth);
+    } catch (error) {
+      console.log("Erro ao buscar dados do funcionário: ", error);
+    }
+  }
 
   return (
     <div className="main-create-admin-admin-dashboard">
@@ -863,296 +905,325 @@ const CreateAnamnese = () => {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl fullWidth margin="normal">
-              <InputLabel>Tipo de Usuário</InputLabel>
-              <Select
-                value={userType}
-                onChange={(e) => {
-                  setUserType(e.target.value);
-                  handleUserTypeChange(e);
-                }}
-                label="Tipo de Usuário"
-              >
-                <MenuItem value="employer">Empregador</MenuItem>
-                <MenuItem value="employee">Funcionário</MenuItem>
-              </Select>
-            </FormControl>
 
-            {userType === "employer" && (
-              <>
-                <Controller
-                  name="companyName"
-                  control={control}
-                  render={({ field }) => (
-                    <div className="ctn-form-input-create-admin">
-                      <TextField
-                        className="form-input-create-admin"
-                        id={
-                          errors.companyName ? "filled-error" : "standard-basic"
-                        }
-                        label="Empregador"
-                        type="text"
-                        variant="standard"
-                        placeholder="Digite o nome do empregador"
-                        error={!!errors.companyName}
-                        helperText={errors.companyName?.message}
-                        required
+            <Controller
+              name="companyId"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <h4>Empregador</h4>
+                  <Box>
+                    <FormControl error={!!errors.companyId} fullWidth>
+                      <InputLabel>Empresa</InputLabel>
+                      <Select
+                        id={errors.companyId ? "filled-error" : "standard-basic"}
+                        label="Empresa"
                         {...field}
-                      />
-                    </div>
-                  )}
-                />
-                <Controller
-                  name="corporateReason"
-                  control={control}
-                  render={({ field }) => (
-                    <div className="ctn-form-input-create-admin">
-                      <TextField
-                        className="form-input-create-admin"
-                        id={
-                          errors.corporateReason
-                            ? "filled-error"
-                            : "standard-basic"
-                        }
-                        label="Razão social"
-                        type="text"
-                        variant="standard"
-                        placeholder="Digite o nome da empresa"
-                        error={!!errors.corporateReason}
-                        helperText={errors.corporateReason?.message}
-                        required
-                        {...field}
-                      />
-                    </div>
-                  )}
-                />
-                <Controller
-                  name="cnpj"
-                  control={control}
-                  render={({ field }) => (
-                    <div className="ctn-form-input-create-admin">
-                      <TextField
-                        className="form-input-create-admin"
-                        id={errors.cnpj ? "filled-error" : "standard-basic"}
-                        label="CNPJ"
-                        type="text"
-                        variant="standard"
-                        placeholder="Digite o CNPJ da empresa"
-                        error={!!errors.cnpj}
-                        helperText={errors.cnpj?.message}
-                        required
-                        {...field}
-                        onChange={(e) =>
-                          field.onChange(applyCnpjMask(e.target.value))
-                        }
-                      />
-                    </div>
-                  )}
-                />
-              </>
-            )}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          handlefetchEmployeesAndFindCompanyById(e.target.value);
+                        }}
+                      >
+                        {companies.map((company: Company) => (
+                          <MenuItem key={company.id} value={company.id}>
+                            {company.fantasy_name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </div>
+              )}
+            />
 
-            {userType === "employee" && (
-              <>
-                <Controller
-                  name="employeeName"
-                  control={control}
-                  render={({ field }) => (
-                    <div className="ctn-form-input-create-admin">
-                      <TextField
-                        className="form-input-create-admin"
-                        id={
-                          errors.employeeName
-                            ? "filled-error"
-                            : "standard-basic"
-                        }
-                        label="Nome"
-                        type="text"
-                        variant="standard"
-                        placeholder="Digite o nome do empregado"
-                        error={!!errors.employeeName}
-                        helperText={errors.employeeName?.message}
-                        required
+            <Controller
+              name="companyName"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.companyName ? "filled-error" : "standard-basic"}
+                    label="Empregador"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite o nome do empregador"
+                    error={!!errors.companyName}
+                    helperText={errors.companyName?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="corporateReason"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={
+                      errors.corporateReason ? "filled-error" : "standard-basic"
+                    }
+                    label="Razão social"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite o nome da empresa"
+                    error={!!errors.corporateReason}
+                    helperText={errors.corporateReason?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="cnpj"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.cnpj ? "filled-error" : "standard-basic"}
+                    label="CNPJ"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite o CNPJ da empresa"
+                    error={!!errors.cnpj}
+                    helperText={errors.cnpj?.message}
+                    required
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(applyCnpjMask(e.target.value))
+                    }
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="employeeId"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <h4>Funcionário</h4>
+                  <Box>
+                    <FormControl error={!!errors.employeeId} fullWidth disabled={!isCompanySelected}>
+                      <InputLabel>Colaborador</InputLabel>
+                      <Select
+                        id={errors.employeeId ? "filled-error" : "standard-basic"}
+                        label="Colaborador"
                         {...field}
-                      />
-                    </div>
-                  )}
-                />
-                <Controller
-                  name="employeeCpf"
-                  control={control}
-                  render={({ field }) => (
-                    <div className="ctn-form-input-create-admin">
-                      <TextField
-                        className="form-input-create-admin"
-                        id={
-                          errors.employeeCpf ? "filled-error" : "standard-basic"
-                        }
-                        label="CPF"
-                        type="text"
-                        variant="standard"
-                        placeholder="Digite o CPF do empregado"
-                        error={!!errors.employeeCpf}
-                        helperText={errors.employeeCpf?.message}
-                        required
-                        {...field}
-                        onChange={(e) =>
-                          field.onChange(applyCpfMask(e.target.value))
-                        }
-                      />
-                    </div>
-                  )}
-                />
-                <Controller
-                  name="employeeRg"
-                  control={control}
-                  render={({ field }) => (
-                    <div className="ctn-form-input-create-admin">
-                      <TextField
-                        className="form-input-create-admin"
-                        id={
-                          errors.employeeRg ? "filled-error" : "standard-basic"
-                        }
-                        label="RG"
-                        type="text"
-                        variant="standard"
-                        placeholder="Digite o RG do empregado"
-                        error={!!errors.employeeRg}
-                        helperText={errors.employeeRg?.message}
-                        required
-                        {...field}
-                        onChange={(e) =>
-                          field.onChange(applyRgMask(e.target.value))
-                        }
-                      />
-                    </div>
-                  )}
-                />
-                <Controller
-                  name="employeeDateBirth"
-                  control={control}
-                  render={({ field }) => (
-                    <div className="ctn-form-input-create-admin">
-                      <TextField
-                        className="form-input-create-admin"
-                        id={
-                          errors.employeeDateBirth
-                            ? "filled-error"
-                            : "standard-basic"
-                        }
-                        label="Data de nascimento"
-                        type="text"
-                        variant="standard"
-                        placeholder="Digite a data de nascimento do empregado"
-                        error={!!errors.employeeDateBirth}
-                        helperText={errors.employeeDateBirth?.message}
-                        required
-                        {...field}
-                        onChange={(e) =>
-                          field.onChange(applyDateMask(e.target.value))
-                        }
-                      />
-                    </div>
-                  )}
-                />
-                <Controller
-                  name="employeeRegistration"
-                  control={control}
-                  render={({ field }) => (
-                    <div className="ctn-form-input-create-admin">
-                      <TextField
-                        className="form-input-create-admin"
-                        id={
-                          errors.employeeRegistration
-                            ? "filled-error"
-                            : "standard-basic"
-                        }
-                        label="Matrícula"
-                        type="text"
-                        variant="standard"
-                        placeholder="Digite a matrícula do empregado"
-                        error={!!errors.employeeRegistration}
-                        helperText={errors.employeeRegistration?.message}
-                        required
-                        {...field}
-                      />
-                    </div>
-                  )}
-                />
-                <Controller
-                  name="employeeFunction"
-                  control={control}
-                  render={({ field }) => (
-                    <div className="ctn-form-input-create-admin">
-                      <TextField
-                        className="form-input-create-admin"
-                        id={
-                          errors.employeeFunction
-                            ? "filled-error"
-                            : "standard-basic"
-                        }
-                        label="Função"
-                        type="text"
-                        variant="standard"
-                        placeholder="Digite a função do empregado"
-                        error={!!errors.employeeFunction}
-                        helperText={errors.employeeFunction?.message}
-                        required
-                        {...field}
-                      />
-                    </div>
-                  )}
-                />
-                <Controller
-                  name="employeeRole"
-                  control={control}
-                  render={({ field }) => (
-                    <div className="ctn-form-input-create-admin">
-                      <TextField
-                        className="form-input-create-admin"
-                        id={
-                          errors.employeeRole
-                            ? "filled-error"
-                            : "standard-basic"
-                        }
-                        label="Cargo"
-                        type="text"
-                        variant="standard"
-                        placeholder="Digite o cargo do empregado"
-                        error={!!errors.employeeRole}
-                        helperText={errors.employeeRole?.message}
-                        required
-                        {...field}
-                      />
-                    </div>
-                  )}
-                />
-                <Controller
-                  name="employeeSector"
-                  control={control}
-                  render={({ field }) => (
-                    <div className="ctn-form-input-create-admin">
-                      <TextField
-                        className="form-input-create-admin"
-                        id={
-                          errors.employeeSector
-                            ? "filled-error"
-                            : "standard-basic"
-                        }
-                        label="Setor"
-                        type="text"
-                        variant="standard"
-                        placeholder="Digite o setor do empregado"
-                        error={!!errors.employeeSector}
-                        helperText={errors.employeeSector?.message}
-                        required
-                        {...field}
-                      />
-                    </div>
-                  )}
-                />
-              </>
-            )}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          handleFindEmployeeById(e.target.value);
+                        }}
+                      >
+                        {employees.map((employee: Employee) => (
+                          <MenuItem key={employee.id} value={employee.id}>
+                            {employee.name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </div>
+              )}
+            />
+
+            <Controller
+              name="employeeName"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.employeeName ? "filled-error" : "standard-basic"}
+                    label="Nome"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite o nome do empregado"
+                    error={!!errors.employeeName}
+                    helperText={errors.employeeName?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="employeeCpf"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.employeeCpf ? "filled-error" : "standard-basic"}
+                    label="CPF"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite o CPF do empregado"
+                    error={!!errors.employeeCpf}
+                    helperText={errors.employeeCpf?.message}
+                    required
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(applyCpfMask(e.target.value))
+                    }
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="employeeRg"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.employeeRg ? "filled-error" : "standard-basic"}
+                    label="RG"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite o RG do empregado"
+                    error={!!errors.employeeRg}
+                    helperText={errors.employeeRg?.message}
+                    required
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(applyRgMask(e.target.value))
+                    }
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="employeeDateBirth"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={
+                      errors.employeeDateBirth
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
+                    label="Data de nascimento"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite a data de nascimento do empregado"
+                    error={!!errors.employeeDateBirth}
+                    helperText={errors.employeeDateBirth?.message}
+                    required
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(applyDateMask(e.target.value))
+                    }
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="employeeRegistration"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={
+                      errors.employeeRegistration
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
+                    label="Matrícula"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite a matrícula do empregado"
+                    error={!!errors.employeeRegistration}
+                    helperText={errors.employeeRegistration?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="employeeFunction"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={
+                      errors.employeeFunction
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
+                    label="Função"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite a função do empregado"
+                    error={!!errors.employeeFunction}
+                    helperText={errors.employeeFunction?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="employeeRole"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.employeeRole ? "filled-error" : "standard-basic"}
+                    label="Cargo"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite o cargo do empregado"
+                    error={!!errors.employeeRole}
+                    helperText={errors.employeeRole?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="employeeSector"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={
+                      errors.employeeSector ? "filled-error" : "standard-basic"
+                    }
+                    label="Setor"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite o setor do empregado"
+                    error={!!errors.employeeSector}
+                    helperText={errors.employeeSector?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
 
             <Controller
               name="physicalRisks"
@@ -1391,18 +1462,14 @@ const CreateAnamnese = () => {
                   <TextField
                     className="form-input-create-admin"
                     id={
-                      errors.pathologicalPersonalAndFamilyHistory
-                        ? "filled-error"
-                        : "standard-basic"
+                      errors.pathologicalPersonalAndFamilyHistory ? "filled-error" : "standard-basic"
                     }
                     label="Antecedentes pessoais e familiares patológicos"
                     type="text"
                     variant="standard"
                     placeholder="Antecedentes pessoais e familiares patológicos"
                     error={!!errors.pathologicalPersonalAndFamilyHistory}
-                    helperText={
-                      errors.pathologicalPersonalAndFamilyHistory?.message
-                    }
+                    helperText={errors.pathologicalPersonalAndFamilyHistory?.message}
                     {...field}
                   />
                 </div>
@@ -1426,8 +1493,8 @@ const CreateAnamnese = () => {
                           const newValue = e.target.checked
                             ? [...value, e.target.value]
                             : value.filter(
-                                (item: string) => item !== e.target.value
-                              );
+                              (item: string) => item !== e.target.value
+                            );
                           onChange(newValue);
                         }}
                         color="primary"
@@ -1515,8 +1582,8 @@ const CreateAnamnese = () => {
                           const newValue = e.target.checked
                             ? [...value, e.target.value]
                             : value.filter(
-                                (item: string) => item !== e.target.value
-                              );
+                              (item: string) => item !== e.target.value
+                            );
                           onChange(newValue);
                         }}
                         color="primary"
@@ -1836,8 +1903,8 @@ const CreateAnamnese = () => {
                           const newValue = e.target.checked
                             ? [...value, e.target.value]
                             : value.filter(
-                                (item: string) => item !== e.target.value
-                              );
+                              (item: string) => item !== e.target.value
+                            );
                           onChange(newValue);
                         }}
                         color="primary"
