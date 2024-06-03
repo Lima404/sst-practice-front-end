@@ -2,7 +2,7 @@
   background-color: var(--azul-piscina);
   width: 60px;
   height: 60px;
-  margin: 1rem 1rem;
+  margin: 0.4rem !important;
   border-radius: 5px;
   cursor: pointer;
   display: none;

@@ -81,7 +81,7 @@ export const editUnitSchema = z.object({
   legal_representative: z.string(),
   cpf_legal_representative: z.string(),
   cipa_type: z.string(),
-  num_employees_cipa: z.number()
+  num_employees_cipa: z.coerce.number()
 });
 
 export interface EditUnitModalProps {

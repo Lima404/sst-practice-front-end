@@ -1,14 +1,33 @@
-import { useContext } from "react";
+import { useEffect, useState } from "react";
 import Cards from "../../admin-dashboard/cards";
-import { AuthContext } from "../../../data/contexts/AuthContext";
 import CompanyDashboard from "../company-dashboard";
 import { CreateDocuments } from "../professional-dashboard/documents/create-documents";
+import { api } from "../../../data/services/api";
+import { AxiosResponse } from "axios";
+interface ProfileProps {
+  user: {
+    type: string;
+  };
+}
 
-export const Dashboard = () => {
-  const { userType } = useContext(AuthContext);
+const Dashboard = () => {
+  const [profile, setProfile] = useState<ProfileProps | null>(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response: AxiosResponse<ProfileProps> = await api.get("/profile");
+        setProfile(response.data);
+      } catch (error) {
+        console.error("Failed to fetch profile:", error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const switchDashboardContent = () => {
-    switch (userType) {
+    switch (profile?.user.type) {
       case "admin":
         return <Cards />;
       case "company":
@@ -16,9 +35,11 @@ export const Dashboard = () => {
       case "professional":
         return <CreateDocuments />;
       default:
-        return <Cards />;
+        return <></>;
     }
   };
 
-  return switchDashboardContent();
+  return <div>{switchDashboardContent()}</div>;
 };
+
+export default Dashboard;

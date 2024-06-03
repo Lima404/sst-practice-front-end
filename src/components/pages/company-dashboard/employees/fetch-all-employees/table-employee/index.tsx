@@ -94,16 +94,8 @@ export default function EmployeeTable() {
             <TableRow>
               <TableCell align="left">Nome</TableCell>
               <TableCell align="left">CPF</TableCell>
-              <TableCell align="left">NIS</TableCell>
               <TableCell align="left">RG</TableCell>
-
-              <TableCell align="left">br_pdh</TableCell>
-
-              <TableCell align="left">Sexo</TableCell>
-              <TableCell align="left">Data de aniversario</TableCell>
-              <TableCell align="left">Telefone</TableCell>
               <TableCell align="left">Celular</TableCell>
-              <TableCell align="left">Tipo Sanguineo</TableCell>
               <TableCell align="left">Ações</TableCell>
             </TableRow>
           </TableHead>
@@ -112,14 +104,8 @@ export default function EmployeeTable() {
               <TableRow key={row.id}>
                 <TableCell align="left">{row.name}</TableCell>
                 <TableCell align="left">{row.cpf}</TableCell>
-                <TableCell align="left">{row.nis}</TableCell>
                 <TableCell align="left">{row.rg}</TableCell>
-                <TableCell align="left">{row.br_pdh}</TableCell>
-                <TableCell align="left">{row.sex}</TableCell>
-                <TableCell align="left">{row.dt_birth}</TableCell>
-                <TableCell align="left">{row.phone}</TableCell>
                 <TableCell align="left">{row.phone_number}</TableCell>
-                <TableCell align="left">{row.blood_type}</TableCell>
                 <TableCell align="left">
                   <Button className="actions-btn" onClick={() => handleSetIds(row.id)}>
                     <BsPencilSquare className="update-btn" size={20} />

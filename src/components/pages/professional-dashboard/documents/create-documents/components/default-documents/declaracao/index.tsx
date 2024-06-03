@@ -1,7 +1,17 @@
-import { Box, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreateStatementsRequest, createStatementsSchema } from "../../../../types";
+import {
+  CreateStatementsRequest,
+  createStatementsSchema,
+} from "../../../../types";
 import { applyCpfMask } from "../../../../../../../utils/applyCpfMask";
 import { applyDateMask } from "../../../../../../../utils/applyDateMask";
 
@@ -11,7 +21,9 @@ import { useEffect, useRef, useState } from "react";
 
 const CreateStatements = () => {
   const contentStatementDocumentToExport = useRef(null);
-  const [formData, setFormData] = useState<CreateStatementsRequest | null>(null);
+  const [formData, setFormData] = useState<CreateStatementsRequest | null>(
+    null
+  );
 
   const {
     control,
@@ -30,7 +42,9 @@ const CreateStatements = () => {
 
   const handlePrint = useReactToPrint({
     content: () => contentStatementDocumentToExport.current,
-    documentTitle: formData ? `${formData?.title}_${formData?.name}` : "DECLARACAO_",
+    documentTitle: formData
+      ? `${formData?.title}_${formData?.name}`
+      : "DECLARACAO_",
   });
 
   const onSubmit: SubmitHandler<CreateStatementsRequest> = async (data) => {
@@ -51,22 +65,26 @@ const CreateStatements = () => {
     "Encaminhamento",
     "Atestado médico",
     "Declaração de comparecimento",
-  ]
+  ];
 
   return (
     <div className="main-create-unit-company-dashboard">
       <div className="create-unit-company-dashboard-content">
         <h2 className="create-unit-page-title">Cadastrar declaração</h2>
         <div className="create-unit-form">
-
           <div className="document-container-to-export">
             <div ref={contentStatementDocumentToExport} className="content">
-
               <table align="center" border={0} id="Tabela_01" width={900}>
                 <tbody>
                   <tr>
                     <td colSpan={6}>
-                      <img alt="" height={175} src={DocumentHeader} style={{ display: "block" }} width={900} />
+                      <img
+                        alt=""
+                        height={175}
+                        src={DocumentHeader}
+                        style={{ display: "block" }}
+                        width={900}
+                      />
                     </td>
                   </tr>
                 </tbody>
@@ -76,15 +94,29 @@ const CreateStatements = () => {
                 <tbody>
                   <tr>
                     <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>{formData?.title}</center></p>
+                      <p className="p-text-export-document">
+                        <center>{formData?.title}</center>
+                      </p>
                     </td>
                   </tr>
                   <tr>
-                    <td><p className="p-text-export-document">Nome: {formData?.name}</p></td>
+                    <td>
+                      <p className="p-text-export-document">
+                        Nome: {formData?.name}
+                      </p>
+                    </td>
                   </tr>
                   <tr>
-                    <td><p className="p-text-export-document">Nome: {formData?.dt_birth}</p></td>
-                    <td><p className="p-text-export-document">Nome: {formData?.cpf}</p></td>
+                    <td>
+                      <p className="p-text-export-document">
+                        Nome: {formData?.dt_birth}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="p-text-export-document">
+                        Nome: {formData?.cpf}
+                      </p>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -93,7 +125,9 @@ const CreateStatements = () => {
                 <tbody>
                   <tr>
                     <td colSpan={6} height={650}>
-                      <p className="p-text-export-document"><center>{formData?.text_field}</center></p>
+                      <p className="p-text-export-document">
+                        <center>{formData?.text_field}</center>
+                      </p>
                     </td>
                   </tr>
                 </tbody>
@@ -103,10 +137,15 @@ const CreateStatements = () => {
                 <tbody>
                   <tr>
                     <td height={200} colSpan={6}>
-                      <p style={{ textAlign: 'left' }}><center>Dr. Artur Nóbrega de Oliveira<br />
-                        MÉDICO DO TRABALHO<br />
-                        CRM-RN 7597
-                      </center></p>
+                      <p style={{ textAlign: "left" }}>
+                        <center>
+                          Dr. Artur Nóbrega de Oliveira
+                          <br />
+                          MÉDICO DO TRABALHO
+                          <br />
+                          CRM-RN 7597
+                        </center>
+                      </p>
                     </td>
                     <td width={200} height={200} colSpan={6}></td>
                   </tr>
@@ -117,18 +156,23 @@ const CreateStatements = () => {
                 <tbody>
                   <tr>
                     <td colSpan={6}>
-                      <p><center>Avenida Engenheiro Roberto Freire nº 1962, Box 489, Capim Macio, Natal/RN, CEP 59.082-095.<br/>
-                      Telefone: 84 9 8127 7221 | e-mail: praticasst@outlook.com</center></p>
+                      <p>
+                        <center>
+                          Avenida Engenheiro Roberto Freire nº 1962, Box 489,
+                          Capim Macio, Natal/RN, CEP 59.082-095.
+                          <br />
+                          Telefone: 84 9 8127 7221 | e-mail:
+                          praticasst@outlook.com
+                        </center>
+                      </p>
                     </td>
                   </tr>
                 </tbody>
               </table>
-
             </div>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-
             <Controller
               name="title"
               control={control}
@@ -140,6 +184,7 @@ const CreateStatements = () => {
                       <Select
                         id={errors.title ? "filled-error" : "standard-basic"}
                         label="Declaração"
+                        required
                         {...field}
                       >
                         {titles.map((title) => (
@@ -168,6 +213,7 @@ const CreateStatements = () => {
                     placeholder="Nome"
                     error={!!errors.name}
                     helperText={errors.name?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -188,8 +234,11 @@ const CreateStatements = () => {
                     placeholder="Data de nascimento"
                     error={!!errors.dt_birth}
                     helperText={errors.dt_birth?.message}
+                    required
                     {...field}
-                    onChange={(e) => field.onChange(applyDateMask(e.target.value))}
+                    onChange={(e) =>
+                      field.onChange(applyDateMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -209,8 +258,11 @@ const CreateStatements = () => {
                     placeholder="CPF"
                     error={!!errors.cpf}
                     helperText={errors.cpf?.message}
+                    required
                     {...field}
-                    onChange={(e) => field.onChange(applyCpfMask(e.target.value))}
+                    onChange={(e) =>
+                      field.onChange(applyCpfMask(e.target.value))
+                    }
                   />
                 </div>
               )}

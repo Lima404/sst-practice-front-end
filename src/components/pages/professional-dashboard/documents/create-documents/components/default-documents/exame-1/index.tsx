@@ -10,6 +10,7 @@ import { applyDateMask } from "../../../../../../../utils/applyDateMask";
 import { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import DocumentHeader from "../../../../../../../../assets/documents-template/documentHeader.png";
+import FooterExams from "../../../../../../../../assets/documents-template/footer_exams_document.png";
 
 const CreateExamTypeOneDocuments = () => {
   const contentExameTypeOneDocumentToExport = useRef(null);
@@ -172,6 +173,24 @@ const CreateExamTypeOneDocuments = () => {
                   </tr>
                 </tbody>
               </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td colSpan={6}>
+                      <center>
+                        <img
+                          alt=""
+                          height={175}
+                          src={FooterExams}
+                          style={{ display: "block" }}
+                          width={800}
+                        />
+                      </center>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
 
@@ -191,6 +210,7 @@ const CreateExamTypeOneDocuments = () => {
                     placeholder="Nome"
                     error={!!errors.name}
                     helperText={errors.name?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -211,6 +231,7 @@ const CreateExamTypeOneDocuments = () => {
                     placeholder="Data de nascimento"
                     error={!!errors.dt_birth}
                     helperText={errors.dt_birth?.message}
+                    required
                     {...field}
                     onChange={(e) =>
                       field.onChange(applyDateMask(e.target.value))
@@ -234,6 +255,7 @@ const CreateExamTypeOneDocuments = () => {
                     placeholder="CPF"
                     error={!!errors.cpf}
                     helperText={errors.cpf?.message}
+                    required
                     {...field}
                     onChange={(e) =>
                       field.onChange(applyCpfMask(e.target.value))
@@ -257,6 +279,7 @@ const CreateExamTypeOneDocuments = () => {
                     placeholder="Empresa"
                     error={!!errors.company}
                     helperText={errors.company?.message}
+                    required
                     {...field}
                   />
                 </div>

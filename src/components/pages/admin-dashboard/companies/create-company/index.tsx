@@ -65,6 +65,7 @@ const CreateCompany = () => {
                     placeholder="Digite o e-mail"
                     error={!!errors.email}
                     helperText={errors.email?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -85,6 +86,7 @@ const CreateCompany = () => {
                     placeholder="Digite a senha"
                     error={!!errors.password}
                     helperText={errors.password?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -105,14 +107,15 @@ const CreateCompany = () => {
                     placeholder="Digite o CNPJ"
                     error={!!errors.cnpj}
                     helperText={errors.cnpj?.message}
+                    required
                     {...field}
-                    onChange={(e) => field.onChange(applyCnpjMask(e.target.value))}
+                    onChange={(e) =>
+                      field.onChange(applyCnpjMask(e.target.value))
+                    }
                   />
                 </div>
               )}
             />
-
-
 
             <Controller
               name="corporate_reason"
@@ -132,6 +135,7 @@ const CreateCompany = () => {
                     placeholder="Razão social"
                     error={!!errors.corporate_reason}
                     helperText={errors.corporate_reason?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -152,6 +156,7 @@ const CreateCompany = () => {
                     placeholder="Nome fantasia"
                     error={!!errors.fantasy_name}
                     helperText={errors.fantasy_name?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -174,6 +179,7 @@ const CreateCompany = () => {
                     placeholder="Identificação"
                     error={!!errors.identification}
                     helperText={errors.identification?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -194,8 +200,11 @@ const CreateCompany = () => {
                     placeholder="CEP"
                     error={!!errors.cep}
                     helperText={errors.cep?.message}
+                    required
                     {...field}
-                    onChange={(e) => field.onChange(applyCepMask(e.target.value))}
+                    onChange={(e) =>
+                      field.onChange(applyCepMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -215,6 +224,7 @@ const CreateCompany = () => {
                     placeholder="Endereço"
                     error={!!errors.address}
                     helperText={errors.address?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -235,6 +245,7 @@ const CreateCompany = () => {
                     placeholder="Bairro"
                     error={!!errors.neighborhood}
                     helperText={errors.neighborhood?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -255,8 +266,11 @@ const CreateCompany = () => {
                     placeholder="Telefone"
                     error={!!errors.phone}
                     helperText={errors.phone?.message}
+                    required
                     {...field}
-                    onChange={(e) => field.onChange(applyPhoneMask(e.target.value))}
+                    onChange={(e) =>
+                      field.onChange(applyPhoneMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -280,6 +294,7 @@ const CreateCompany = () => {
                     placeholder="DD-MM-AAAA"
                     error={!!errors.dt_start_esocial}
                     helperText={errors.dt_start_esocial?.message}
+                    required
                     {...field}
                     onChange={(e) => {
                       const formattedDate = applyDateMask(e.target.value);

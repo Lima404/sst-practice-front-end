@@ -3,14 +3,19 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { applyCpfMask } from "../../../../../../../utils/applyCpfMask";
 import { applyDateMask } from "../../../../../../../utils/applyDateMask";
-import { CreateExamTypeTwoDocumentsRequest, CreateExamTypeTwoDocumentsSchema } from "../../../../types";
+import {
+  CreateExamTypeTwoDocumentsRequest,
+  CreateExamTypeTwoDocumentsSchema,
+} from "../../../../types";
 import { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import DocumentHeader from "../../../../../../../../assets/documents-template/documentHeader.png";
+import FooterExams from "../../../../../../../../assets/documents-template/footer_exams_document.png";
 
 const CreateExamTypeTwoDocuments = () => {
   const contentExamTypeTwoDocumentToExport = useRef(null);
-  const [formData, setFormData] = useState<CreateExamTypeTwoDocumentsRequest | null>(null);
+  const [formData, setFormData] =
+    useState<CreateExamTypeTwoDocumentsRequest | null>(null);
 
   const {
     control,
@@ -19,9 +24,9 @@ const CreateExamTypeTwoDocuments = () => {
   } = useForm({
     defaultValues: {
       name: "",
-      cpf: "", 
+      cpf: "",
       dt_birth: "",
-      corporate_reason: "", 
+      corporate_reason: "",
       exams: [],
     },
     resolver: zodResolver(CreateExamTypeTwoDocumentsSchema),
@@ -29,10 +34,14 @@ const CreateExamTypeTwoDocuments = () => {
 
   const handlePrint = useReactToPrint({
     content: () => contentExamTypeTwoDocumentToExport.current,
-    documentTitle: formData ? `EXAM_TYPE_TWO_${formData?.name}` : "EXAM_TYPE_TWO_",
+    documentTitle: formData
+      ? `EXAM_TYPE_TWO_${formData?.name}`
+      : "EXAM_TYPE_TWO_",
   });
 
-  const onSubmit: SubmitHandler<CreateExamTypeTwoDocumentsRequest> = async (data) => {
+  const onSubmit: SubmitHandler<CreateExamTypeTwoDocumentsRequest> = async (
+    data
+  ) => {
     console.log(data);
     setFormData(data);
   };
@@ -46,17 +55,23 @@ const CreateExamTypeTwoDocuments = () => {
   return (
     <div className="main-create-admin-admin-dashboard">
       <div className="create-admin-admin-dashboard-content">
-        <h2 className="create-admin-page-title">Cadastrar Receituário Especial</h2>
+        <h2 className="create-admin-page-title">
+          Cadastrar Receituário Especial
+        </h2>
         <div className="create-admin-form">
-
           <div className="document-container-to-export">
             <div ref={contentExamTypeTwoDocumentToExport} className="content">
-
               <table align="center" border={0} id="Tabela_01" width={900}>
                 <tbody>
                   <tr>
                     <td colSpan={6}>
-                      <img alt="" height={175} src={DocumentHeader} style={{ display: "block" }} width={900} />
+                      <img
+                        alt=""
+                        height={175}
+                        src={DocumentHeader}
+                        style={{ display: "block" }}
+                        width={900}
+                      />
                     </td>
                   </tr>
                 </tbody>
@@ -64,29 +79,39 @@ const CreateExamTypeTwoDocuments = () => {
 
               <table align="center" border={0} id="Tabela_01" width="900">
                 <tbody>
-                <tr>
-                  <td className="td-header-export-document" colSpan={7}>
-                    <p className="p-text-export-document"><center>FUNCIONÁRIO</center></p>
-                  </td>
-                </tr>
                   <tr>
-                    <td colSpan={6}>
-                      <p className="p-text-export-document">Nome: {formData?.name}</p>
+                    <td className="td-header-export-document" colSpan={7}>
+                      <p className="p-text-export-document">
+                        <center>FUNCIONÁRIO</center>
+                      </p>
                     </td>
                   </tr>
                   <tr>
                     <td colSpan={6}>
-                      <p className="p-text-export-document">CPF: {formData?.cpf}</p>
+                      <p className="p-text-export-document">
+                        Nome: {formData?.name}
+                      </p>
                     </td>
                   </tr>
                   <tr>
                     <td colSpan={6}>
-                      <p className="p-text-export-document">Data de nascimento: {formData?.dt_birth}</p>
+                      <p className="p-text-export-document">
+                        CPF: {formData?.cpf}
+                      </p>
                     </td>
                   </tr>
                   <tr>
                     <td colSpan={6}>
-                      <p className="p-text-export-document">Empresa: {formData?.corporate_reason}</p>
+                      <p className="p-text-export-document">
+                        Data de nascimento: {formData?.dt_birth}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={6}>
+                      <p className="p-text-export-document">
+                        Empresa: {formData?.corporate_reason}
+                      </p>
                     </td>
                   </tr>
                 </tbody>
@@ -111,11 +136,27 @@ const CreateExamTypeTwoDocuments = () => {
                 </tbody>
               </table>
 
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td colSpan={6}>
+                      <center>
+                        <img
+                          alt=""
+                          height={175}
+                          src={FooterExams}
+                          style={{ display: "block" }}
+                          width={800}
+                        />
+                      </center>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-
             <Controller
               name="name"
               control={control}
@@ -131,6 +172,7 @@ const CreateExamTypeTwoDocuments = () => {
                     placeholder="Digite o nome do paciente"
                     error={!!errors.name}
                     helperText={errors.name?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -151,8 +193,11 @@ const CreateExamTypeTwoDocuments = () => {
                     placeholder="digite o CPF do paciente"
                     error={!!errors.cpf}
                     helperText={errors.cpf?.message}
+                    required
                     {...field}
-                    onChange={(e) => field.onChange(applyCpfMask(e.target.value))}
+                    onChange={(e) =>
+                      field.onChange(applyCpfMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -172,8 +217,11 @@ const CreateExamTypeTwoDocuments = () => {
                     placeholder="Data de nascimento"
                     error={!!errors.dt_birth}
                     helperText={errors.dt_birth?.message}
+                    required
                     {...field}
-                    onChange={(e) => field.onChange(applyDateMask(e.target.value))}
+                    onChange={(e) =>
+                      field.onChange(applyDateMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -186,13 +234,18 @@ const CreateExamTypeTwoDocuments = () => {
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.corporate_reason ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.corporate_reason
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
                     label="Empresa"
                     type="text"
                     variant="standard"
                     placeholder="Empresa"
                     error={!!errors.corporate_reason}
                     helperText={errors.corporate_reason?.message}
+                    required
                     {...field}
                   />
                 </div>

@@ -1,4 +1,4 @@
-import "./index.css"
+import "./index.css";
 import TextField from "@mui/material/TextField";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -30,7 +30,7 @@ const CreateProfessional = () => {
       ccr: "",
       uf: "",
       title: "",
-      jobFunction: ""
+      jobFunction: "",
     },
     resolver: zodResolver(createProfessionalSchema),
   });
@@ -69,6 +69,7 @@ const CreateProfessional = () => {
                     placeholder="Digite o e-mail"
                     error={!!errors.email}
                     helperText={errors.email?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -89,6 +90,7 @@ const CreateProfessional = () => {
                     placeholder="Digite a senha"
                     error={!!errors.password}
                     helperText={errors.password?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -109,6 +111,7 @@ const CreateProfessional = () => {
                     placeholder="Digite o nome"
                     error={!!errors.name}
                     helperText={errors.name?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -129,8 +132,11 @@ const CreateProfessional = () => {
                     placeholder="Digite o CPF"
                     error={!!errors.name}
                     helperText={errors.name?.message}
+                    required
                     {...field}
-                    onChange={(e) => field.onChange(applyCpfMask(e.target.value))}
+                    onChange={(e) =>
+                      field.onChange(applyCpfMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -150,6 +156,7 @@ const CreateProfessional = () => {
                     placeholder="Digite o NIS"
                     error={!!errors.nis}
                     helperText={errors.nis?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -170,8 +177,11 @@ const CreateProfessional = () => {
                     placeholder="Digite o RG"
                     error={!!errors.rg}
                     helperText={errors.rg?.message}
+                    required
                     {...field}
-                    onChange={(e) => field.onChange(applyRgMask(e.target.value))}
+                    onChange={(e) =>
+                      field.onChange(applyRgMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -191,6 +201,7 @@ const CreateProfessional = () => {
                     placeholder="Digite o CBO"
                     error={!!errors.cbo}
                     helperText={errors.cbo?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -211,6 +222,7 @@ const CreateProfessional = () => {
                     placeholder="Digite a formação"
                     error={!!errors.formation}
                     helperText={errors.formation?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -231,6 +243,7 @@ const CreateProfessional = () => {
                     placeholder="Digite o órgão"
                     error={!!errors.organ}
                     helperText={errors.organ?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -251,6 +264,7 @@ const CreateProfessional = () => {
                     placeholder="Digite a sigla"
                     error={!!errors.acronym}
                     helperText={errors.acronym?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -271,6 +285,7 @@ const CreateProfessional = () => {
                     placeholder="Digite o CCR"
                     error={!!errors.ccr}
                     helperText={errors.ccr?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -291,6 +306,7 @@ const CreateProfessional = () => {
                     placeholder="Digite a UF"
                     error={!!errors.uf}
                     helperText={errors.uf?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -311,6 +327,7 @@ const CreateProfessional = () => {
                     placeholder="Digite a titulação"
                     error={!!errors.title}
                     helperText={errors.title?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -331,6 +348,7 @@ const CreateProfessional = () => {
                     placeholder="Digite a função"
                     error={!!errors.jobFunction}
                     helperText={errors.jobFunction?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -338,10 +356,7 @@ const CreateProfessional = () => {
             />
 
             <div className="create-professional-btn-submit">
-              <button
-                className="create-professional-btn-submit"
-                type="submit"
-              >
+              <button className="create-professional-btn-submit" type="submit">
                 Cadastrar
               </button>
             </div>

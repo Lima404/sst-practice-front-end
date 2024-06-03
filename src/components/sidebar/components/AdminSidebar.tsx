@@ -1,22 +1,18 @@
-import {
-  IoIosArrowDown,
-  IoIosArrowForward,
-  IoIosSettings,
-} from "react-icons/io";
-import { GoSignOut } from "react-icons/go";
+import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { FaRegBuilding } from "react-icons/fa";
 import { FaUserDoctor } from "react-icons/fa6";
 import { RiAdminFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../../data/contexts/AuthContext";
+import { useState } from "react";
+import { RxDashboard } from "react-icons/rx";
 
 export const AdminSidebar = () => {
   const [showCompanies, setShowCompanies] = useState(false);
   const [showProfessionals, setShowProfessionals] = useState(false);
   const [showAdmins, setShowAdmins] = useState(false);
-  const { signOut } = useContext(AuthContext);
+  // const { signOut } = useContext(AuthContext);
   const navigate = useNavigate();
+
   const toggleCompanies = () => {
     setShowCompanies(!showCompanies);
   };
@@ -29,13 +25,23 @@ export const AdminSidebar = () => {
     setShowAdmins(!showAdmins);
   };
 
-  const handleSignOut = () => {
+  /*   const handleSignOut = () => {
     signOut();
-  };
+  }; */
 
   return (
     <div className="sidebar-buttons">
       <div className="document-select">
+        <button
+          className="button-select"
+          onClick={() => navigate("/dashboard")}
+        >
+          <div className="button-select-intern">
+            <div className="left-button-position">
+              <RxDashboard /> Dashboard
+            </div>
+          </div>
+        </button>
         <button className="button-select" onClick={toggleCompanies}>
           <div className="button-select-intern">
             <div className="left-button-position">
@@ -157,7 +163,7 @@ export const AdminSidebar = () => {
       </div>
 
       <div className="profile-options">
-        <div className="document-select">
+        {/* <div className="document-select">
           <button className="button-select">
             <div className="button-select-intern">
               <div className="left-button-position">
@@ -175,7 +181,7 @@ export const AdminSidebar = () => {
               </div>
             </div>
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

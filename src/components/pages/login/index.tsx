@@ -109,13 +109,14 @@ const Login = () => {
                 </ThemeProvider>
               </div>
               <div className="buttons">
-                <a className="forget--pass" href="#">
-                  Esqueci minha senha
-                </a>
-                <button type="submit" className="but-enter" disabled={isLoading}>
+                <a className="forget--pass" href="#"></a>
+                <button
+                  type="submit"
+                  className="but-enter"
+                  disabled={isLoading}
+                >
                   {isLoading ? <Loader /> : "Entrar"}
                 </button>
-
               </div>
             </form>
             <div className="Back">

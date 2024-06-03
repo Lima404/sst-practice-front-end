@@ -17,6 +17,7 @@ const UploadDocuments = () => {
   const [companies, setCompanies] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [files, setFiles] = useState<FileList | null>(null);
+  const [isCompanySelected, setIsCompanySelected] = useState(false); 
 
   const {
     control,
@@ -87,6 +88,7 @@ const UploadDocuments = () => {
     try {
       const employeesData = await fetchEmployeeData(companyId);
       setEmployees(employeesData.employees);
+      setIsCompanySelected(true); 
     } catch (error) {
       console.log("Erro ao buscar dados do colaborador", error);
     }
@@ -121,9 +123,13 @@ const UploadDocuments = () => {
                         id={errors.companyId ? "filled-error" : "standard-basic"}
                         label="Empresa"
                         {...field}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          fetchEmployeesData(e.target.value);
+                        }}
                       >
                         {companies.map((company: Company) => (
-                          <MenuItem key={company.id} value={company.id} onClick={() => fetchEmployeesData(company.id)}>
+                          <MenuItem key={company.id} value={company.id}>
                             {company.fantasy_name}
                           </MenuItem>
                         ))}
@@ -140,7 +146,7 @@ const UploadDocuments = () => {
               render={({ field }) => (
                 <div className="ctn-form-input-create-admin">
                   <Box>
-                    <FormControl error={!!errors.employeeId} fullWidth>
+                    <FormControl error={!!errors.employeeId} fullWidth disabled={!isCompanySelected}>
                       <InputLabel>Colaborador</InputLabel>
                       <Select
                         id={errors.employeeId ? "filled-error" : "standard-basic"}

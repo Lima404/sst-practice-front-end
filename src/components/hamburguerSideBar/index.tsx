@@ -1,13 +1,10 @@
-import "./index.css";
-import LogoSidebar from "../../assets/sidebar/sstLogoSidebar.svg";
 import { useEffect, useState } from "react";
-import { AdminSidebar } from "./components/AdminSidebar";
-import CompanySideBar from "../company-components/sidebar";
-import ProfessionalSideBar from "../professional-components/sidebar";
 import { api } from "../../data/services/api";
 import { AxiosError, AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
 import { destroyCookie } from "nookies";
+import HamburgerMenu from "../admin-dashboard/hamburger-menu";
+import CompanyHamburgerMenu from "../company-components/hamburger-menu";
 
 interface ProfileProps {
   user: {
@@ -15,7 +12,7 @@ interface ProfileProps {
   };
 }
 
-const SideBar = () => {
+const HamburguerSideBar = () => {
   const [profile, setProfile] = useState<ProfileProps | null>(null);
   const navigate = useNavigate();
 
@@ -45,26 +42,17 @@ const SideBar = () => {
   const switchSidebarContent = () => {
     switch (profile?.user.type) {
       case "admin":
-        return <AdminSidebar />;
+        return <HamburgerMenu />;
       case "company":
-        return <CompanySideBar />;
-      case "professional":
-        return <ProfessionalSideBar />;
+        return <CompanyHamburgerMenu />;
+      /* case "professional":
+        return <ProfessionalSideBar />; */
       default:
         return <></>;
     }
   };
 
-  return (
-    <nav id="sidebar" className="sidebar">
-      <div className="sidebar-content">
-        <div className="sidebar-logo">
-          <img src={LogoSidebar} />
-        </div>
-        {switchSidebarContent()}
-      </div>
-    </nav>
-  );
+  return switchSidebarContent();
 };
 
-export default SideBar;
+export default HamburguerSideBar;

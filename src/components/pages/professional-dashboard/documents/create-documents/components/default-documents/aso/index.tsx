@@ -1,8 +1,11 @@
-import '../index.css';
-import { Checkbox, FormControlLabel, TextField } from "@mui/material";
+import "../index.css";
+import { Box, Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreateAsoDocumentRequest, createAsoDocumentSchema } from "../../../../types";
+import {
+  CreateAsoDocumentRequest,
+  createAsoDocumentSchema,
+} from "../../../../types";
 import { applyCpfMask } from "../../../../../../../utils/applyCpfMask";
 import { applyRgMask } from "../../../../../../../utils/applyRgMask";
 import { applyCnpjMask } from "../../../../../../../utils/applyCnpjMask";
@@ -11,21 +14,33 @@ import { applyDateMask } from "../../../../../../../utils/applyDateMask";
 import { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import DocumentHeader from "../../../../../../../../assets/documents-template/documentHeader.png";
+import { fetchCompanyById, fetchCompanyData, fetchEmployeeById, fetchEmployeeData } from "../../../../../api";
 
 const CreateAsoDocuments = () => {
+  const [companies, setCompanies] = useState([]);
+  const [employees, setEmployees] = useState([]);
+  const [isCompanySelected, setIsCompanySelected] = useState(false);
+
   const contentAsoDocumentToExport = useRef(null);
-  const [formData, setFormData] = useState<CreateAsoDocumentRequest | null>(null);
+  const [exams, setExams] = useState([
+    { exam_name: "", exam_date: "" },
+  ]);
+  const [formData, setFormData] = useState<CreateAsoDocumentRequest | null>(
+    null
+  );
 
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      // company
+      companyId: "",
+      companyName: "",
       corporate_reason: "",
       cnpj: "",
-      //employee
+      employeeId: "",
       name: "",
       cpf: "",
       rg: "",
@@ -34,21 +49,21 @@ const CreateAsoDocuments = () => {
       employeeFunction: "",
       office: "",
       sector: "",
-      // risk factors
       physicalRisks: "",
       chemicalRisks: "",
       biologicalRisks: "",
       ergonomicRisks: "",
       mechanicalRiks: "",
-      // exams
-      exam_date: "",
-      exam_name: "",
-      // conclusion
       conclusion: "",
       observation: "",
       location: "",
-      // special skills
       special_skills: [],
+      exams: [
+        {
+          exam_name: "",
+          exam_date: "",
+        },
+      ],
     },
     resolver: zodResolver(createAsoDocumentSchema),
   });
@@ -57,6 +72,26 @@ const CreateAsoDocuments = () => {
     content: () => contentAsoDocumentToExport.current,
     documentTitle: formData ? `ASO_DOCUMENT_${formData?.name}` : "ASO_DOCUMENT",
   });
+
+  type Employee = {
+    id: string;
+    name: string;
+  }
+
+  type Company = {
+    id: string;
+    fantasy_name: string;
+  }
+
+  const addExams = () => {
+    setExams([
+      ...exams,
+      {
+        exam_name: "",
+        exam_date: "",
+      },
+    ]);
+  };
 
   const onSubmit: SubmitHandler<CreateAsoDocumentRequest> = async (data) => {
     setFormData(data);
@@ -69,20 +104,64 @@ const CreateAsoDocuments = () => {
     }
   }, [formData]);
 
+  useEffect(() => {
+    const fetchCompaniesData = async () => {
+      try {
+        const companiesData = await fetchCompanyData();
+        setCompanies(companiesData.companies);
+      } catch (error) {
+        console.error("Erro ao buscar dados da empresa:", error);
+      }
+    };
+    fetchCompaniesData();
+  }, []);
+
+  const handlefetchEmployeesAndFindCompanyById = async (companyId: string) => {
+    try {
+      const employeesData = await fetchEmployeeData(companyId);
+      setEmployees(employeesData.employees);
+      setIsCompanySelected(true);
+
+      const companyDataById = await fetchCompanyById(companyId);
+      setValue("companyName", companyDataById.company.fantasy_name);
+      setValue("corporate_reason", companyDataById.company.corporate_reason);
+      setValue("cnpj", companyDataById.company.cnpj);
+      console.log(companyDataById.company.fantasy_name)
+    } catch (error) {
+      console.log("Erro ao buscar funcionários e empresa selecionada: ", error)
+    }
+  }
+
+  const handleFindEmployeeById = async (employeeId: string) => {
+    try {
+      const employeeDataById = await fetchEmployeeById(employeeId);
+      setValue("name", employeeDataById.employee.name);
+      setValue("cpf", employeeDataById.employee.cpf);
+      setValue("rg", employeeDataById.employee.rg);
+      setValue("dt_birth", employeeDataById.employee.dt_birth);
+    } catch (error) {
+      console.log("Erro ao buscar dados do funcionário: ", error);
+    }
+  }
+
   return (
     <div className="main-create-unit-company-dashboard">
       <div className="create-unit-company-dashboard-content">
         <h2 className="create-unit-page-title">Cadastrar ASO</h2>
         <div className="create-unit-form">
-
           <div className="document-container-to-export">
             <div ref={contentAsoDocumentToExport} className="content">
-
               <table align="center" border={0} id="Tabela_01" width={900}>
                 <tbody>
                   <tr>
                     <td colSpan={6}>
-                      <img alt="" height={175} src={DocumentHeader} style={{ display: "block" }} width={900} />
+                      <img
+                        alt=""
+                        height={175}
+                        src={DocumentHeader}
+                        style={{ display: "block" }}
+                        width={900}
+                      />
                     </td>
                   </tr>
                 </tbody>
@@ -92,51 +171,34 @@ const CreateAsoDocuments = () => {
                 <tbody>
                   <tr>
                     <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>ATESTADO DE SAÚDE OCUPACIONAL</center></p>
+                      <p className="p-text-export-document">
+                        <center>ATESTADO DE SAÚDE OCUPACIONAL</center>
+                      </p>
                     </td>
                   </tr>
                   <tr>
                     <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>EMPREGADOR</center></p>
+                      <p className="p-text-export-document">
+                        <center>EMPREGADOR</center>
+                      </p>
                     </td>
                   </tr>
                   <tr>
-                    <td><p className="p-text-export-document">Razão social: {formData?.corporate_reason}</p></td>
-                    <td><p className="p-text-export-document">CNPJ: {formData?.cnpj}</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>FUNCIONÁRIO</center></p>
+                    <td>
+                      <p className="p-text-export-document">
+                        Nome fantasia: {formData?.companyName}
+                      </p>
                     </td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Nome: {formData?.name}</p></td>
-                    <td><p className="p-text-export-document">CPF: {formData?.cpf}</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td><p className="p-text-export-document">RG: {formData?.rg}</p></td>
-                    <td><p className="p-text-export-document">Data de Nascimento: {formData?.dt_birth}</p></td>
-                    <td><p className="p-text-export-document">Matrícula: {formData?.registration}</p></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table align="center" border={0} id="Tabela_01" width={900}>
-                <tbody>
-                  <tr>
-                    <td><p className="p-text-export-document">Função: {formData?.employeeFunction}</p></td>
-                    <td><p className="p-text-export-document">Cargo: {formData?.office}</p></td>
-                    <td><p className="p-text-export-document">Setor: {formData?.sector}</p></td>
+                    <td>
+                      <p className="p-text-export-document">
+                        Razão social: {formData?.corporate_reason}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="p-text-export-document">
+                        CNPJ: {formData?.cnpj}
+                      </p>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -145,23 +207,66 @@ const CreateAsoDocuments = () => {
                 <tbody>
                   <tr>
                     <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>FATORES DE RISCO</center></p>
+                      <p className="p-text-export-document">
+                        <center>FUNCIONÁRIO</center>
+                      </p>
                     </td>
                   </tr>
                   <tr>
-                    <td><p className="p-text-export-document">Físicos: {formData?.physicalRisks}</p></td>
+                    <td>
+                      <p className="p-text-export-document">
+                        Nome: {formData?.name}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="p-text-export-document">
+                        CPF: {formData?.cpf}
+                      </p>
+                    </td>
                   </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
                   <tr>
-                    <td><p className="p-text-export-document">Químicos: {formData?.chemicalRisks}</p></td>
+                    <td>
+                      <p className="p-text-export-document">
+                        RG: {formData?.rg}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="p-text-export-document">
+                        Data de Nascimento: {formData?.dt_birth}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="p-text-export-document">
+                        Matrícula: {formData?.registration}
+                      </p>
+                    </td>
                   </tr>
+                </tbody>
+              </table>
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
                   <tr>
-                    <td><p className="p-text-export-document">Biológicos: {formData?.biologicalRisks}</p></td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Ergonômicos: {formData?.ergonomicRisks}</p></td>
-                  </tr>
-                  <tr>
-                    <td><p className="p-text-export-document">Mecânicos: {formData?.mechanicalRiks}</p></td>
+                    <td>
+                      <p className="p-text-export-document">
+                        Função: {formData?.employeeFunction}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="p-text-export-document">
+                        Cargo: {formData?.office}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="p-text-export-document">
+                        Setor: {formData?.sector}
+                      </p>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -170,12 +275,98 @@ const CreateAsoDocuments = () => {
                 <tbody>
                   <tr>
                     <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>EXAMES REALIZADOS</center></p>
+                      <p className="p-text-export-document">
+                        <center>FATORES DE RISCO</center>
+                      </p>
                     </td>
                   </tr>
                   <tr>
-                    <td><p className="p-text-export-document">Data: {formData?.exam_date}</p></td>
-                    <td><p className="p-text-export-document">Exame: {formData?.exam_name}</p></td>
+                    <td>
+                      <p className="p-text-export-document">
+                        Físicos: {formData?.physicalRisks}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        Químicos: {formData?.chemicalRisks}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        Biológicos: {formData?.biologicalRisks}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        Ergonômicos: {formData?.ergonomicRisks}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        Mecânicos: {formData?.mechanicalRiks}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              {formData?.exams?.map((exam, index) => (
+                <table
+                  key={index}
+                  align="center"
+                  border={0}
+                  id="Tabela_01"
+                  width={900}
+                >
+                  <tbody>
+                    <tr>
+                      <td className="td-header-export-document" colSpan={6}>
+                        <p className="p-text-export-document">
+                          <center>EXAME {index + 1}</center>
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p className="p-text-export-document">
+                          Data do exame: {exam.exam_date}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p className="p-text-export-document">
+                          Nome do exame: {exam.exam_name}
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              ))}
+
+              <table align="center" border={0} id="Tabela_01" width={900}>
+                <tbody>
+                  <tr>
+                    <td className="td-header-export-document" colSpan={6}>
+                      <p className="p-text-export-document">
+                        <center>CONCLUSÃO</center>
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p className="p-text-export-document">
+                        {formData?.conclusion}
+                      </p>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -184,11 +375,17 @@ const CreateAsoDocuments = () => {
                 <tbody>
                   <tr>
                     <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>CONCLUSÃO</center></p>
+                      <p className="p-text-export-document">
+                        <center>OBSERVAÇÃO</center>
+                      </p>
                     </td>
                   </tr>
                   <tr>
-                    <td><p className="p-text-export-document">{formData?.conclusion}</p></td>
+                    <td>
+                      <p className="p-text-export-document">
+                        {formData?.observation}
+                      </p>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -197,7 +394,9 @@ const CreateAsoDocuments = () => {
                 <tbody>
                   <tr>
                     <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>APTIDÕES ESPECIAIS</center></p>
+                      <p className="p-text-export-document">
+                        <center>APTIDÕES ESPECIAIS</center>
+                      </p>
                     </td>
                   </tr>
                   {formData?.special_skills.map((skill, index) => (
@@ -214,18 +413,35 @@ const CreateAsoDocuments = () => {
                 <tbody>
                   <tr>
                     <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>TIPO DE EXAME</center></p>
+                      <p className="p-text-export-document">
+                        <center>TIPO DE EXAME</center>
+                      </p>
                     </td>
                     <td className="td-header-export-document" colSpan={6}>
-                      <p className="p-text-export-document"><center>IDENTIFICAÇÃO DO MÉDICO RESPONSÁVEL PELO PCMSO</center></p>
+                      <p className="p-text-export-document">
+                        <center>
+                          IDENTIFICAÇÃO DO MÉDICO RESPONSÁVEL PELO PCMSO
+                        </center>
+                      </p>
                     </td>
                   </tr>
                   <tr>
                     <td colSpan={6}>
-                      <p><center>Exame médico admissional/periódico/demissional/ de mudança de risco/ de retorno ao trabalho/ de monitoração pontual (de acordo com a seleção)</center></p>
+                      <p>
+                        <center>
+                          Exame médico admissional/periódico/demissional/ de
+                          mudança de risco/ de retorno ao trabalho/ de
+                          monitoração pontual (de acordo com a seleção)
+                        </center>
+                      </p>
                     </td>
                     <td colSpan={6}>
-                      <p><center>Dr. Artur Nóbrega de Oliveira | CRM-RN 7597 | CPF: 064.642.844-60</center></p>
+                      <p>
+                        <center>
+                          Dr. Artur Nóbrega de Oliveira | CRM-RN 7597 | CPF:
+                          064.642.844-60
+                        </center>
+                      </p>
                     </td>
                   </tr>
                 </tbody>
@@ -245,37 +461,94 @@ const CreateAsoDocuments = () => {
                 <tbody>
                   <tr>
                     <td height={200} colSpan={6}>
-                      <p style={{ textAlign: 'left' }}><center>Dr. Artur Nóbrega de Oliveira<br />
-                        MÉDICO DO TRABALHO<br />
-                        CRM-RN 7597
-                      </center></p>
+                      <p style={{ textAlign: "left" }}>
+                        <center>
+                          Dr. Artur Nóbrega de Oliveira
+                          <br />
+                          MÉDICO DO TRABALHO
+                          <br />
+                          CRM-RN 7597
+                        </center>
+                      </p>
                     </td>
-                    <td width={200} height={200} colSpan={6}>
-
-                    </td>
+                    <td width={200} height={200} colSpan={6}></td>
                   </tr>
                 </tbody>
               </table>
-
             </div>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <Controller
+              name="companyId"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <h4>Empregador</h4>
+                  <Box>
+                    <FormControl error={!!errors.companyId} fullWidth>
+                      <InputLabel>Empresa</InputLabel>
+                      <Select
+                        id={errors.companyId ? "filled-error" : "standard-basic"}
+                        label="Empresa"
+                        {...field}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          handlefetchEmployeesAndFindCompanyById(e.target.value);
+                        }}
+                      >
+                        {companies.map((company: Company) => (
+                          <MenuItem key={company.id} value={company.id}>
+                            {company.fantasy_name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </div>
+              )}
+            />
+
+            <Controller
+              name="companyName"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.companyName ? "filled-error" : "standard-basic"}
+                    label="Empregador"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite o nome do empregador"
+                    error={!!errors.companyName}
+                    helperText={errors.companyName?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
               name="corporate_reason"
               control={control}
               render={({ field }) => (
                 <div className="ctn-form-input-create-unit">
-                  <h4>Empregador</h4>
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.corporate_reason ? "filled-error" : "standard-basic"}
-                    label="Empresa"
+                    id={
+                      errors.corporate_reason
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
+                    label="Razão social"
                     type="text"
                     variant="standard"
-                    placeholder="Empresa"
+                    placeholder="Razão Social"
                     error={!!errors.corporate_reason}
                     helperText={errors.corporate_reason?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -296,9 +569,42 @@ const CreateAsoDocuments = () => {
                     placeholder="CNPJ"
                     error={!!errors.cnpj}
                     helperText={errors.cnpj?.message}
+                    required
                     {...field}
-                    onChange={(e) => field.onChange(applyCnpjMask(e.target.value))}
+                    onChange={(e) =>
+                      field.onChange(applyCnpjMask(e.target.value))
+                    }
                   />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="employeeId"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <h4>Funcionário</h4>
+                  <Box>
+                    <FormControl error={!!errors.employeeId} fullWidth disabled={!isCompanySelected}>
+                      <InputLabel>Colaborador</InputLabel>
+                      <Select
+                        id={errors.employeeId ? "filled-error" : "standard-basic"}
+                        label="Colaborador"
+                        {...field}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          handleFindEmployeeById(e.target.value);
+                        }}
+                      >
+                        {employees.map((employee: Employee) => (
+                          <MenuItem key={employee.id} value={employee.id}>
+                            {employee.name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Box>
                 </div>
               )}
             />
@@ -318,6 +624,7 @@ const CreateAsoDocuments = () => {
                     placeholder="Nome"
                     error={!!errors.cnpj}
                     helperText={errors.cnpj?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -338,8 +645,11 @@ const CreateAsoDocuments = () => {
                     placeholder="CPF"
                     error={!!errors.cpf}
                     helperText={errors.cpf?.message}
+                    required
                     {...field}
-                    onChange={(e) => field.onChange(applyCpfMask(e.target.value))}
+                    onChange={(e) =>
+                      field.onChange(applyCpfMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -359,8 +669,11 @@ const CreateAsoDocuments = () => {
                     placeholder="RG"
                     error={!!errors.rg}
                     helperText={errors.rg?.message}
+                    required
                     {...field}
-                    onChange={(e) => field.onChange(applyRgMask(e.target.value))}
+                    onChange={(e) =>
+                      field.onChange(applyRgMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -380,8 +693,11 @@ const CreateAsoDocuments = () => {
                     placeholder="Data de nascimento"
                     error={!!errors.dt_birth}
                     helperText={errors.dt_birth?.message}
+                    required
                     {...field}
-                    onChange={(e) => field.onChange(applyDateMask(e.target.value))}
+                    onChange={(e) =>
+                      field.onChange(applyDateMask(e.target.value))
+                    }
                   />
                 </div>
               )}
@@ -401,6 +717,7 @@ const CreateAsoDocuments = () => {
                     placeholder="Matrícula"
                     error={!!errors.registration}
                     helperText={errors.registration?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -414,13 +731,18 @@ const CreateAsoDocuments = () => {
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.employeeFunction ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.employeeFunction
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
                     label="Função"
                     type="text"
                     variant="standard"
                     placeholder="Função"
                     error={!!errors.employeeFunction}
                     helperText={errors.employeeFunction?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -441,6 +763,7 @@ const CreateAsoDocuments = () => {
                     placeholder="Cargo"
                     error={!!errors.office}
                     helperText={errors.office?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -461,6 +784,7 @@ const CreateAsoDocuments = () => {
                     placeholder="Setor"
                     error={!!errors.sector}
                     helperText={errors.sector?.message}
+                    required
                     {...field}
                   />
                 </div>
@@ -475,7 +799,9 @@ const CreateAsoDocuments = () => {
                   <h4>Fatores de riscos</h4>
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.physicalRisks ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.physicalRisks ? "filled-error" : "standard-basic"
+                    }
                     label="Riscos Físicos"
                     type="text"
                     variant="standard"
@@ -495,7 +821,9 @@ const CreateAsoDocuments = () => {
                 <div className="ctn-form-input-create-admin">
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.chemicalRisks ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.chemicalRisks ? "filled-error" : "standard-basic"
+                    }
                     label="Riscos Químicos"
                     type="text"
                     variant="standard"
@@ -515,7 +843,9 @@ const CreateAsoDocuments = () => {
                 <div className="ctn-form-input-create-admin">
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.biologicalRisks ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.biologicalRisks ? "filled-error" : "standard-basic"
+                    }
                     label="Riscos Biológicos"
                     type="text"
                     variant="standard"
@@ -535,7 +865,9 @@ const CreateAsoDocuments = () => {
                 <div className="ctn-form-input-create-admin">
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.ergonomicRisks ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.ergonomicRisks ? "filled-error" : "standard-basic"
+                    }
                     label="Riscos Ergônomicos"
                     type="text"
                     variant="standard"
@@ -555,7 +887,9 @@ const CreateAsoDocuments = () => {
                 <div className="ctn-form-input-create-admin">
                   <TextField
                     className="form-input-create-admin"
-                    id={errors.mechanicalRiks ? "filled-error" : "standard-basic"}
+                    id={
+                      errors.mechanicalRiks ? "filled-error" : "standard-basic"
+                    }
                     label="Riscos Mecânicos"
                     type="text"
                     variant="standard"
@@ -568,46 +902,71 @@ const CreateAsoDocuments = () => {
               )}
             />
 
-            <Controller
-              name="exam_date"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-unit">
-                  <h4>Exames</h4>
-                  <TextField
-                    className="form-input-create-unit"
-                    id={errors.exam_date ? "filled-error" : "standard-basic"}
-                    label="Data de exame"
-                    type="text"
-                    variant="standard"
-                    placeholder="Data de exame"
-                    error={!!errors.exam_date}
-                    helperText={errors.exam_date?.message}
-                    {...field}
-                  />
-                </div>
-              )}
-            />
+            {exams.map((_, index) => (
+              <div key={index}>
+                <Controller
+                  name={`exams.${index}.exam_date` as const}
+                  control={control}
+                  render={({ field }) => (
+                    <div className="ctn-form-input-create-unit">
+                      <h4>Exames</h4>
+                      <TextField
+                        className="form-input-create-unit"
+                        id={
+                          errors.exams?.[index]?.exam_date
+                            ? "filled-error"
+                            : "standard-basic"
+                        }
+                        label="Data do exame"
+                        type="text"
+                        variant="standard"
+                        placeholder="Digite a data do exame"
+                        error={!!errors.exams?.[index]?.exam_date}
+                        helperText={errors.exams?.[index]?.exam_date?.message}
+                        {...field}
+                        onChange={(e) =>
+                          field.onChange(applyDateMask(e.target.value))
+                        }
+                      />
+                    </div>
+                  )}
+                />
 
-            <Controller
-              name="exam_name"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-unit">
-                  <TextField
-                    className="form-input-create-unit"
-                    id={errors.exam_name ? "filled-error" : "standard-basic"}
-                    label="Nome do exame"
-                    type="text"
-                    variant="standard"
-                    placeholder="Nome do exame"
-                    error={!!errors.exam_name}
-                    helperText={errors.exam_name?.message}
-                    {...field}
-                  />
-                </div>
-              )}
-            />
+                <Controller
+                  name={`exams.${index}.exam_name` as const}
+                  control={control}
+                  render={({ field }) => (
+                    <div className="ctn-form-input-create-unit">
+                      <TextField
+                        className="form-input-create-unit"
+                        id={
+                          errors.exams?.[index]?.exam_name
+                            ? "filled-error"
+                            : "standard-basic"
+                        }
+                        label="Nome do exame"
+                        type="text"
+                        variant="standard"
+                        placeholder="Digite o nome do exame"
+                        error={!!errors.exams?.[index]?.exam_name}
+                        helperText={errors.exams?.[index]?.exam_name?.message}
+                        {...field}
+                      />
+                    </div>
+                  )}
+                />
+              </div>
+            ))}
+
+            <div className="create-unit-btn-submit">
+              <button
+                type="button"
+                onClick={addExams}
+                className="create-unit-btn-submit"
+              >
+                Adicionar Exame
+              </button>
+            </div>
 
             <Controller
               name="conclusion"
@@ -766,7 +1125,9 @@ const CreateAsoDocuments = () => {
                       label="Apto(a) para trabalho em altura (NR-35)"
                     />
                   </div>
-                  {errors.special_skills && <p>{errors.special_skills.message}</p>}
+                  {errors.special_skills && (
+                    <p>{errors.special_skills.message}</p>
+                  )}
                 </div>
               )}
             />
