@@ -8,6 +8,7 @@ import { createProfessional } from "../api";
 import { useNavigate } from "react-router-dom";
 import { applyCpfMask } from "../../../../utils/applyCpfMask";
 import { applyRgMask } from "../../../../utils/applyRgMask";
+import { applyPhoneMask } from "../../../../utils/applyPhoneMask";
 
 const CreateProfessional = () => {
   const navigate = useNavigate();
@@ -21,16 +22,13 @@ const CreateProfessional = () => {
       password: "",
       name: "",
       cpf: "",
-      nis: "",
       rg: "",
-      cbo: "",
       formation: "",
       organ: "",
       acronym: "",
-      ccr: "",
       uf: "",
       title: "",
-      jobFunction: "",
+      phone_number: "",
     },
     resolver: zodResolver(createProfessionalSchema),
   });
@@ -143,27 +141,6 @@ const CreateProfessional = () => {
             />
 
             <Controller
-              name="nis"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-company">
-                  <TextField
-                    className="form-input-create-company"
-                    id={errors.nis ? "filled-error" : "standard-basic"}
-                    label="NIS"
-                    type="text"
-                    variant="standard"
-                    placeholder="Digite o NIS"
-                    error={!!errors.nis}
-                    helperText={errors.nis?.message}
-                    required
-                    {...field}
-                  />
-                </div>
-              )}
-            />
-
-            <Controller
               name="rg"
               control={control}
               render={({ field }) => (
@@ -182,27 +159,6 @@ const CreateProfessional = () => {
                     onChange={(e) =>
                       field.onChange(applyRgMask(e.target.value))
                     }
-                  />
-                </div>
-              )}
-            />
-
-            <Controller
-              name="cbo"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-company">
-                  <TextField
-                    className="form-input-create-company"
-                    id={errors.cbo ? "filled-error" : "standard-basic"}
-                    label="CBO"
-                    type="text"
-                    variant="standard"
-                    placeholder="Digite o CBO"
-                    error={!!errors.cbo}
-                    helperText={errors.cbo?.message}
-                    required
-                    {...field}
                   />
                 </div>
               )}
@@ -272,27 +228,6 @@ const CreateProfessional = () => {
             />
 
             <Controller
-              name="ccr"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-company">
-                  <TextField
-                    className="form-input-create-company"
-                    id={errors.ccr ? "filled-error" : "standard-basic"}
-                    label="CCR"
-                    type="text"
-                    variant="standard"
-                    placeholder="Digite o CCR"
-                    error={!!errors.ccr}
-                    helperText={errors.ccr?.message}
-                    required
-                    {...field}
-                  />
-                </div>
-              )}
-            />
-
-            <Controller
               name="uf"
               control={control}
               render={({ field }) => (
@@ -335,21 +270,24 @@ const CreateProfessional = () => {
             />
 
             <Controller
-              name="jobFunction"
+              name="phone_number"
               control={control}
               render={({ field }) => (
                 <div className="ctn-form-input-create-company">
                   <TextField
                     className="form-input-create-company"
-                    id={errors.jobFunction ? "filled-error" : "standard-basic"}
-                    label="Função"
+                    id={errors.phone_number ? "filled-error" : "standard-basic"}
+                    label="Contato"
                     type="text"
                     variant="standard"
-                    placeholder="Digite a função"
-                    error={!!errors.jobFunction}
-                    helperText={errors.jobFunction?.message}
+                    placeholder="Contato"
+                    error={!!errors.phone_number}
+                    helperText={errors.phone_number?.message}
                     required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyPhoneMask(e.target.value))
+                    }
                   />
                 </div>
               )}

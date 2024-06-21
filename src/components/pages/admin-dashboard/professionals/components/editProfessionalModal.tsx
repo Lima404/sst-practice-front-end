@@ -14,6 +14,7 @@ import Loader from "../../../../loader/Loader";
 import { editProfessional, getProfessionalById } from "../api";
 import { applyCpfMask } from "../../../../utils/applyCpfMask";
 import { applyRgMask } from "../../../../utils/applyRgMask";
+import { applyPhoneMask } from "../../../../utils/applyPhoneMask";
 
 export const EditProfessionalModal = ({
   modalOpen,
@@ -27,16 +28,13 @@ export const EditProfessionalModal = ({
       name: "",
       email: "",
       cpf: "",
-      nis: "",
       rg: "",
-      cbo: "",
       formation: "",
       organ: "",
       acronym: "",
-      ccr: "",
       uf: "",
       title: "",
-      professionalFunction: "",
+      phone_number: "",
     });
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -50,16 +48,13 @@ export const EditProfessionalModal = ({
       name: "",
       email: "",
       cpf: "",
-      nis: "",
       rg: "",
-      cbo: "",
       formation: "",
       organ: "",
       acronym: "",
-      ccr: "",
       uf: "",
       title: "",
-      professionalFunction: "",
+      phone_number: "",
     },
     resolver: zodResolver(editProfessionalSchema),
   });
@@ -75,16 +70,13 @@ export const EditProfessionalModal = ({
       name: professionalData.name,
       email: professionalData.email,
       cpf: professionalData.cpf,
-      nis: professionalData.nis,
       rg: professionalData.rg,
-      cbo: professionalData.cbo,
       formation: professionalData.formation,
       organ: professionalData.organ,
       acronym: professionalData.acronym,
-      ccr: professionalData.ccr,
       uf: professionalData.uf,
       title: professionalData.title,
-      professionalFunction: professionalData.professionalFunction,
+      phone_number: professionalData.phone_number,
     });
   }, [professionalData, reset]);
 
@@ -109,16 +101,13 @@ export const EditProfessionalModal = ({
         name: response.professional.name,
         email: response.professional.user.email,
         cpf: response.professional.cpf,
-        nis: response.professional.nis,
         rg: response.professional.rg,
-        cbo: response.professional.cbo,
         formation: response.professional.formation,
         organ: response.professional.organ,
         acronym: response.professional.acronym,
-        ccr: response.professional.ccr,
         uf: response.professional.uf,
         title: response.professional.title,
-        professionalFunction: response.professional.function,
+        phone_number: response.professional.phone_number,
       });
     } catch (error) {
       console.error("Erro ao buscar informações do profissional:", error);
@@ -133,16 +122,13 @@ export const EditProfessionalModal = ({
       name: "",
       email: "",
       cpf: "",
-      nis: "",
       rg: "",
-      cbo: "",
       formation: "",
       organ: "",
       acronym: "",
-      ccr: "",
       uf: "",
       title: "",
-      professionalFunction: "",
+      phone_number: "",
     });
   };
 
@@ -230,28 +216,6 @@ export const EditProfessionalModal = ({
             />
           </Grid>
 
-          <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
-            <Controller
-              name="nis"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-professional">
-                  <TextField
-                    className="form-input-create-professional"
-                    id={errors.nis ? "filled-error" : "standard-basic"}
-                    label="NIS"
-                    type="text"
-                    variant="standard"
-                    placeholder="NIS"
-                    error={!!errors.nis}
-                    helperText={errors.nis?.message}
-                    required
-                    {...field}
-                  />
-                </div>
-              )}
-            />
-          </Grid>
 
           <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
             <Controller
@@ -273,29 +237,6 @@ export const EditProfessionalModal = ({
                     onChange={(e) =>
                       field.onChange(applyRgMask(e.target.value))
                     }
-                  />
-                </div>
-              )}
-            />
-          </Grid>
-
-          <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
-            <Controller
-              name="cbo"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-professional">
-                  <TextField
-                    className="form-input-create-professional"
-                    id={errors.cbo ? "filled-error" : "standard-basic"}
-                    label="CBO"
-                    type="text"
-                    variant="standard"
-                    placeholder="CBO"
-                    error={!!errors.cbo}
-                    helperText={errors.cbo?.message}
-                    required
-                    {...field}
                   />
                 </div>
               )}
@@ -442,30 +383,30 @@ export const EditProfessionalModal = ({
 
           <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
             <Controller
-              name="professionalFunction"
+              name="phone_number"
               control={control}
               render={({ field }) => (
                 <div className="ctn-form-input-create-professional">
                   <TextField
                     className="form-input-create-professional"
-                    id={
-                      errors.professionalFunction
-                        ? "filled-error"
-                        : "standard-basic"
-                    }
-                    label="Função"
+                    id={errors.phone_number ? "filled-error" : "standard-basic"}
+                    label="Contato"
                     type="text"
                     variant="standard"
-                    placeholder="Função"
-                    error={!!errors.professionalFunction}
-                    helperText={errors.professionalFunction?.message}
+                    placeholder="Contato"
+                    error={!!errors.phone_number}
+                    helperText={errors.phone_number?.message}
                     required
                     {...field}
+                    onChange={(e) =>
+                      field.onChange(applyPhoneMask(e.target.value))
+                    }
                   />
                 </div>
               )}
             />
           </Grid>
+          
         </>
       )}
     </CustomModal>

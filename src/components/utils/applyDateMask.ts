@@ -7,11 +7,11 @@ export const applyDateMask = (value: any) => {
   }
 
   if (onlyNums.length > 2) {
-    formattedDate += '/' + onlyNums.slice(2, 4);
+    formattedDate += '-' + onlyNums.slice(2, 4);
   }
 
   if (onlyNums.length > 4) {
-    formattedDate += '/' + onlyNums.slice(4, 8);
+    formattedDate += '-' + onlyNums.slice(4, 8);
   }
 
   return formattedDate;

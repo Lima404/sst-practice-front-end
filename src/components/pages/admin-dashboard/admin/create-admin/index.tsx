@@ -6,6 +6,8 @@ import { CreateAdminRequest, createAdminSchema } from "../types/types";
 import { createAdmin } from "../api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { applyCpfMask } from "../../../../utils/applyCpfMask";
+import { applyPhoneMask } from "../../../../utils/applyPhoneMask";
 
 const CreateAdmin = () => {
   const navigate = useNavigate();
@@ -17,6 +19,8 @@ const CreateAdmin = () => {
     defaultValues: {
       name: "",
       email: "",
+      cpf: "",
+      phone_number: "",
       password: "",
     },
     resolver: zodResolver(createAdminSchema),
@@ -29,8 +33,8 @@ const CreateAdmin = () => {
         navigate("/admins");
       });
     } catch (err: any) {
+      console.log("ESSES SÃO OS DADOS", data);
       console.log(err);
-      toast.error(err);
     }
   };
 
@@ -75,6 +79,52 @@ const CreateAdmin = () => {
                     error={!!errors.email}
                     helperText={errors.email?.message}
                     {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="cpf"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.cpf ? "filled-error" : "standard-basic"}
+                    label="CPF"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite o CPF"
+                    error={!!errors.cpf}
+                    helperText={errors.cpf?.message}
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(applyCpfMask(e.target.value))
+                    }
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="phone_number"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.phone_number ? "filled-error" : "standard-basic"}
+                    label="Telefone"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite o Telefone"
+                    error={!!errors.phone_number}
+                    helperText={errors.phone_number?.message}
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(applyPhoneMask(e.target.value))
+                    }
                   />
                 </div>
               )}

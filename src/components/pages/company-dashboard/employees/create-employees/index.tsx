@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { MenuItem, TextField } from "@mui/material";
 import "./index.css";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -6,16 +6,16 @@ import { CreateEmployeesRequest, createEmployeesSchema } from "../types";
 import { createEmployees } from "../api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../../../data/contexts/AuthContext";
 import { applyCpfMask } from "../../../../utils/applyCpfMask";
-import { applyRgMask } from "../../../../utils/applyRgMask";
 import { applyDateMask } from "../../../../utils/applyDateMask";
 import { applyPhoneMask } from "../../../../utils/applyPhoneMask";
 
 const CreateEmployees = () => {
   const navigate = useNavigate();
   const { userTypeId } = useContext(AuthContext);
+  const [pcdValue, setPcdValue] = useState("");
 
   const {
     control,
@@ -28,12 +28,18 @@ const CreateEmployees = () => {
       cpf: "",
       nis: "",
       rg: "",
-      br_pdh: "",
+      pcd: "",
+      pcd_observation: "Observação",
       sex: "",
       dt_birth: "",
-      phone: "",
       phone_number: "",
-      blood_type: "",
+      admission_dt: "",
+      function_start_dt: "",
+      office: "",
+      employee_function: "",
+      registration: "",
+      sector: "",
+      cbo: "",
     },
     resolver: zodResolver(createEmployeesSchema),
   });
@@ -46,14 +52,13 @@ const CreateEmployees = () => {
       });
     } catch (err: any) {
       console.log(err);
-      toast.error(err);
     }
   };
 
   return (
     <div className="main-create-unit-company-dashboard">
       <div className="create-unit-company-dashboard-content">
-        <h2 className="create-unit-page-title">Cadastrar Unidade</h2>
+        <h2 className="create-unit-page-title">Cadastrar Empregado</h2>
         <div className="create-unit-form">
           <form onSubmit={handleSubmit(onSubmit)}>
             <Controller
@@ -115,7 +120,6 @@ const CreateEmployees = () => {
                     placeholder="NIS"
                     error={!!errors.nis}
                     helperText={errors.nis?.message}
-                    required
                     {...field}
                   />
                 </div>
@@ -130,37 +134,62 @@ const CreateEmployees = () => {
                   <TextField
                     className="form-input-create-unit"
                     id={errors.rg ? "filled-error" : "standard-basic"}
-                    label="RG"
+                    label="RG - Órgão Expedidor"
                     type="text"
                     variant="standard"
-                    placeholder="RG"
+                    placeholder="RG - Órgão Expedidor"
                     error={!!errors.rg}
                     helperText={errors.rg?.message}
-                    required
                     {...field}
-                    onChange={(e) =>
-                      field.onChange(applyRgMask(e.target.value))
-                    }
                   />
                 </div>
               )}
             />
 
             <Controller
-              name="br_pdh"
+              name="pcd"
               control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    select
+                    className="form-input-create-unit"
+                    id={errors.pcd ? "filled-error" : "standard-basic"}
+                    label="PCD"
+                    variant="standard"
+                    placeholder="PCD"
+                    error={!!errors.pcd}
+                    helperText={errors.pcd?.message}
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      setPcdValue(e.target.value); // Atualiza o estado com o valor selecionado
+                    }}
+                  >
+                    <MenuItem value="sim">Sim</MenuItem>
+                    <MenuItem value="não">Não</MenuItem>
+                  </TextField>
+                </div>
+              )}
+            />
+
+            <Controller
+              name="pcd_observation"
+              control={control}
+              defaultValue=""
               render={({ field }) => (
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.br_pdh ? "filled-error" : "standard-basic"}
-                    label="BR PDH"
+                    id={errors.pcd_observation ? "filled-error" : "standard-basic"}
+                    label="Observação"
                     type="text"
                     variant="standard"
-                    placeholder="BR PDH"
-                    error={!!errors.br_pdh}
-                    helperText={errors.br_pdh?.message}
-                    required
+                    placeholder="Observação"
+                    error={!!errors.pcd_observation}
+                    helperText={errors.pcd_observation?.message}
+                    disabled={pcdValue !== 'sim'} // Desabilita o campo se PCD não for 'sim'
                     {...field}
                   />
                 </div>
@@ -196,10 +225,10 @@ const CreateEmployees = () => {
                   <TextField
                     className="form-input-create-unit"
                     id={errors.dt_birth ? "filled-error" : "standard-basic"}
-                    label="Data de aniversário"
+                    label="Data de nascimento"
                     type="text"
                     variant="standard"
-                    placeholder="Data de aniversário"
+                    placeholder="Data de nascimento"
                     error={!!errors.dt_birth}
                     helperText={errors.dt_birth?.message}
                     required
@@ -207,26 +236,6 @@ const CreateEmployees = () => {
                     onChange={(e) =>
                       field.onChange(applyDateMask(e.target.value))
                     }
-                  />
-                </div>
-              )}
-            />
-
-            <Controller
-              name="phone"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-unit">
-                  <TextField
-                    className="form-input-create-unit"
-                    id={errors.phone ? "filled-error" : "standard-basic"}
-                    label="Telefone"
-                    type="text"
-                    variant="standard"
-                    placeholder="Telefone"
-                    error={!!errors.phone}
-                    helperText={errors.phone?.message}
-                    {...field}
                   />
                 </div>
               )}
@@ -257,19 +266,151 @@ const CreateEmployees = () => {
             />
 
             <Controller
-              name="blood_type"
+              name="admission_dt"
               control={control}
               render={({ field }) => (
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.blood_type ? "filled-error" : "standard-basic"}
-                    label="Tipo sanguíneo"
+                    id={errors.admission_dt ? "filled-error" : "standard-basic"}
+                    label="Data de admissão"
                     type="text"
                     variant="standard"
-                    placeholder="Tipo sanguíneo"
-                    error={!!errors.blood_type}
-                    helperText={errors.blood_type?.message}
+                    placeholder="Data de admissão"
+                    error={!!errors.admission_dt}
+                    helperText={errors.admission_dt?.message}
+                    required
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(applyDateMask(e.target.value))
+                    }
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="function_start_dt"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    className="form-input-create-unit"
+                    id={errors.function_start_dt ? "filled-error" : "standard-basic"}
+                    label="Data de início da função"
+                    type="text"
+                    variant="standard"
+                    placeholder="Data de início da função"
+                    error={!!errors.function_start_dt}
+                    helperText={errors.function_start_dt?.message}
+                    required
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(applyDateMask(e.target.value))
+                    }
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="office"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    className="form-input-create-unit"
+                    id={errors.office ? "filled-error" : "standard-basic"}
+                    label="Cargo"
+                    type="text"
+                    variant="standard"
+                    placeholder="Cargo"
+                    error={!!errors.office}
+                    helperText={errors.office?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="employee_function"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    className="form-input-create-unit"
+                    id={errors.employee_function ? "filled-error" : "standard-basic"}
+                    label="Função do empregado"
+                    type="text"
+                    variant="standard"
+                    placeholder="Função do empregado"
+                    error={!!errors.employee_function}
+                    helperText={errors.employee_function?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="registration"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    className="form-input-create-unit"
+                    id={errors.registration ? "filled-error" : "standard-basic"}
+                    label="Matrícula"
+                    type="text"
+                    variant="standard"
+                    placeholder="Matrícula"
+                    error={!!errors.registration}
+                    helperText={errors.registration?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="sector"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    className="form-input-create-unit"
+                    id={errors.sector ? "filled-error" : "standard-basic"}
+                    label="Setor"
+                    type="text"
+                    variant="standard"
+                    placeholder="Setor"
+                    error={!!errors.sector}
+                    helperText={errors.sector?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
+              name="cbo"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    className="form-input-create-unit"
+                    id={errors.cbo ? "filled-error" : "standard-basic"}
+                    label="CBO"
+                    type="text"
+                    variant="standard"
+                    placeholder="CBO"
+                    error={!!errors.cbo}
+                    helperText={errors.cbo?.message}
                     required
                     {...field}
                   />

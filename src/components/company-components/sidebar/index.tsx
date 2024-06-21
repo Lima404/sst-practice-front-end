@@ -44,47 +44,8 @@ const CompanySideBar = () => {
             </div>
           </div>
         </button>
-        <button className="button-select" onClick={toggleCompanies}>
-          <div className="button-select-intern">
-            <div className="left-button-position">
-              <FaRegBuilding /> Colaboradores
-            </div>
-            <div className="right-button-position">
-              <IoIosArrowDown />
-            </div>
-          </div>
-        </button>
-        {showCompanies && (
-          <div className="document-options">
-            <a onClick={() => navigate("/employees/create")}>
-              <button className="button-select">
-                <div className="button-select-intern-option">
-                  <div className="left-button-position">
-                    Cadastrar colaborador
-                  </div>
-                  <div className="right-button-position">
-                    <IoIosArrowForward />
-                  </div>
-                </div>
-              </button>
-            </a>
-            <a onClick={() => navigate("/employees")}>
-              <button className="button-select">
-                <div className="button-select-intern-option">
-                  <div className="left-button-position">
-                    Visualizar colaboradores
-                  </div>
-                  <div className="right-button-position">
-                    <IoIosArrowForward />
-                  </div>
-                </div>
-              </button>
-            </a>
-          </div>
-        )}
-      </div>
 
-      <div className="document-select">
+        <div className="document-select">
         <button className="button-select" onClick={toggleProfessionals}>
           <div className="button-select-intern">
             <div className="left-button-position">
@@ -122,6 +83,47 @@ const CompanySideBar = () => {
           </div>
         )}
       </div>
+
+        <button className="button-select" onClick={toggleCompanies}>
+          <div className="button-select-intern">
+            <div className="left-button-position">
+              <FaRegBuilding /> Empregados
+            </div>
+            <div className="right-button-position">
+              <IoIosArrowDown />
+            </div>
+          </div>
+        </button>
+        {showCompanies && (
+          <div className="document-options">
+            <a onClick={() => navigate("/employees/create")}>
+              <button className="button-select">
+                <div className="button-select-intern-option">
+                  <div className="left-button-position">
+                    Cadastrar empregado
+                  </div>
+                  <div className="right-button-position">
+                    <IoIosArrowForward />
+                  </div>
+                </div>
+              </button>
+            </a>
+            <a onClick={() => navigate("/employees")}>
+              <button className="button-select">
+                <div className="button-select-intern-option">
+                  <div className="left-button-position">
+                    Visualizar empregados
+                  </div>
+                  <div className="right-button-position">
+                    <IoIosArrowForward />
+                  </div>
+                </div>
+              </button>
+            </a>
+          </div>
+        )}
+      </div>
+
 
       <div className="profile-options">
         <div className="document-select">

@@ -1,4 +1,5 @@
 import { z } from "zod";
+// import { customDateSchema } from "../../../../utils/convertDate";
 
 export interface CreateCompanyRequest {
   email: string;
@@ -38,7 +39,7 @@ export const createCompanySchema = z.object({
   address: z.string(),
   neighborhood: z.string(),
   phone: z.string(),
-  dt_start_esocial: z.coerce.date(),
+  dt_start_esocial: z.string(),
 });
 
 export const editCompanySchema = z.object({
@@ -51,7 +52,7 @@ export const editCompanySchema = z.object({
   address: z.string(),
   neighborhood: z.string(),
   phone: z.string(),
-  dt_start_esocial: z.coerce.date(),
+  dt_start_esocial: z.date(),
 });
 
 export interface EditCompanyModalProps {
