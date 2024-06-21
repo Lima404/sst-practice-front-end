@@ -23,21 +23,19 @@ export const EditUnitModal = ({
     companyId: "",
     identification: "",
     cnpj: "",
-    cnea: "",
+    cnae: "",
     activity: "",
     degree_of_risk: "",
-    aso: "",
     cep: "",
     address: "",
     neighborhood: "",
     city: "",
     state: "",
     email: "",
+    reference_contact: "",
     phone: "",
     legal_representative: "",
     cpf_legal_representative: "",
-    cipa_type: "",
-    num_employees_cipa: 0,
   });
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -51,21 +49,19 @@ export const EditUnitModal = ({
       companyId: "",
       identification: "",
       cnpj: "",
-      cnea: "",
+      cnae: "",
       activity: "",
       degree_of_risk: "",
-      aso: "",
       cep: "",
       address: "",
       neighborhood: "",
       city: "",
       state: "",
       email: "",
+      reference_contact: "",
       phone: "",
       legal_representative: "",
       cpf_legal_representative: "",
-      cipa_type: "",
-      num_employees_cipa: 0,
     },
     resolver: zodResolver(editUnitSchema),
   });
@@ -81,21 +77,19 @@ export const EditUnitModal = ({
       companyId: unitData.companyId,
       identification: unitData.identification,
       cnpj: unitData.cnpj,
-      cnea: unitData.cnea,
+      cnae: unitData.cnae,
       activity: unitData.activity,
       degree_of_risk: unitData.degree_of_risk,
-      aso: unitData.aso,
       cep: unitData.cep,
       address: unitData.address,
       neighborhood: unitData.neighborhood,
       city: unitData.city,
       state: unitData.state,
       email: unitData.email,
+      reference_contact: unitData.reference_contact,
       phone: unitData.phone,
       legal_representative: unitData.legal_representative,
       cpf_legal_representative: unitData.cpf_legal_representative,
-      cipa_type: unitData.cipa_type,
-      num_employees_cipa: unitData.num_employees_cipa,
     });
   }, [unitData, reset]);
 
@@ -121,21 +115,19 @@ export const EditUnitModal = ({
         companyId: response.unit.companyId,
         identification: response.unit.identification,
         cnpj: response.unit.cnpj,
-        cnea: response.unit.cnea,
+        cnae: response.unit.cnae,
         activity: response.unit.activity,
         degree_of_risk: response.unit.degree_of_risk,
-        aso: response.unit.aso,
         cep: response.unit.cep,
         address: response.unit.address,
         neighborhood: response.unit.neighborhood,
         city: response.unit.city,
         state: response.unit.state,
         email: response.unit.email,
+        reference_contact: response.unit.reference_contact,
         phone: response.unit.phone,
         legal_representative: response.unit.legal_representative,
         cpf_legal_representative: response.unit.cpf_legal_representative,
-        cipa_type: response.unit.cipa_type,
-        num_employees_cipa: response.unit.num_employees_cipa,
       });
     } catch (error) {
       console.error("Erro ao buscar informações da unidade:", error);
@@ -150,21 +142,19 @@ export const EditUnitModal = ({
       companyId: "",
       identification: "",
       cnpj: "",
-      cnea: "",
+      cnae: "",
       activity: "",
       degree_of_risk: "",
-      aso: "",
       cep: "",
       address: "",
       neighborhood: "",
       city: "",
       state: "",
       email: "",
+      reference_contact: "",
       phone: "",
       legal_representative: "",
       cpf_legal_representative: "",
-      cipa_type: "",
-      num_employees_cipa: 0,
     });
   };
 
@@ -259,19 +249,19 @@ export const EditUnitModal = ({
 
           <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
             <Controller
-              name="cnea"
+              name="cnae"
               control={control}
               render={({ field }) => (
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.cnea ? "filled-error" : "standard-basic"}
-                    label="CNEA"
+                    id={errors.cnae ? "filled-error" : "standard-basic"}
+                    label="CNAE"
                     type="text"
                     variant="standard"
-                    placeholder="CNEA"
-                    error={!!errors.cnea}
-                    helperText={errors.cnea?.message}
+                    placeholder="CNAE"
+                    error={!!errors.cnae}
+                    helperText={errors.cnae?.message}
                     required
                     {...field}
                   />
@@ -320,29 +310,6 @@ export const EditUnitModal = ({
                     placeholder="Grau de risco"
                     error={!!errors.degree_of_risk}
                     helperText={errors.degree_of_risk?.message}
-                    required
-                    {...field}
-                  />
-                </div>
-              )}
-            />
-          </Grid>
-
-          <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
-            <Controller
-              name="aso"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-unit">
-                  <TextField
-                    className="form-input-create-unit"
-                    id={errors.aso ? "filled-error" : "standard-basic"}
-                    label="ASO"
-                    type="text"
-                    variant="standard"
-                    placeholder="ASO"
-                    error={!!errors.aso}
-                    helperText={errors.aso?.message}
                     required
                     {...field}
                   />
@@ -494,6 +461,33 @@ export const EditUnitModal = ({
 
           <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
             <Controller
+              name="reference_contact"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    className="form-input-create-unit"
+                    id={
+                      errors.reference_contact
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
+                    label="Nome do contato de referência"
+                    type="text"
+                    variant="standard"
+                    placeholder="E-mail"
+                    error={!!errors.reference_contact}
+                    helperText={errors.reference_contact?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+          </Grid>
+
+          <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
+            <Controller
               name="phone"
               control={control}
               render={({ field }) => (
@@ -569,56 +563,6 @@ export const EditUnitModal = ({
                     onChange={(e) =>
                       field.onChange(applyCpfMask(e.target.value))
                     }
-                  />
-                </div>
-              )}
-            />
-          </Grid>
-
-          <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
-            <Controller
-              name="cipa_type"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-unit">
-                  <TextField
-                    className="form-input-create-unit"
-                    id={errors.cipa_type ? "filled-error" : "standard-basic"}
-                    label="Tipo de CIPA"
-                    type="text"
-                    variant="standard"
-                    placeholder="Tipo de CIPA"
-                    error={!!errors.cipa_type}
-                    helperText={errors.cipa_type?.message}
-                    required
-                    {...field}
-                  />
-                </div>
-              )}
-            />
-          </Grid>
-
-          <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
-            <Controller
-              name="num_employees_cipa"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-unit">
-                  <TextField
-                    className="form-input-create-unit"
-                    id={
-                      errors.num_employees_cipa
-                        ? "filled-error"
-                        : "standard-basic"
-                    }
-                    label="Número de funcionários na CIPA"
-                    type="number"
-                    variant="standard"
-                    placeholder="Número de funcionários na CIPA"
-                    error={!!errors.num_employees_cipa}
-                    helperText={errors.num_employees_cipa?.message}
-                    required
-                    {...field}
                   />
                 </div>
               )}

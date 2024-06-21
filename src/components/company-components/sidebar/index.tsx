@@ -1,22 +1,15 @@
 import "./index.css";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
-import {
-  IoIosArrowDown,
-  IoIosArrowForward,
-  IoIosSettings,
-} from "react-icons/io";
-import { GoSignOut } from "react-icons/go";
+import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { FaRegBuilding } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
 import { FaUserDoctor } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../../data/contexts/AuthContext";
 
 const CompanySideBar = () => {
   const [showCompanies, setShowCompanies] = useState(false);
   const [showProfessionals, setShowProfessionals] = useState(false);
-  const { signOut } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const toggleCompanies = () => {
@@ -25,10 +18,6 @@ const CompanySideBar = () => {
 
   const toggleProfessionals = () => {
     setShowProfessionals(!showProfessionals);
-  };
-
-  const handleSignOut = () => {
-    signOut();
   };
 
   return (
@@ -46,43 +35,45 @@ const CompanySideBar = () => {
         </button>
 
         <div className="document-select">
-        <button className="button-select" onClick={toggleProfessionals}>
-          <div className="button-select-intern">
-            <div className="left-button-position">
-              <FaUserDoctor /> Unidades
+          <button className="button-select" onClick={toggleProfessionals}>
+            <div className="button-select-intern">
+              <div className="left-button-position">
+                <FaUserDoctor /> Unidades
+              </div>
+              <div className="right-button-position">
+                <IoIosArrowDown />
+              </div>
             </div>
-            <div className="right-button-position">
-              <IoIosArrowDown />
+          </button>
+          {showProfessionals && (
+            <div className="document-options">
+              <a onClick={() => navigate("/units/create")}>
+                <button className="button-select">
+                  <div className="button-select-intern-option">
+                    <div className="left-button-position">
+                      Cadastrar unidade
+                    </div>
+                    <div className="right-button-position">
+                      <IoIosArrowForward />
+                    </div>
+                  </div>
+                </button>
+              </a>
+              <a onClick={() => navigate("/units")}>
+                <button className="button-select">
+                  <div className="button-select-intern-option">
+                    <div className="left-button-position">
+                      Visualizar unidades
+                    </div>
+                    <div className="right-button-position">
+                      <IoIosArrowForward />
+                    </div>
+                  </div>
+                </button>
+              </a>
             </div>
-          </div>
-        </button>
-        {showProfessionals && (
-          <div className="document-options">
-            <a onClick={() => navigate("/units/create")}>
-              <button className="button-select">
-                <div className="button-select-intern-option">
-                  <div className="left-button-position">Cadastrar unidade</div>
-                  <div className="right-button-position">
-                    <IoIosArrowForward />
-                  </div>
-                </div>
-              </button>
-            </a>
-            <a onClick={() => navigate("/units")}>
-              <button className="button-select">
-                <div className="button-select-intern-option">
-                  <div className="left-button-position">
-                    Visualizar unidades
-                  </div>
-                  <div className="right-button-position">
-                    <IoIosArrowForward />
-                  </div>
-                </div>
-              </button>
-            </a>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
 
         <button className="button-select" onClick={toggleCompanies}>
           <div className="button-select-intern">
@@ -122,29 +113,6 @@ const CompanySideBar = () => {
             </a>
           </div>
         )}
-      </div>
-
-
-      <div className="profile-options">
-        <div className="document-select">
-          <button className="button-select">
-            <div className="button-select-intern">
-              <div className="left-button-position">
-                <IoIosSettings /> Configurações
-              </div>
-            </div>
-          </button>
-        </div>
-
-        <div className="document-select">
-          <button className="button-select" onClick={handleSignOut}>
-            <div className="button-select-intern">
-              <div className="left-button-position">
-                <GoSignOut /> Sair
-              </div>
-            </div>
-          </button>
-        </div>
       </div>
     </div>
   );
