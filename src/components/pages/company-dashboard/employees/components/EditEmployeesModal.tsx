@@ -16,6 +16,7 @@ import { applyCpfMask } from "../../../../utils/applyCpfMask";
 import { applyRgMask } from "../../../../utils/applyRgMask";
 import { applyDateMask } from "../../../../utils/applyDateMask";
 import { applyPhoneMask } from "../../../../utils/applyPhoneMask";
+import { formatDateToDDMMYYYY } from "../../../../utils/formatDateToDDMMAAAA";
 
 export const EditEmployeeModal = ({
   modalOpen,
@@ -128,10 +129,10 @@ export const EditEmployeeModal = ({
         pcd: response.employee.pcd,
         pcd_observation: response.employee.pcd_observation,
         sex: response.employee.sex,
-        dt_birth: response.employee.dt_birth,
+        dt_birth: formatDateToDDMMYYYY(response.employee.dt_birth),
         phone_number: response.employee.phone_number,
-        admission_dt: response.employee.admission_dt,
-        function_start_dt: response.employee.function_start_dt,
+        admission_dt: formatDateToDDMMYYYY(response.employee.admission_dt),
+        function_start_dt: formatDateToDDMMYYYY(response.employee.function_start_dt),
         office: response.employee.office,
         employee_function: response.employee.employee_function,
         registration: response.employee.registration,
