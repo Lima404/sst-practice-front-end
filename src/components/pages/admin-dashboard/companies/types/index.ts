@@ -52,7 +52,7 @@ export const editCompanySchema = z.object({
   address: z.string(),
   neighborhood: z.string(),
   phone: z.string(),
-  dt_start_esocial: z.date(),
+  dt_start_esocial: z.string(),
 });
 
 export interface EditCompanyModalProps {
