@@ -3,19 +3,26 @@ import "./index.css";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateEmployeesRequest, createEmployeesSchema } from "../types";
-import { createEmployees } from "../api";
+import { createEmployees, fetchAllUnitsData } from "../api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../../data/contexts/AuthContext";
 import { applyCpfMask } from "../../../../utils/applyCpfMask";
 import { applyDateMask } from "../../../../utils/applyDateMask";
 import { applyPhoneMask } from "../../../../utils/applyPhoneMask";
 
 const CreateEmployees = () => {
+  interface Unit {
+    id: string;
+    identification: string;
+  }
+
+
   const navigate = useNavigate();
   const { userTypeId } = useContext(AuthContext);
   const [pcdValue, setPcdValue] = useState("");
+  const [units, setUnits] = useState<Unit[]>([]);
 
   const {
     control,
@@ -24,6 +31,7 @@ const CreateEmployees = () => {
   } = useForm({
     defaultValues: {
       companyId: userTypeId,
+      unitId: "",
       name: "",
       cpf: "",
       nis: "",
@@ -47,7 +55,7 @@ const CreateEmployees = () => {
   const onSubmit: SubmitHandler<CreateEmployeesRequest> = async (data) => {
     try {
       await createEmployees(data).then(() => {
-        toast.success("Colaborador criado com sucesso");
+        toast.success("Empregado criado com sucesso");
         navigate("/employees");
       });
     } catch (err: any) {
@@ -55,12 +63,36 @@ const CreateEmployees = () => {
     }
   };
 
+  const fetchAllUnits = async () => {
+    try {
+      if (userTypeId !== null) {
+        const companyId = userTypeId;
+        fetchAllUnitsData(companyId).then((response) => {
+          if (response.units.length === 0) {
+            toast.error("Não foram encontrados registros!");
+          }
+          toast.success(`${response.units.length} registros encontrados`);
+          setUnits(response.units);
+        });
+      } else {
+        console.log("não foi possível encontrar unidades para essa empresa");
+      }
+    } catch (error) {
+      console.log("Erro na requisição", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllUnits();
+  }, []);
+
   return (
     <div className="main-create-unit-company-dashboard">
       <div className="create-unit-company-dashboard-content">
         <h2 className="create-unit-page-title">Cadastrar Empregado</h2>
         <div className="create-unit-form">
           <form onSubmit={handleSubmit(onSubmit)}>
+
             <Controller
               name="name"
               control={control}
@@ -105,6 +137,33 @@ const CreateEmployees = () => {
                 </div>
               )}
             />
+
+            <Controller
+              name="unitId"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    select
+                    className="form-input-create-unit"
+                    id={errors.unitId ? "filled-error" : "standard-basic"}
+                    label="Escolha a unidade do empregado"
+                    variant="standard"
+                    placeholder="Unidade"
+                    error={!!errors.unitId}
+                    helperText={errors.unitId?.message}
+                    {...field}
+                  >
+                    {units.map((unit: Unit) => (
+                      <MenuItem key={unit.id} value={unit.id}>
+                        {unit.identification}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </div>
+              )}
+            /> 
 
             <Controller
               name="nis"

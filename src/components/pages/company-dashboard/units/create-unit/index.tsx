@@ -317,7 +317,7 @@ const CreateUnit = () => {
                     label="Nome do contato de referência"
                     type="text"
                     variant="standard"
-                    placeholder="E-mail"
+                    placeholder="Nome do contato de referência"
                     error={!!errors.reference_contact}
                     helperText={errors.reference_contact?.message}
                     required

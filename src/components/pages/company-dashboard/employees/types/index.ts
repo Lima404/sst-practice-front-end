@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export interface CreateEmployeesRequest {
   companyId: string | null;
+  unitId: string | null;
   name: string;
   cpf: string;
   nis: string;
@@ -22,6 +23,7 @@ export interface CreateEmployeesRequest {
 
 export const createEmployeesSchema = z.object({
   companyId: z.string(),
+  unitId: z.string(),
   name: z.string(),
   cpf: z.string(),
   nis: z.string(),
@@ -42,6 +44,7 @@ export const createEmployeesSchema = z.object({
 
 export interface EditEmployeesRequest {
   companyId: string;
+  unitId: string;
   name: string;
   cpf: string;
   nis: string;
@@ -62,6 +65,7 @@ export interface EditEmployeesRequest {
 
 export const editEmployeesSchema = z.object({
   companyId: z.string(),
+  unitId: z.string(),
   name: z.string(),
   cpf: z.string(),
   nis: z.string(),
