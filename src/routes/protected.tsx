@@ -26,6 +26,7 @@ import { GoSignOut } from "react-icons/go";
 import { IoIosSettings } from "react-icons/io";
 import { AuthContext } from "../data/contexts/AuthContext";
 import HamburguerSideBar from "../components/hamburguerSideBar";
+import EmployeesByUnitId from "../components/pages/company-dashboard/units/fetch-all-units/fetch-all-employees";
 
 interface ProfileProps {
   switchedUser: {
@@ -187,6 +188,10 @@ export const protectedRoutes = [
       {
         path: "employees",
         element: <Employees />,
+      },
+      {
+        path: "employees/:unitId",
+        element: <EmployeesByUnitId />,
       },
       {
         path: "employee/documents/:employeeId",

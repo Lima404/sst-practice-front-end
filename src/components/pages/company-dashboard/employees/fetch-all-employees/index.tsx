@@ -5,7 +5,7 @@ const Employees = () => {
     <div className="main-admins-admin-dashboard">
       <div className="admins-admin-dashboard-content">
         <div className="admins-table">
-          <EmployeesTable />
+          <EmployeesTable/>
         </div>
       </div>
     </div>

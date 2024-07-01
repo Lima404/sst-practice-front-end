@@ -82,3 +82,7 @@ export interface EditUnitModalProps {
   unitId: string;
   onUpdateSuccess: () => void;
 }
+
+export interface FetchAllEmployeesByUnitIdProps {
+  unitId: string;
+}

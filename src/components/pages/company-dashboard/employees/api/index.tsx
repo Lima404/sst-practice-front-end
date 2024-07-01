@@ -40,3 +40,8 @@ export const fetchAllUnitsData = async (companyId: string) => {
   const response = await api.get(`/units/${companyId}`);
   return response.data;
 }
+
+export const fetchAllEmployeesByUnitIdData = async (unitId: string) => {
+  const response = await api.get(`/employees/unit/${unitId}`);
+  return response.data;
+}
