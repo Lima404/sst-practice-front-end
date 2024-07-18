@@ -28,6 +28,7 @@ import { AuthContext } from "../data/contexts/AuthContext";
 import HamburguerSideBar from "../components/hamburguerSideBar";
 import EmployeesByUnitId from "../components/pages/company-dashboard/units/fetch-all-units/fetch-all-employees";
 import ViewDocuments from "../components/pages/professional-dashboard/documents/view-documents";
+import EmployeeDocumentsProfessionalTable from "../components/pages/professional-dashboard/documents/view-documents/view-employee-documents/view-employee-documents-professional";
 
 interface ProfileProps {
   switchedUser: {
@@ -213,6 +214,10 @@ export const protectedRoutes = [
       {
         path: "documents/view",
         element: <ViewDocuments />,
+      },
+      {
+        path: "documents/view/:employeeId",
+        element: <EmployeeDocumentsProfessionalTable />,
       },
       {
         path: "*",

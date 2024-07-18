@@ -4,6 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { ViewDocumentsRequest, ViewDocumentsSchema } from "./types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
 
 const ViewDocuments = () => {
 
@@ -20,7 +21,6 @@ const ViewDocuments = () => {
   const {
     control,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<ViewDocumentsRequest>({
     defaultValues: {
@@ -34,6 +34,8 @@ const ViewDocuments = () => {
   const [companies, setCompanies] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [isCompanySelected, setIsCompanySelected] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCompaniesData = async () => {
@@ -71,8 +73,7 @@ const ViewDocuments = () => {
   }
 
   const onSubmit = (data: ViewDocumentsRequest) => {
-    console.log("Form data:", data);
-    // Aqui você pode adicionar o código para lidar com os dados do formulário
+    navigate(`/documents/view/${data.employeeId}`);
   }
 
   return (

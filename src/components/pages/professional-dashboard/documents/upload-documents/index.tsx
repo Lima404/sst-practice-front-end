@@ -28,7 +28,7 @@ const UploadDocuments = () => {
     defaultValues: {
       name: "",
       contentType: "",
-      medicalConfidentiality: false,
+      medicalConfidentiality: true,
       companyId: "",
       employeeId: "",
       professionalId: "",
@@ -50,7 +50,7 @@ const UploadDocuments = () => {
       const documentBody = {
         name,
         contentType: "application/pdf",
-        medicalConfidentiality: false,
+        medicalConfidentiality: true,
         companyId,
         employeeId,
         professionalId: userTypeId,
