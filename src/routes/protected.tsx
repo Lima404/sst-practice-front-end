@@ -27,6 +27,7 @@ import { IoIosSettings } from "react-icons/io";
 import { AuthContext } from "../data/contexts/AuthContext";
 import HamburguerSideBar from "../components/hamburguerSideBar";
 import EmployeesByUnitId from "../components/pages/company-dashboard/units/fetch-all-units/fetch-all-employees";
+import ViewDocuments from "../components/pages/professional-dashboard/documents/view-documents";
 
 interface ProfileProps {
   switchedUser: {
@@ -208,6 +209,10 @@ export const protectedRoutes = [
       {
         path: "documents/create",
         element: <CreateDocuments />,
+      },
+      {
+        path: "documents/view",
+        element: <ViewDocuments />,
       },
       {
         path: "*",

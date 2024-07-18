@@ -55,6 +55,18 @@ const ProfessionalSideBar = () => {
                 </div>
               </button>
             </a>
+
+            <a onClick={() => navigate("/documents/view/")}>
+              <button className="button-select">
+                <div className="button-select-intern-option">
+                  <div className="left-button-position">Visualizar documentos</div>
+                  <div className="right-button-position">
+                    <IoIosArrowForward />
+                  </div>
+                </div>
+              </button>
+            </a>
+
           </div>
         )}
       </div>
