@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import Cards from "../../admin-dashboard/cards";
 import CompanyDashboard from "../company-dashboard";
-import { CreateDocuments } from "../professional-dashboard/documents/create-documents";
 import { api } from "../../../data/services/api";
 import { AxiosResponse } from "axios";
+import ChooseEmployee from "../professional-dashboard/documents/choose";
 interface ProfileProps {
   user: {
     type: string;
@@ -33,7 +33,7 @@ const Dashboard = () => {
       case "company":
         return <CompanyDashboard />;
       case "professional":
-        return <CreateDocuments />;
+        return <ChooseEmployee />;
       default:
         return <></>;
     }
