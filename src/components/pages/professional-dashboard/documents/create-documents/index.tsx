@@ -1,10 +1,10 @@
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import DocumentsTab from "./components/documents-tabs";
-import { fetchEmployeeById } from "../../api";
-import { EmployeeInfoHeader } from ".";
+import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import DocumentsTab from './components/documents-tabs';
+import { fetchEmployeeById } from '../../api';
+import { EmployeeInfoHeader } from './styles';
 
-export const CreateDocuments = () => {
+const CreateDocuments = () => {
   const { employeeId } = useParams();
   const [employee, setEmployee] = useState<any>([]);
 
@@ -49,3 +49,5 @@ export const CreateDocuments = () => {
     </div>
   );
 };
+
+export default CreateDocuments;
