@@ -6,6 +6,7 @@ export interface CreateUploadDocumentRequest {
   companyId: string | null;
   employeeId: string | null;
   professionalId: string | null;
+  medicalConfidentiality: boolean;
 }
 
 export const createUploadDocumentRequestSchema = z.object({
@@ -14,6 +15,7 @@ export const createUploadDocumentRequestSchema = z.object({
   companyId: z.string(),
   employeeId: z.string(),
   professionalId: z.string(),
+  medicalConfidentiality: z.boolean(),
 });
 
 const ExamsSchema = z.object({

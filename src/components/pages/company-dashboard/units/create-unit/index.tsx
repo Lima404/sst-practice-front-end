@@ -11,6 +11,7 @@ import { AuthContext } from "../../../../../data/contexts/AuthContext";
 import { applyCnpjMask } from "../../../../utils/applyCnpjMask";
 import { applyCepMask } from "../../../../utils/applyCepMask";
 import { applyPhoneMask } from "../../../../utils/applyPhoneMask";
+import { applyCpfMask } from "../../../../utils/applyCpfMask";
 
 const CreateUnit = () => {
   const navigate = useNavigate();
@@ -25,21 +26,19 @@ const CreateUnit = () => {
       companyId: userTypeId,
       identification: "",
       cnpj: "",
-      cnea: "",
+      cnae: "",
       activity: "",
       degree_of_risk: "",
-      aso: "",
       cep: "",
       address: "",
       neighborhood: "",
       city: "",
       state: "",
       email: "",
+      reference_contact: "",
       phone: "",
       legal_representative: "",
       cpf_legal_representative: "",
-      cipa_type: "",
-      num_employees_cipa: 0,
     },
     resolver: zodResolver(createUnitSchema),
   });
@@ -110,19 +109,19 @@ const CreateUnit = () => {
             />
 
             <Controller
-              name="cnea"
+              name="cnae"
               control={control}
               render={({ field }) => (
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.cnea ? "filled-error" : "standard-basic"}
-                    label="CNEA"
+                    id={errors.cnae ? "filled-error" : "standard-basic"}
+                    label="CNAE"
                     type="text"
                     variant="standard"
-                    placeholder="CNEA"
-                    error={!!errors.cnea}
-                    helperText={errors.cnea?.message}
+                    placeholder="CNAE"
+                    error={!!errors.cnae}
+                    helperText={errors.cnae?.message}
                     required
                     {...field}
                   />
@@ -167,27 +166,6 @@ const CreateUnit = () => {
                     placeholder="Grau de risco"
                     error={!!errors.degree_of_risk}
                     helperText={errors.degree_of_risk?.message}
-                    required
-                    {...field}
-                  />
-                </div>
-              )}
-            />
-
-            <Controller
-              name="aso"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-unit">
-                  <TextField
-                    className="form-input-create-unit"
-                    id={errors.aso ? "filled-error" : "standard-basic"}
-                    label="ASO"
-                    type="text"
-                    variant="standard"
-                    placeholder="ASO"
-                    error={!!errors.aso}
-                    helperText={errors.aso?.message}
                     required
                     {...field}
                   />
@@ -325,6 +303,31 @@ const CreateUnit = () => {
             />
 
             <Controller
+              name="reference_contact"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    className="form-input-create-unit"
+                    id={
+                      errors.reference_contact
+                        ? "filled-error"
+                        : "standard-basic"
+                    }
+                    label="Nome do contato de referência"
+                    type="text"
+                    variant="standard"
+                    placeholder="Nome do contato de referência"
+                    error={!!errors.reference_contact}
+                    helperText={errors.reference_contact?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+
+            <Controller
               name="phone"
               control={control}
               render={({ field }) => (
@@ -393,52 +396,9 @@ const CreateUnit = () => {
                     helperText={errors.cpf_legal_representative?.message}
                     required
                     {...field}
-                  />
-                </div>
-              )}
-            />
-
-            <Controller
-              name="cipa_type"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-unit">
-                  <TextField
-                    className="form-input-create-unit"
-                    id={errors.cipa_type ? "filled-error" : "standard-basic"}
-                    label="Tipo de CIPA"
-                    type="text"
-                    variant="standard"
-                    placeholder="Tipo de CIPA"
-                    error={!!errors.cipa_type}
-                    helperText={errors.cipa_type?.message}
-                    required
-                    {...field}
-                  />
-                </div>
-              )}
-            />
-
-            <Controller
-              name="num_employees_cipa"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-unit">
-                  <TextField
-                    className="form-input-create-unit"
-                    id={
-                      errors.num_employees_cipa
-                        ? "filled-error"
-                        : "standard-basic"
+                    onChange={(e) =>
+                      field.onChange(applyCpfMask(e.target.value))
                     }
-                    label="Número de funcionários na CIPA"
-                    type="number"
-                    variant="standard"
-                    placeholder="Número de funcionários na CIPA"
-                    error={!!errors.num_employees_cipa}
-                    helperText={errors.num_employees_cipa?.message}
-                    required
-                    {...field}
                   />
                 </div>
               )}

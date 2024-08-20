@@ -1,4 +1,4 @@
-import { Box, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Box, FormControl, InputLabel, MenuItem, Select, TextField, Radio, RadioGroup, FormControlLabel, FormLabel } from "@mui/material";
 import "./index.css";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -28,6 +28,7 @@ const UploadDocuments = () => {
     defaultValues: {
       name: "",
       contentType: "",
+      medicalConfidentiality: true,
       companyId: "",
       employeeId: "",
       professionalId: "",
@@ -38,7 +39,8 @@ const UploadDocuments = () => {
 
   const onSubmit: SubmitHandler<CreateUploadDocumentRequest> = async (data) => {
     try {
-      const { name, companyId, employeeId } = data;
+      const { name, companyId, employeeId, medicalConfidentiality } = data;
+      console.log("Valor de medicalConfidentiality:", medicalConfidentiality);
 
       if (!files || files.length === 0) {
         return;
@@ -49,6 +51,7 @@ const UploadDocuments = () => {
       const documentBody = {
         name,
         contentType: "application/pdf",
+        medicalConfidentiality,
         companyId,
         employeeId,
         professionalId: userTypeId,
@@ -208,6 +211,39 @@ const UploadDocuments = () => {
                         {files && files[0] && <p className="file-name">{files[0].name}</p>}
                       </div>
                       {errors.fileUpload && <p className="error-text">{errors.fileUpload.message}</p>}
+                    </FormControl>
+                  </Box>
+                </div>
+              )}
+            />
+
+            <Controller
+              name="medicalConfidentiality"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <Box>
+                    <FormControl component="fieldset">
+                      <FormLabel component="legend">Confidencialidade Médica</FormLabel>
+                      <RadioGroup
+                        row
+                        value={field.value ? 'true' : 'false'}
+                        onChange={(e) => field.onChange(e.target.value === 'true')}
+                      >
+                        <FormControlLabel
+                          value="true"
+                          control={<Radio />}
+                          label="Sim"
+                        />
+                        <FormControlLabel
+                          value="false"
+                          control={<Radio />}
+                          label="Não"
+                        />
+                      </RadioGroup>
+                      {errors.medicalConfidentiality && (
+                        <p>{errors.medicalConfidentiality.message}</p>
+                      )}
                     </FormControl>
                   </Box>
                 </div>

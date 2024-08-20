@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { CustomModal } from "../../../../customModal/CustomModal";
 import Loader from "../../../../loader/Loader";
+import { applyPhoneMask } from "../../../../utils/applyPhoneMask";
+import { applyCpfMask } from "../../../../utils/applyCpfMask";
 
 export const EditAdminModal = ({
   modalOpen,
@@ -23,18 +25,22 @@ export const EditAdminModal = ({
   const [adminData, setAdminData] = useState<EditAdminRequest>({
     name: "",
     email: "",
+    cpf: "",
+    phone_number: "",
   });
   const [loading, setLoading] = useState<boolean>(true);
 
   const {
     control,
     handleSubmit,
-    reset, 
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
       name: "",
       email: "",
+      cpf: "",
+      phone_number: "",
     },
     resolver: zodResolver(editAdminSchema),
   });
@@ -49,6 +55,8 @@ export const EditAdminModal = ({
     reset({
       name: adminData.name,
       email: adminData.email,
+      cpf: adminData.cpf,
+      phone_number: adminData.phone_number,
     });
   }, [adminData, reset]);
 
@@ -73,6 +81,8 @@ export const EditAdminModal = ({
       setAdminData({
         name: response.admin.name,
         email: response.admin.user.email,
+        cpf: response.admin.cpf,
+        phone_number: response.admin.phone_number,
       });
     } catch (error) {
       console.error("Erro ao buscar informações do admin:", error);
@@ -83,7 +93,7 @@ export const EditAdminModal = ({
 
   const handleCloseModal = () => {
     handleClose();
-    setAdminData({ name: "", email: "" });
+    setAdminData({ name: "", email: "", cpf: "", phone_number: "" });
   };
 
   return (
@@ -141,6 +151,57 @@ export const EditAdminModal = ({
               )}
             />
           </Grid>
+
+          <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
+            <Controller
+              name="cpf"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.cpf ? "filled-error" : "standard-basic"}
+                    label="CPF"
+                    type="text"
+                    variant="standard"
+                    placeholder="Digite o CPF"
+                    error={!!errors.cpf}
+                    helperText={errors.cpf?.message}
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(applyCpfMask(e.target.value))
+                    }
+                  />
+                </div>
+              )}
+            />
+          </Grid>
+
+          <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
+            <Controller
+              name="phone_number"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-admin">
+                  <TextField
+                    className="form-input-create-admin"
+                    id={errors.phone_number ? "filled-error" : "standard-basic"}
+                    label="Contato"
+                    type="text"
+                    variant="standard"
+                    placeholder="Contato"
+                    error={!!errors.phone_number}
+                    helperText={errors.phone_number?.message}
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(applyPhoneMask(e.target.value))
+                    }
+                  />
+                </div>
+              )}
+            />
+          </Grid>
+
         </>
       )}
     </CustomModal>

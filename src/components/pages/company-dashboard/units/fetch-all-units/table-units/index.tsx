@@ -10,12 +10,13 @@ import "./index.css";
 import { useContext, useEffect, useState } from "react";
 
 import { CiTrash } from "react-icons/ci";
-import { BsPencilSquare } from "react-icons/bs";
+import { BsPencilSquare, BsFillPeopleFill } from "react-icons/bs";
 import { deleteUnit, fetchUnitData } from "../../api";
 import { toast } from "react-toastify";
 import { Button } from "@mui/material";
 import { AuthContext } from "../../../../../../data/contexts/AuthContext";
 import { EditUnitModal } from "../../components/EditUnitModal";
+import { useNavigate } from "react-router-dom";
 
 export interface UnitProps {
   id: string;
@@ -34,6 +35,7 @@ export default function UnitsTable() {
   const [units, setUnits] = useState<UnitProps[]>([]);
   const [currentUnitId, setCurrentUnitId] = useState<string>("");
   const { userTypeId } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const fetchAllUnits = async () => {
     try {
@@ -67,6 +69,10 @@ export default function UnitsTable() {
 
   const handleSetIds = (unitId: string) => {
     setCurrentUnitId(unitId);
+  };
+
+  const handleNavigateToEmployees = (unitId: string) => {
+    navigate(`/employees/${unitId}`);
   };
 
   const handleUpdateSuccess = () => {
@@ -106,6 +112,9 @@ export default function UnitsTable() {
                 <TableCell align="left">{row.email}</TableCell>
                 <TableCell align="left">{row.phone}</TableCell>
                 <TableCell align="left">
+                  <Button className="actions-btn">
+                    <BsFillPeopleFill className="update-btn" onClick={() => handleNavigateToEmployees(row.id)} size={20}/>
+                  </Button>
                   <Button className="actions-btn" onClick={() => handleSetIds(row.id)}>
                     <BsPencilSquare className="update-btn" size={20} />
                   </Button>

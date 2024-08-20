@@ -7,7 +7,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 import './index.css'
-import { CiTrash } from 'react-icons/ci';
 import { BsPencilSquare } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
@@ -92,9 +91,9 @@ export default function CompaniesTable() {
                   <Button className="actions-btn" onClick={() => handleSetIds(row.id, row.userId)}>
                     <BsPencilSquare className="update-btn" size={20} />
                   </Button>
-                  <Button className="actions-btn">
+                  {/* <Button className="actions-btn">
                     <CiTrash className="delete-btn" size={20} />
-                  </Button>
+                  </Button> */}
                 </TableCell>
               </TableRow>
             ))}

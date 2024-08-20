@@ -35,6 +35,7 @@ const CreateCompany = () => {
   });
 
   const onSubmit: SubmitHandler<CreateCompanyRequest> = async (data) => {
+    console.log("data", data.dt_start_esocial);
     try {
       await createCompany(data).then(() => {
         toast.success("Empresa criada com sucesso");

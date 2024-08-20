@@ -9,7 +9,6 @@ import Paper from "@mui/material/Paper";
 import "./index.css";
 import { useEffect, useState } from "react";
 
-import { CiTrash } from "react-icons/ci";
 import { BsPencilSquare } from "react-icons/bs";
 import { fetchAdminData } from "../../api";
 import { toast } from "react-toastify";
@@ -19,6 +18,8 @@ import { EditAdminModal } from "../../components/EditAdminModal";
 export interface AdminProps {
   id: string;
   name: string;
+  cpf: string;
+  phone_number: string;
   userId: string;
   user: {
     email: string;
@@ -65,6 +66,8 @@ export default function AdminsTable() {
             <TableRow>
               <TableCell>Nome</TableCell>
               <TableCell align="left">E-mail</TableCell>
+              <TableCell align="left">CPF</TableCell>
+              <TableCell align="left">Contato</TableCell>
               <TableCell align="left">Ações</TableCell>
             </TableRow>
           </TableHead>
@@ -75,13 +78,15 @@ export default function AdminsTable() {
                   {row.name}
                 </TableCell>
                 <TableCell align="left">{row.user.email}</TableCell>
+                <TableCell align="left">{row.cpf}</TableCell>
+                <TableCell align="left">{row.phone_number}</TableCell>
                 <TableCell align="left">
                   <Button className="actions-btn" onClick={() => handleSetIds(row.id, row.userId)}>
                     <BsPencilSquare className="update-btn" size={20} />
                   </Button>
-                  <Button className="actions-btn">
+                  {/* <Button className="actions-btn">
                     <CiTrash className="delete-btn" size={20} />
-                  </Button>
+                  </Button> */}
                 </TableCell>
               </TableRow>
             ))}

@@ -16,6 +16,7 @@ import { applyCepMask } from "../../../../utils/applyCepMask";
 import { applyCnpjMask } from "../../../../utils/applyCnpjMask";
 import { applyPhoneMask } from "../../../../utils/applyPhoneMask";
 import { applyDateMask } from "../../../../utils/applyDateMask";
+import { formatDateToDDMMYYYY } from "../../../../utils/formatDateToDDMMAAAA";
 
 export const EditCompanyModal = ({
   modalOpen,
@@ -76,7 +77,7 @@ export const EditCompanyModal = ({
       address: companyData.address,
       neighborhood: companyData.neighborhood,
       phone: companyData.phone,
-      dt_start_esocial: companyData.dt_start_esocial,
+      dt_start_esocial: formatDateToDDMMYYYY(companyData.dt_start_esocial),
     });
   }, [companyData, reset]);
 

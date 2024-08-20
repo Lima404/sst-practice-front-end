@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Checkbox, FormControlLabel, FormLabel, Grid } from "@mui/material";
 import {
   EditEmployeesModalProps,
   EditEmployeesRequest,
@@ -16,6 +16,7 @@ import { applyCpfMask } from "../../../../utils/applyCpfMask";
 import { applyRgMask } from "../../../../utils/applyRgMask";
 import { applyDateMask } from "../../../../utils/applyDateMask";
 import { applyPhoneMask } from "../../../../utils/applyPhoneMask";
+import { formatDateToDDMMYYYY } from "../../../../utils/formatDateToDDMMAAAA";
 
 export const EditEmployeeModal = ({
   modalOpen,
@@ -23,18 +24,25 @@ export const EditEmployeeModal = ({
   employeeId,
   onUpdateSuccess,
 }: EditEmployeesModalProps) => {
+  const [pcdValue, setPcdValue] = useState("não");
   const [employeeData, setEmployeeData] = useState<EditEmployeesRequest>({
     companyId: "",
     name: "",
     cpf: "",
     nis: "",
     rg: "",
-    br_pdh: "",
+    pcd: "",
+    pcd_observation: "Observação",
     sex: "",
-    dt_birth: new Date(),
-    phone: "",
+    dt_birth: "",
     phone_number: "",
-    blood_type: "",
+    admission_dt: "",
+    function_start_dt: "",
+    office: "",
+    employee_function: "",
+    registration: "",
+    sector: "",
+    cbo: "",
   });
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -50,12 +58,18 @@ export const EditEmployeeModal = ({
       cpf: "",
       nis: "",
       rg: "",
-      br_pdh: "",
+      pcd: "",
+      pcd_observation: "Observação",
       sex: "",
-      dt_birth: new Date(),
-      phone: "",
+      dt_birth: "",
       phone_number: "",
-      blood_type: "",
+      admission_dt: "",
+      function_start_dt: "",
+      office: "",
+      employee_function: "",
+      registration: "",
+      sector: "",
+      cbo: "",
     },
     resolver: zodResolver(editEmployeesSchema),
   });
@@ -73,12 +87,18 @@ export const EditEmployeeModal = ({
       cpf: employeeData.cpf,
       nis: employeeData.nis,
       rg: employeeData.rg,
-      br_pdh: employeeData.br_pdh,
+      pcd: employeeData.pcd,
+      pcd_observation: employeeData.pcd_observation,
       sex: employeeData.sex,
       dt_birth: employeeData.dt_birth,
-      phone: employeeData.phone,
       phone_number: employeeData.phone_number,
-      blood_type: employeeData.blood_type,
+      admission_dt: employeeData.admission_dt,
+      function_start_dt: employeeData.function_start_dt,
+      office: employeeData.office,
+      employee_function: employeeData.employee_function,
+      registration: employeeData.registration,
+      sector: employeeData.sector,
+      cbo: employeeData.cbo,
     });
   }, [employeeData, reset]);
 
@@ -88,11 +108,11 @@ export const EditEmployeeModal = ({
       const formattedData = { ...data };
       await editEmployees(employeeId, formattedData);
       handleCloseModal();
-      toast.success("Colaborador editada com sucesso!");
+      toast.success("Empregado editado com sucesso!");
       onUpdateSuccess();
     } catch (error) {
-      toast.error("Erro ao editar o Colaborador. Por favor, tente novamente.");
-      console.error("Erro ao editar o Colaborador:", error);
+      toast.error("Erro ao editar o empregado. Por favor, tente novamente.");
+      console.error("Erro ao editar o empregado:", error);
     }
   };
 
@@ -106,13 +126,19 @@ export const EditEmployeeModal = ({
         cpf: response.employee.cpf,
         nis: response.employee.nis,
         rg: response.employee.rg,
-        br_pdh: response.employee.br_pdh,
+        pcd: response.employee.pcd,
+        pcd_observation: response.employee.pcd_observation,
         sex: response.employee.sex,
-        dt_birth:
-          response.employee.dt_birth /* Aqui é um number ou uma string? */,
-        phone: response.employee.phone,
+        dt_birth: formatDateToDDMMYYYY(response.employee.dt_birth),
         phone_number: response.employee.phone_number,
-        blood_type: response.employee.blood_type,
+        admission_dt: formatDateToDDMMYYYY(response.employee.admission_dt),
+        function_start_dt: formatDateToDDMMYYYY(response.employee.function_start_dt),
+        office: response.employee.office,
+        employee_function: response.employee.employee_function,
+        registration: response.employee.registration,
+        sector: response.employee.sector,
+        cbo: response.employee.cbo,
+
       });
     } catch (error) {
       console.error("Erro ao buscar informações do colaborador:", error);
@@ -129,12 +155,18 @@ export const EditEmployeeModal = ({
       cpf: "",
       nis: "",
       rg: "",
-      br_pdh: "",
+      pcd: "",
+      pcd_observation: "",
       sex: "",
-      dt_birth: new Date() /* Aqui é um number ou uma string? */,
-      phone: "",
+      dt_birth: "",
       phone_number: "",
-      blood_type: "",
+      admission_dt: "",
+      function_start_dt: "",
+      office: "",
+      employee_function: "",
+      registration: "",
+      sector: "",
+      cbo: "",
     });
   };
 
@@ -142,7 +174,7 @@ export const EditEmployeeModal = ({
     <CustomModal
       isOpen={modalOpen}
       mode="edit"
-      title="Editar Colaboradores"
+      title="Editar Empregado"
       handleClose={handleClose}
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -249,44 +281,66 @@ export const EditEmployeeModal = ({
           </Grid>
 
           <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
+            <FormLabel component="legend">PCD</FormLabel>
             <Controller
-              name="br_pdh"
+              name="pcd"
               control={control}
               render={({ field }) => (
-                <div className="ctn-form-input-create-unit">
-                  <TextField
-                    className="form-input-create-unit"
-                    id={errors.br_pdh ? "filled-error" : "standard-basic"}
-                    label="BR PDH"
-                    type="text"
-                    variant="standard"
-                    placeholder="BR PDH"
-                    error={!!errors.br_pdh}
-                    helperText={errors.br_pdh?.message}
-                    required
-                    {...field}
+                <>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        {...field}
+                        checked={pcdValue === 'sim'}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          setPcdValue(e.target.checked ? 'sim' : 'não');
+                        }}
+                        value="sim"
+                        color="primary"
+                      />
+                    }
+                    label="Sim"
+                    style={{ color: 'rgba(0, 0, 0, 0.87)' }}
                   />
-                </div>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        {...field}
+                        checked={pcdValue === 'não'}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          setPcdValue(e.target.checked ? 'não' : 'sim');
+                        }}
+                        value="não"
+                        color="primary"
+                      />
+                    }
+                    label="Não"
+                    style={{ color: 'rgba(0, 0, 0, 0.87)' }}
+                  />
+                </>
               )}
             />
           </Grid>
 
           <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
             <Controller
-              name="sex"
+              name="pcd_observation"
               control={control}
+              defaultValue=""
               render={({ field }) => (
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.sex ? "filled-error" : "standard-basic"}
-                    label="Sexo"
+                    id={errors.pcd_observation ? "filled-error" : "standard-basic"}
+                    label="Observação"
                     type="text"
                     variant="standard"
-                    placeholder="Sexo"
-                    error={!!errors.sex}
-                    helperText={errors.sex?.message}
-                    required
+                    placeholder="Observação"
+                    error={!!errors.pcd_observation}
+                    helperText={errors.pcd_observation?.message}
+                    disabled={pcdValue !== 'sim'}
                     {...field}
                   />
                 </div>
@@ -322,31 +376,6 @@ export const EditEmployeeModal = ({
 
           <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
             <Controller
-              name="phone"
-              control={control}
-              render={({ field }) => (
-                <div className="ctn-form-input-create-unit">
-                  <TextField
-                    className="form-input-create-unit"
-                    id={errors.phone ? "filled-error" : "standard-basic"}
-                    label="Telefone"
-                    type="text"
-                    variant="standard"
-                    placeholder="Telefone"
-                    error={!!errors.phone}
-                    helperText={errors.phone?.message}
-                    {...field}
-                    onChange={(e) =>
-                      field.onChange(applyPhoneMask(e.target.value))
-                    }
-                  />
-                </div>
-              )}
-            />
-          </Grid>
-
-          <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
-            <Controller
               name="phone_number"
               control={control}
               render={({ field }) => (
@@ -373,19 +402,71 @@ export const EditEmployeeModal = ({
 
           <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
             <Controller
-              name="blood_type"
+              name="admission_dt"
               control={control}
               render={({ field }) => (
                 <div className="ctn-form-input-create-unit">
                   <TextField
                     className="form-input-create-unit"
-                    id={errors.blood_type ? "filled-error" : "standard-basic"}
-                    label="Tipo sanguíneo"
+                    id={errors.admission_dt ? "filled-error" : "standard-basic"}
+                    label="Data de admissão"
                     type="text"
                     variant="standard"
-                    placeholder="Tipo sanguíneo"
-                    error={!!errors.blood_type}
-                    helperText={errors.blood_type?.message}
+                    placeholder="Data de admissão"
+                    error={!!errors.admission_dt}
+                    helperText={errors.admission_dt?.message}
+                    required
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(applyDateMask(e.target.value))
+                    }
+                  />
+                </div>
+              )}
+            />
+          </Grid>
+
+          <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
+            <Controller
+              name="function_start_dt"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    className="form-input-create-unit"
+                    id={errors.function_start_dt ? "filled-error" : "standard-basic"}
+                    label="Data de início da função"
+                    type="text"
+                    variant="standard"
+                    placeholder="Data de início da função"
+                    error={!!errors.function_start_dt}
+                    helperText={errors.function_start_dt?.message}
+                    required
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(applyDateMask(e.target.value))
+                    }
+                  />
+                </div>
+              )}
+            />
+          </Grid>
+
+          <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
+            <Controller
+              name="office"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    className="form-input-create-unit"
+                    id={errors.office ? "filled-error" : "standard-basic"}
+                    label="Cargo"
+                    type="text"
+                    variant="standard"
+                    placeholder="Cargo"
+                    error={!!errors.office}
+                    helperText={errors.office?.message}
                     required
                     {...field}
                   />
@@ -393,6 +474,99 @@ export const EditEmployeeModal = ({
               )}
             />
           </Grid>
+
+          <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
+            <Controller
+              name="employee_function"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    className="form-input-create-unit"
+                    id={errors.employee_function ? "filled-error" : "standard-basic"}
+                    label="Função"
+                    type="text"
+                    variant="standard"
+                    placeholder="Função"
+                    error={!!errors.employee_function}
+                    helperText={errors.employee_function?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+          </Grid>
+
+          <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
+            <Controller
+              name="registration"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    className="form-input-create-unit"
+                    id={errors.registration ? "filled-error" : "standard-basic"}
+                    label="Matrícula"
+                    type="text"
+                    variant="standard"
+                    placeholder="Matrícula"
+                    error={!!errors.registration}
+                    helperText={errors.registration?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+          </Grid>
+
+          <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
+            <Controller
+              name="sector"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    className="form-input-create-unit"
+                    id={errors.sector ? "filled-error" : "standard-basic"}
+                    label="Setor"
+                    type="text"
+                    variant="standard"
+                    placeholder="Setor"
+                    error={!!errors.sector}
+                    helperText={errors.sector?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+          </Grid>
+
+          <Grid item xl={12} lg={12} xs={12} md={12} sm={12} key={"website"}>
+            <Controller
+              name="cbo"
+              control={control}
+              render={({ field }) => (
+                <div className="ctn-form-input-create-unit">
+                  <TextField
+                    className="form-input-create-unit"
+                    id={errors.cbo ? "filled-error" : "standard-basic"}
+                    label="CBO"
+                    type="text"
+                    variant="standard"
+                    placeholder="CBO"
+                    error={!!errors.cbo}
+                    helperText={errors.cbo?.message}
+                    required
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+          </Grid>
+
         </>
       )}
     </CustomModal>

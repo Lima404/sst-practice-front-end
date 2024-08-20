@@ -19,3 +19,18 @@ export const fetchEmployeeById = async (employeeId: string) => {
   const response = await api.get(`employee/${employeeId}`);
   return response.data;
 }
+
+export const fetchAllDocumentsByEmployeeIdProfessionalData = async (employeeId: string) => {
+  const response = await api.get(`/sigilalDocuments/${employeeId}`);
+  return response.data;
+}
+
+export const getDocumentById = async (id: string) => {
+  const response = await api.get(`/document/${id}`);
+  return response.data;
+}
+
+export const getEmployeesById = async (id: string) => {
+  const response = await api.get(`/employee/${id}`);
+  return response.data;
+};

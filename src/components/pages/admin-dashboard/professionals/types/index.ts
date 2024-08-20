@@ -5,16 +5,13 @@ export interface CreateProfessionalRequest {
   password: string
   name: string
   cpf: string
-  nis: string
   rg: string
-  cbo: string
   formation: string
   organ: string
   acronym: string
-  ccr: string
   uf: string
   title: string
-  jobFunction: string
+  phone_number: string
 }
 
 export interface EditProfessionalRequest {
@@ -22,16 +19,13 @@ export interface EditProfessionalRequest {
   email: string,
   password?: string,
   cpf: string;
-  nis: string;
   rg: string;
-  cbo: string;
   formation: string;
   organ: string;
   acronym: string;
-  ccr: string;
   uf: string;
   title: string;
-  professionalFunction: string
+  phone_number: string
 }
 
 export const createProfessionalSchema = z.object({
@@ -39,16 +33,13 @@ export const createProfessionalSchema = z.object({
   password: z.string().min(6),
   name: z.string(),
   cpf: z.string(),  
-  nis: z.string(),
   rg: z.string(),
-  cbo: z.string(),
   formation: z.string(),
   organ: z.string(),
   acronym: z.string(),
-  ccr: z.string(),
   uf: z.string(),
   title: z.string(),
-  jobFunction: z.string()
+  phone_number: z.string(),
 });
 
 export const editProfessionalSchema = z.object({
@@ -56,16 +47,13 @@ export const editProfessionalSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6).optional(),
   cpf: z.string(),
-  nis: z.string(),
   rg: z.string(),
-  cbo: z.string(),
   formation: z.string(),
   organ: z.string(),
   acronym: z.string(),
-  ccr: z.string(),
   uf: z.string(),
   title: z.string(),
-  professionalFunction: z.string()
+  phone_number: z.string(),
 });
 
 export interface EditProfessionalModalProps {

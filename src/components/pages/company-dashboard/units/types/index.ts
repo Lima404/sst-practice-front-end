@@ -4,84 +4,76 @@ export interface CreateUnitRequest {
   companyId: string | null;
   identification: string;
   cnpj: string;
-  cnea: string;
+  cnae: string;
   activity: string;
   degree_of_risk: string;
-  aso: string;
   cep: string;
   address: string;
   neighborhood: string;
   city: string;
   state: string;
   email: string;
+  reference_contact: string;
   phone: string;
   legal_representative: string;
   cpf_legal_representative: string;
-  cipa_type: string;
-  num_employees_cipa: number;
 }
 
 export const createUnitSchema = z.object({
   companyId: z.string(),
   identification: z.string(),
   cnpj: z.string(),
-  cnea: z.string(),
+  cnae: z.string(),
   activity: z.string(),
   degree_of_risk: z.string(),
-  aso: z.string(),
   cep: z.string(),
   address: z.string(),
   neighborhood: z.string(),
   city: z.string(),
   state: z.string(),
   email: z.string().email(),
+  reference_contact: z.string(),
   phone: z.string(),
   legal_representative: z.string(),
   cpf_legal_representative: z.string(),
-  cipa_type: z.string(),
-  num_employees_cipa: z.coerce.number(),
 });
 
 export interface EditUnitRequest {
   companyId: string;
   identification: string;
   cnpj: string;
-  cnea: string;
+  cnae: string;
   activity: string;
   degree_of_risk: string;
-  aso: string;
   cep: string;
   address: string;
   neighborhood: string;
   city: string;
   state: string;
   email: string;
+  reference_contact: string;
   phone: string;
   legal_representative: string;
   cpf_legal_representative: string;
-  cipa_type: string;
-  num_employees_cipa: number;
 }
 
 export const editUnitSchema = z.object({
   companyId: z.string(),
   identification: z.string(),
   cnpj: z.string(),
-  cnea: z.string(),
+  cnae: z.string(),
   activity: z.string(),
   degree_of_risk: z.string(),
-  aso: z.string(),
   cep: z.string(),
   address: z.string(),
   neighborhood: z.string(),
   city: z.string(),
   state: z.string(),
   email: z.string().email(),
+  reference_contact: z.string(),
   phone: z.string(),
   legal_representative: z.string(),
   cpf_legal_representative: z.string(),
-  cipa_type: z.string(),
-  num_employees_cipa: z.coerce.number()
 });
 
 export interface EditUnitModalProps {
@@ -89,4 +81,8 @@ export interface EditUnitModalProps {
   handleClose: () => void;
   unitId: string;
   onUpdateSuccess: () => void;
+}
+
+export interface FetchAllEmployeesByUnitIdProps {
+  unitId: string;
 }

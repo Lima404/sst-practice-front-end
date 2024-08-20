@@ -16,8 +16,8 @@ import Dashboard from "../components/pages/dashboard";
 import { FaUserCircle } from "react-icons/fa";
 import SideBar from "../components/sidebar";
 import UploadDocuments from "../components/pages/professional-dashboard/documents/upload-documents";
-import { CreateDocuments } from "../components/pages/professional-dashboard/documents/create-documents";
-import EmployeeDocuments from "../components/pages/company-dashboard/employees/employees-documents";
+import EmployeeDocuments from "../components/pages/company-dashboard/employees/employees-documents/index.tsx";
+import CreateDocuments from "../components/pages/professional-dashboard/documents/create-documents";
 import { useContext, useEffect, useState } from "react";
 import { api } from "../data/services/api";
 import { AxiosResponse } from "axios";
@@ -26,6 +26,10 @@ import { GoSignOut } from "react-icons/go";
 import { IoIosSettings } from "react-icons/io";
 import { AuthContext } from "../data/contexts/AuthContext";
 import HamburguerSideBar from "../components/hamburguerSideBar";
+import EmployeesByUnitId from "../components/pages/company-dashboard/units/fetch-all-units/fetch-all-employees";
+import ViewDocuments from "../components/pages/professional-dashboard/documents/view-documents";
+import EmployeeDocumentsProfessionalTable from "../components/pages/professional-dashboard/documents/view-documents/view-employee-documents/view-employee-documents-professional";
+import ChooseEmployee from "../components/pages/professional-dashboard/documents/choose";
 
 interface ProfileProps {
   switchedUser: {
@@ -189,6 +193,10 @@ export const protectedRoutes = [
         element: <Employees />,
       },
       {
+        path: "employees/:unitId",
+        element: <EmployeesByUnitId />,
+      },
+      {
         path: "employee/documents/:employeeId",
         element: <EmployeeDocuments />,
       },
@@ -201,8 +209,20 @@ export const protectedRoutes = [
         element: <UploadDocuments />,
       },
       {
-        path: "documents/create",
+        path: "documents/create/:employeeId",
         element: <CreateDocuments />,
+      },
+      {
+        path: "documents/view",
+        element: <ViewDocuments />,
+      },
+      {
+        path: "documents/view/:employeeId",
+        element: <EmployeeDocumentsProfessionalTable />,
+      },
+      {
+        path: "documents/choose",
+        element: <ChooseEmployee />,
       },
       {
         path: "*",
