@@ -15,7 +15,7 @@ export const createUploadDocumentRequestSchema = z.object({
   companyId: z.string(),
   employeeId: z.string(),
   professionalId: z.string(),
-  medicalConfidentiality: z.boolean(),
+  medicalConfidentiality: z.boolean().optional(),
 });
 
 const ExamsSchema = z.object({
