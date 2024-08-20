@@ -29,6 +29,7 @@ import HamburguerSideBar from "../components/hamburguerSideBar";
 import EmployeesByUnitId from "../components/pages/company-dashboard/units/fetch-all-units/fetch-all-employees";
 import ViewDocuments from "../components/pages/professional-dashboard/documents/view-documents";
 import EmployeeDocumentsProfessionalTable from "../components/pages/professional-dashboard/documents/view-documents/view-employee-documents/view-employee-documents-professional";
+import ChooseEmployee from "../components/pages/professional-dashboard/documents/choose";
 
 interface ProfileProps {
   switchedUser: {
@@ -208,7 +209,7 @@ export const protectedRoutes = [
         element: <UploadDocuments />,
       },
       {
-        path: "documents/create",
+        path: "documents/create/:employeeId",
         element: <CreateDocuments />,
       },
       {
@@ -218,6 +219,10 @@ export const protectedRoutes = [
       {
         path: "documents/view/:employeeId",
         element: <EmployeeDocumentsProfessionalTable />,
+      },
+      {
+        path: "documents/choose",
+        element: <ChooseEmployee />,
       },
       {
         path: "*",
